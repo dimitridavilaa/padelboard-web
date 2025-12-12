@@ -1,0 +1,111 @@
+---
+// src/layouts/Layout.astro
+interface Props {
+	title: string;
+}
+const { title } = Astro.props;
+import Navbar from '../components/Navbar.astro';
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Padel Board - El sistema de puntuación profesional" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    	<link href="https://fonts.googleapis.com/css2?family=Anton&family=Outfit:wght@300;400;700&display=swap" rel="stylesheet">
+	</head>
+	<body>
+        <Navbar />
+		<slot /> 
+		
+        <script>
+            // Script global de animaciones (Fade Up)
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach(entry => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('visible');
+					}
+				});
+			}, { threshold: 0.1 });
+			document.querySelectorAll('.fade-up').forEach((el) => observer.observe(el));
+		</script>
+	</body>
+</html>
+
+<style is:global>
+	:root {
+        /* --- PALETA EXACTA DEL DISEÑO CANVA --- */
+		--color-azul-fondo: #04133E; 
+        --color-azul-claro: #3b82f6;
+        --color-amarillo: #FFDE59;
+        --color-negro: #000000;
+        --color-blanco: #ffffff;
+		--gradiente-padel: linear-gradient(to bottom, #04133E 0%, #3b82f6 100%);
+
+        /* FUENTES */
+        --fuente-titulos: 'Anton', sans-serif;
+        --fuente-cuerpo: 'Outfit', sans-serif;
+	}
+
+	html {
+		font-family: var(--fuente-cuerpo);
+		background: var(--color-azul-fondo); /* El fondo base ahora es oscuro */
+		scroll-behavior: smooth;
+        font-size: 16px;
+	}
+    
+	body {
+		margin: 0;
+        color: var(--color-blanco);
+        overflow-x: hidden;
+	}
+    
+    /* Títulos Grandes (Estilo Poster) */
+    h1, h2, h3, h4 {
+        font-family: var(--fuente-titulos);
+        font-weight: 400; /* Anton solo tiene un peso */
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin: 0;
+        line-height: 1;
+    }
+    
+    p {
+        line-height: 1.6;
+        opacity: 0.9;
+        font-weight: 300;
+    }
+
+    img {
+        max-width: 100%;
+        display: block;
+    }
+
+    /* Clases de utilidad */
+    .text-yellow { color: var(--color-amarillo); }
+    .text-blue { color: var(--color-azul-boton); }
+
+	/* Animaciones globales */
+	.fade-up {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-out;
+    }
+    .fade-up.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+</style>

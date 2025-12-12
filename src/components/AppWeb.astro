@@ -1,0 +1,172 @@
+---
+// src/components/AppWeb.astro
+---
+
+<section id="app-web" class="app-split-section">
+    
+    <div class="container app-content-wrapper">
+        
+        <div class="text-content">
+            <h2 class="app-title">APP WEB</h2>
+            
+            <div class="app-description">
+                <p>
+                    Configura tu partido al instante desde cualquier celular. Personaliza nombres, reglas, tipo de juego y más, todo desde una App Web sin descargas y diseñada para que juegues como un profesional.
+                </p>
+                <p>
+                    Accede a todas las configuraciones del partido de manera rápida y sencilla. Ajusta cada detalle del marcador, define tus reglas favoritas y disfruta de una experiencia única.
+                </p>
+                
+            </div>
+        </div>
+
+    </div>
+
+    <div class="diagonal-image-container">
+        <div class="image-inner"></div>
+    </div>
+
+</section>
+
+<style>
+  /* --- SECCIÓN PRINCIPAL --- */
+  .app-split-section {
+      position: relative;
+      width: 100%;
+      /* CAMBIO: Altura fija más controlada (NO 100vh) para que no sea tan alta */
+      height: 600px; 
+      
+      background-color: var(--color-azul-claro);
+      overflow: hidden; /* Corta lo que se salga */
+      display: flex;
+      align-items: center;
+  }
+
+  .app-content-wrapper {
+      position: relative;
+      z-index: 2; /* Texto encima de todo */
+      height: 100%;
+      display: flex;
+      align-items: center;
+  }
+
+  /* --- COLUMNA DE TEXTO (IZQUIERDA) --- */
+  .text-content {
+      width: 45%; /* Ocupa menos de la mitad para no chocar con la diagonal */
+      padding-right: 20px;
+  }
+
+  .app-title {
+      font-family: var(--fuente-titulos); /* Anton */
+      font-size: 5rem;
+      color: white;
+      line-height: 1;
+      margin-bottom: 30px;
+      text-transform: uppercase;
+  }
+
+  .app-description p {
+      font-family: var(--fuente-cuerpo);
+      font-size: 1.3rem;
+      line-height: 1.6;
+      color: white;
+      margin-bottom: 20px;
+      text-align: left;
+  }
+
+  .btn-black {
+      background-color: white;
+      color: #3b82f6;
+      font-family: var(--fuente-titulos);
+      font-size: 1.3rem;
+      padding: 10px 40px;
+      border-radius: 10px;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 10px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      transition: transform 0.2s;
+  }
+  
+  .btn-black:hover { transform: scale(1.05); }
+
+  /* --- BLOQUE DERECHO (LA MAGIA DIAGONAL) --- */
+  .diagonal-image-container {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      
+      /* Ancho: un poco más de la mitad para que el corte quede bien */
+      width: 55%; 
+      
+      /* TRANSFORMACIÓN: Inclinamos el contenedor hacia la izquierda */
+      transform: skewX(12deg); 
+      
+      /* Ajuste de posición para cubrir bien el borde derecho tras la inclinación */
+      transform-origin: top right;
+      
+      overflow: hidden; /* Oculta la imagen que se sale al "des-inclinarla" */
+      z-index: 1;
+  }
+
+  /* LA IMAGEN DENTRO DEL BLOQUE */
+  .image-inner {
+      width: 100%;
+      height: 100%;
+      
+      /* FOTO DE FONDO: Usa la foto del celular aquí */
+      background-image: url('/img/appweb_bg.jpg');
+      background-size: cover;
+      background-position: center;
+      
+      /* CONTRA-TRANSFORMACIÓN: "Enderezamos" la imagen para que no se vea torcida */
+      transform: skewX(-12deg) scale(1.2); 
+      transform-origin: center;
+  }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 1024px) {
+      .app-title { font-size: 4rem; }
+      .diagonal-image-container { width: 50%; } /* Menos ancho en tablet */
+      .text-content { width: 50%; }
+  }
+
+  @media (max-width: 900px) {
+      /* En móvil cambiamos a diseño vertical estándar */
+      .app-split-section {
+          height: auto; /* Altura automática */
+          flex-direction: column;
+      }
+
+      .app-content-wrapper {
+          padding: 60px 20px;
+          order: 1; /* Texto primero */
+      }
+
+      .text-content {
+          width: 100%;
+          text-align: center;
+          padding-right: 0;
+      }
+      
+      .app-description p { text-align: center; }
+
+      /* El bloque de imagen pasa a estar abajo, rectangular */
+      .diagonal-image-container {
+          position: relative;
+          order: 2; /* Imagen después */
+          width: 100%;
+          height: 400px; /* Altura de la foto en móvil */
+          transform: none; /* Quitamos la diagonal */
+          border-left: none;
+          border-top: 5px solid #FFDE59; /* Línea arriba en vez de al lado */
+          right: auto;
+      }
+
+      .image-inner {
+          transform: none; /* Quitamos la contra-rotación */
+          background-position: center top;
+      }
+  }
+</style>

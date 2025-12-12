@@ -1,0 +1,228 @@
+---
+// src/components/QuienesSomos.astro
+---
+
+<section id="quienes-somos" class="qs-section">
+    <div class="container fade-up">
+      
+      <div class="main-grid">
+        
+        <div class="image-col">
+          <video class="main-video" autoplay muted loop playsinline poster="/img/quienes_somos_poster.jpg">
+              <source src="/video/quienes_somos_video.mp4" type="video/mp4">
+              Tu navegador no soporta videos HTML5.
+          </video>
+          <div class="video-overlay"></div>
+        </div>
+  
+        <div class="content-col">
+          
+          <h2 class="qs-title">
+            <img src="/img/pelota-padelboard.png" alt="Pelota PadelBoard" class="title-icon" /> ¿ QUIÉNES SOMOS ?
+          </h2>
+  
+          <div class="info-layout">
+              
+              <div class="features-stack">
+                  <div class="feature-card">
+                      <div class="feat-img-box">
+                          <img src="/img/icon_pantalla.png" alt="Pantalla" />
+                      </div>
+                      <span class="feat-label">PANTALLA</span>
+                  </div>
+                  <div class="feature-card">
+                      <div class="feat-img-box">
+                          <img src="/img/icon_sensores.png" alt="Sensores" />
+                      </div>
+                      <span class="feat-label">SENSORES</span>
+                  </div>
+                  <div class="feature-card">
+                      <div class="feat-img-box">
+                          <img src="/img/icon_app.png" alt="App" />
+                      </div>
+                      <span class="feat-label">APP WEB</span>
+                  </div>
+              </div>
+  
+              <div class="text-stack">
+                  <p>
+                      PadelBoard es un sistema inteligente de puntuación creado para canchas de pádel, diseñado para transformar la manera en que se vive el juego.
+                  </p>
+                  <p>
+                      Nuestro propósito es brindar claridad y emoción de una forma moderna, intuitiva y transparente que mejore la experiencia tanto de jugadores como de espectadores.
+                  </p>
+                  <p>
+                      Con PadelBoard, los clubes pueden incorporar tecnología de alto nivel que eleva el rendimiento, la profesionalidad y el valor de cada cancha.
+                  </p>
+              </div>
+  
+          </div>
+  
+        </div>
+  
+      </div>
+  
+    </div>
+  </section>
+  
+  <style>
+    .qs-section {
+    padding: 100px 0;
+    
+    /* CAMBIO: Foto de fondo con capa oscura encima */
+    background-image: 
+        linear-gradient(rgba(4, 19, 62, 0.7), rgba(4, 19, 62, 0.6)), /* Capa azul oscuro al 90% y 80% */
+        url('/img/padelboard_fondo.jpg'); /* Tu imagen */
+        
+    background-size: cover;   /* Cubre todo el espacio */
+    background-position: center; /* Centra la foto */
+    background-attachment: fixed; /* Opcional: Efecto Parallax elegante */
+    
+    color: white;
+    overflow: hidden;
+    }
+  
+    .main-grid {
+      display: grid;
+      grid-template-columns: 40% 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+  
+    /* --- ESTILOS VIDEO IZQUIERDA --- */
+    .image-col {
+      position: relative;
+      height: 600px;
+      border-radius: 30px;
+      overflow: hidden; /* Esto recorta el video para que tenga bordes redondos */
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+      border: 2px solid rgba(255,255,255,0.1);
+      background-color: black; /* Fondo negro mientras carga */
+    }
+  
+    .main-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* CLAVE: Hace que el video llene todo el espacio sin deformarse */
+      display: block;
+    }
+  
+    /* Sombra interna para darle profundidad al video (opcional) */
+    .video-overlay {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: linear-gradient(to bottom, transparent 80%, rgba(0,0,0,0.4) 100%);
+        pointer-events: none;
+    }
+  
+    /* --- ESTILOS CONTENIDO DERECHA --- */
+    .qs-title {
+      font-family: var(--fuente-titulos);
+      font-size: 4.5rem;
+      color: white;
+      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+
+    /* flex-start = Izquierda (por defecto) */
+    /* center = Centro */
+    /* flex-end = Derecha */
+    justify-content: flex-end; /* Lo empuja hacia la derecha */
+    /* Opcional: Si lo quieres mover solo un poco, usa margin-left */
+    /* margin-left: 50px; */
+    }
+  
+    /* --- ESTILOS DEL ICONO DE PELOTA --- */
+    .title-icon {
+      height: 35px; /* Ajusta este tamaño según lo grande que quieras la pelota */
+      width: auto;
+      display: inline-block;
+      margin-right: 5px; /* Espacio entre la pelota y el texto */
+      vertical-align: middle; /* Alinea la pelota con el centro del texto */
+    }
+  
+    .info-layout {
+        display: grid;
+        grid-template-columns: 150px 1fr;
+        gap: 40px;
+    }
+  
+    .features-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+  
+    .feature-card {
+        background: transparent;
+        text-align: center;
+    }
+  
+    .feat-img-box {
+        width: 100%;
+        height: 110px;
+        overflow: hidden;
+    }
+    
+    .feat-img-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+  
+    .feat-label {
+        display: block;
+        color: var(--color-amarillo);
+        font-family: var(--fuente-titulos);
+        font-size: 1.1rem;
+        padding: 5px 0;
+        letter-spacing: 2px;
+        margin-top: 5px;
+    }
+  
+    .text-stack p {
+        font-family: var(--fuente-cuerpo);
+        font-size: 1.4rem;
+        line-height: 1.5;
+        margin-bottom: 25px;
+        color: white;
+        text-align: justify;
+    }
+  
+    /* --- RESPONSIVE --- */
+    @media (max-width: 900px) {
+      .main-grid {
+          grid-template-columns: 1fr;
+          text-align: center;
+      }
+  
+      .image-col {
+          height: 400px; /* Video un poco más corto en móvil */
+          order: -1;
+      }
+  
+      .qs-title {
+          justify-content: center;
+          font-size: 2.5rem;
+      }
+  
+      .info-layout {
+          grid-template-columns: 1fr;
+          gap: 30px;
+      }
+  
+      .features-stack {
+          flex-direction: row;
+          justify-content: center;
+      }
+      
+      .feature-card {
+          width: 30%;
+      }
+      
+      .text-stack p {
+          text-align: left;
+      }
+    }
+  </style>

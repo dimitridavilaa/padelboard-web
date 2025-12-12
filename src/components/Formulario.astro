@@ -1,0 +1,218 @@
+---
+// src/components/Formulario.astro
+---
+
+<section id="formulario-b2b" class="formulario-section">
+  <div class="container fade-up">
+    <div class="form-wrapper">
+      
+      <div class="form-content">
+        <h2 class="h2-titulo">Lleva tu Club al Siguiente Nivel Hoy Mismo.</h2>
+        <p class="subtitulo">Completa el formulario y nuestro equipo te contactará para una demo virtual y una cotización sin compromiso.</p>
+
+        <form class="b2b-form">
+          
+          <div class="form-group">
+            <label for="nombre">Nombre Completo</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Ej. Juan Pérez" required>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Profesional</label>
+            <input type="email" id="email" name="email" placeholder="juan@tuclub.com" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+                <label for="club">Nombre del Club</label>
+                <input type="text" id="club" name="club" placeholder="Padel Club..." required>
+            </div>
+
+            <div class="form-group">
+                <label for="pais">País</label>
+                <select id="pais" name="pais">
+                <option value="" disabled selected>Selecciona...</option>
+                <option value="MX">México</option>
+                <option value="US">Estados Unidos</option>
+                <option value="CO">Colombia</option>
+                <option value="AR">Argentina</option>
+                <option value="CL">Chile</option>
+                <option value="ES">España</option>
+                <option value="EC">Ecuador</option>
+                <option value="OTRO">Otro</option>
+                </select>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-submit">Solicitar Información</button>
+        </form>
+      </div>
+
+      <div class="form-image">
+        <img 
+          src="/img/formulario.jpg" 
+          alt="Cancha de Padel Profesional" 
+        />
+        <div class="image-overlay">
+          <span>El futuro del pádel está aquí</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .formulario-section {
+    padding: 80px 20px;
+    background-color: #F9FAFB;
+    color: #111;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .form-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 Columnas: Izquierda Formulario, Derecha Imagen */
+    gap: 0;
+    background: #FFFFFF;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  }
+
+  /* --- Estilos del Contenido (Izquierda) --- */
+  .form-content {
+    padding: 48px;
+  }
+
+  .h2-titulo {
+    font-size: 2rem;
+    margin-top: 0;
+    margin-bottom: 12px;
+    line-height: 1.2;
+    color: #111;
+  }
+
+  .subtitulo {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 32px;
+    line-height: 1.5;
+  }
+
+  /* --- Estilos del Formulario --- */
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  /* NUEVO: Estilo para la fila compartida */
+  .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* Dividir espacio en 2 partes iguales */
+      gap: 16px;
+  }
+
+  label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #333;
+  }
+
+  /* Inputs mejorados (Estilo Premium) */
+  input, select {
+    width: 100%;
+    padding: 16px 20px;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: inherit;
+    background-color: #F9FAFB;
+    color: #1F2937;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+  }
+
+  input:focus, select:focus {
+    outline: none;
+    background-color: #FFFFFF;
+    border-color: var(--color-azul-claro);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+  }
+
+  .btn-submit {
+    width: 100%;
+    padding: 18px;
+    background: var(--color-azul-claro);
+    color: #FFF;
+    font-weight: 800;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+    margin-top: 10px; /* Reducido un poco para pegar más al formulario */
+    box-shadow: 0 4px 15px rgba(0, 23, 85, 0.3);
+  }
+
+  .btn-submit:hover {
+    background-color: var(--color-azul-claro);
+    transform: translateY(-2px);
+  }
+
+  /* --- Estilos de la Imagen (Derecha) --- */
+  .form-image {
+    position: relative;
+    width: 100%;
+  }
+
+  .form-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .image-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 40px;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    color: white;
+  }
+
+  .image-overlay span {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  /* --- Responsivo (Móvil) --- */
+  @media (max-width: 900px) {
+    .form-wrapper {
+      grid-template-columns: 1fr;
+    }
+    .form-image {
+      display: none;
+    }
+    .form-content {
+        padding: 30px 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    /* En celular, rompemos la fila para que se pongan uno debajo del otro */
+    .form-row {
+        grid-template-columns: 1fr; 
+    }
+  }
+</style>

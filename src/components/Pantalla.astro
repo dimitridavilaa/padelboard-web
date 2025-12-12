@@ -1,0 +1,219 @@
+---
+// src/components/Pantalla.astro
+---
+
+<section id="pantalla" class="pantalla-full-section">
+
+    <div class="blue-overlay-fixed"></div>
+    
+    <div class="content-wrapper">
+        
+        <div class="title-container">
+            <h2 class="main-title">PANTALLA 43”</h2>
+        </div>
+
+        <div class="info-panel-blue">
+            
+            <div class="features-list">
+                
+                <div class="feature-row">
+                    <h3 class="feat-title">ALTA<br>VISIBILIDAD</h3>
+                    <p class="feat-desc">
+                        El marcador se visualiza claramente desde cualquier punto de la pista. Ideal para partidos recreativos y competitivos.
+                    </p>
+                </div>
+
+                <div class="feature-row">
+                    <h3 class="feat-title">USO<br>INTENSIVO</h3>
+                    <p class="feat-desc">
+                        Diseñada para operar en ambientes deportivos, soporta polvo, humedad y sesiones prolongadas de juego. Perfecta para clubes, academias y complejos que utilizan la pantalla durante todo el día.
+                    </p>
+                </div>
+
+                <div class="feature-row">
+                    <h3 class="feat-title">SOPORTE<br>UNIVERSAL</h3>
+                    <p class="feat-desc">
+                        Soporte resistente y adaptable que permite instalar la pantalla en distintos tipos de estructuras, asegurando una fijación estable y un ángulo ideal para la visualización del marcador y sin interrumpir el juego.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+  /* --- SECCIÓN PRINCIPAL --- */
+  .pantalla-full-section {
+      position: relative;
+      width: 100%;
+      padding-top: 30px;
+      
+      /* IMAGEN DE FONDO */
+      background-image: url('/img/pantalla.jpg'); 
+      background-size: cover;
+      background-position: center;
+      /* IMPORTANTE: Quitamos 'fixed' para que la imagen se mueva CON el contenido */
+      /* background-attachment: scroll; (valor por defecto) */
+      
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+  }
+
+  .blue-overlay-fixed {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0; /* Siempre pegado a la derecha */
+    width: 35%;
+    background-color: rgba(59, 130, 246, 0.6);
+    z-index: 1; /* Nivel 1 */
+}
+
+  /* Contenedor Flex para distribuir Izquierda/Derecha */
+  .content-wrapper {
+      width: 100%;
+      height: 100%;
+      max-width: 1600px; /* Ancho máximo amplio */
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between; 
+      align-items: stretch; /* Estira los hijos para ocupar toda la altura */
+  }
+
+  /* --- IZQUIERDA: TÍTULO --- */
+  .title-container {
+      flex: 1; /* Ocupa el espacio restante a la izquierda */
+      display: flex;
+      align-items: flex-start; /* Centra el título verticalmente */
+      justify-content: center; /* Centra el título horizontalmente en su espacio */
+      padding: 40px;
+      padding-top: 20px;
+  }
+
+  .main-title {
+      font-family: var(--fuente-titulos); /* Anton */
+      font-size: 7rem; 
+      color: #FFDE59;
+      line-height: 0.9;
+      text-transform: uppercase;
+      text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      text-align: left;
+  }
+
+  /* --- DERECHA: PANEL AZUL ÚNICO --- */
+  .info-panel-blue {
+      width: 44%; 
+      padding: 80px 60px; /* Espacio interno */
+      display: flex;
+      flex-direction: column;
+      justify-content: center; /* Centra el contenido verticalmente dentro de la franja azul */
+      position: relative;
+      z-index: 2; /* Nivel 2: Encima del azul */
+  }
+
+  .features-list {
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+  }
+
+  /* FILA INDIVIDUAL (Título fuera | Texto) */
+  .feature-row {
+      display: grid;
+      /* Grid: Título a la izquierda, Texto a la derecha */
+      grid-template-columns: 180px 1fr; 
+      gap: 30px;
+      align-items: center;
+  }
+
+  .feat-title {
+      font-family: var(--fuente-titulos);
+      font-size: 2rem;
+      color: #FFDE59;
+      text-align: right;
+      line-height: 1;
+      margin: 0;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  }
+
+  .feat-desc {
+      font-family: var(--fuente-cuerpo);
+      font-size: 1.1rem;
+      color: white;
+      line-height: 1.5;
+      margin: 0;
+      text-align: left;
+      /* Sin fondo individual, ahora están sobre el gran fondo azul */
+  }
+
+  .action-wrapper {
+      margin-top: 60px;
+      display: flex;
+      justify-content: flex-end; /* Botón a la derecha */
+      padding-right: 20px;
+  }
+
+  .btn-black {
+      background-color: var(--color-azul-claro);
+      color: white;
+      font-family: var(--fuente-titulos);
+      font-size: 1.5rem;
+      padding: 10px 50px;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: transform 0.2s;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  }
+  
+  .btn-black:hover {
+      transform: scale(1.05);
+  }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 1200px) {
+      .main-title { font-size: 6rem; }
+      .info-panel-blue { width: 55%; padding: 60px 40px; }
+  }
+
+  @media (max-width: 900px) {
+      .pantalla-full-section { 
+          height: auto; 
+          flex-direction: column; /* Apilar en móvil */
+      }
+      
+      .content-wrapper { 
+          flex-direction: column; 
+          padding: 0;
+      }
+
+      .title-container {
+          width: 100%;
+          padding: 60px 20px;
+          /* En móvil, el título necesita un fondo oscuro o sombra fuerte si la foto es clara */
+          background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);
+      }
+      
+      .main-title { text-align: center; font-size: 5rem; }
+
+      .info-panel-blue { 
+          width: 100%; 
+          padding: 60px 30px;
+          background-color: rgba(9, 28, 110, 0.85); /* Más oscuro en móvil para leer mejor */
+      }
+      
+      .feature-row { 
+          grid-template-columns: 1fr; /* Título arriba, texto abajo */
+          text-align: center;
+          gap: 15px;
+      }
+      
+      .feat-title { text-align: center; }
+      .feat-desc { text-align: center; }
+      .action-wrapper { justify-content: center; padding-right: 0; }
+  }
+</style>

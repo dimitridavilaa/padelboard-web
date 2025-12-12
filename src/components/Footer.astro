@@ -1,0 +1,177 @@
+---
+// src/components/Footer.astro
+---
+
+<footer id="cta-b2c" class="footer-section">
+  
+    <div class="cta-b2c-wrapper">
+      <div class="container cta-container fade-up">
+        <div class="cta-text">
+          <h3>¿Eres jugador y quieres PadelBoard en tu club?</h3> <p>Únete a la lista de espera y sé el primero en enterarte.</p> </div>
+        
+        <form class="b2c-form">
+          <input type="email" placeholder="Tu Email" required /> <button type="submit">Unirme</button> </form>
+      </div>
+    </div>
+  
+    <div class="footer-content">
+      <div class="container footer-grid">
+        
+        <div class="footer-brand">
+            <img src="/img/logo_padelboard.png" alt="Logo Padel Board" class="footer-logo" />
+          <div class="social-icons">
+            <a href="https://www.instagram.com/padelboard_?igsh=a2VoZXM1M3BreTM0&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            </a>
+            <a href="https://www.tiktok.com/@padelboard_?_r=1&_t=ZM-91TfI4A3Zhw" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
+            </a>         
+          </div>
+        </div>
+  
+        <div class="footer-links">
+          <a href="#">Política de Privacidad</a> <a href="#">Términos y Condiciones</a> </div>
+  
+      </div>
+      
+      <div class="container copyright">
+        <p>© 2025 Padel Board. Todos los derechos reservados.</p> </div>
+    </div>
+  
+  </footer>
+  
+  <style>
+    /* --- CTA B2C (Parte Superior) --- */
+    .cta-b2c-wrapper {
+      background-color: var(--color-azul-claro);
+      padding: 60px 20px;
+      color: white;
+      text-align: center;
+    }
+  
+    .cta-text h3 {
+      font-size: 1.8rem;
+      margin: 0 0 10px 0;
+      color: white;
+    }
+  
+    .cta-text p {
+      font-size: 1.1rem;
+      margin: 0 0 30px 0;
+      opacity: 0.9;
+    }
+  
+    .b2c-form {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+  
+    .b2c-form input {
+      padding: 12px 20px;
+      border-radius: 50px;
+      border: none;
+      flex: 1;
+      font-size: 1rem;
+    }
+  
+    .b2c-form button {
+      background-color: #111;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .b2c-form button:hover {
+      background-color: #333;
+    }
+  
+    /* --- Footer Principal (Parte Inferior) --- */
+    .footer-content {
+      background-color: #111;
+      color: #FFF;
+      padding: 60px 20px 20px;
+    }
+  
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+  
+    .footer-grid {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+      border-bottom: 1px solid #333;
+      padding-bottom: 40px;
+    }
+  
+    .footer-logo {
+      height: 25px; /* Ajusta este número según qué tan grande lo quieras */
+      width: auto;  /* Mantiene la proporción correcta */
+      display: block;
+    }
+  
+    .social-icons {
+      display: flex;
+      gap: 16px;
+      margin-top: 16px;
+    }
+    
+    .social-icons a {
+      color: #888;
+      transition: color 0.3s;
+    }
+    .social-icons a:hover {
+      color: #FFF;
+    }
+  
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+  
+    .footer-links a {
+      color: #888;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover {
+      color: #FFF;
+    }
+  
+    .copyright {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #555;
+    }
+  
+    /* --- Responsivo --- */
+    @media (max-width: 768px) {
+      .b2c-form {
+        flex-direction: column;
+      }
+      .b2c-form button {
+        width: 100%;
+      }
+      .footer-grid {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+      }
+      .footer-links {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .social-icons {
+        justify-content: center;
+      }
+    }
+  </style>

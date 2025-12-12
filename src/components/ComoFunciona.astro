@@ -1,0 +1,169 @@
+---
+// src/components/ComoFunciona.astro
+---
+
+<section id="como-funciona" class="cf-section">
+  <div class="container fade-up">
+    <h2 class="section-title">¿ CÓMO FUNCIONA ?</h2>
+
+    <div class="steps-grid">
+      
+      <div class="step-card">
+        <div class="step-header">
+            <span class="step-number">01</span>
+            <h3 class="step-title">ESCANÉA EL QR</h3>
+        </div>
+        <p class="step-desc">
+            Al entrar a la cancha, escanea el código QR con tu móvil. Esto te lleva directo a nuestra Web App.
+        </p>
+        <div class="step-image">
+            <img src="/img/paso1_qr.jpg" alt="Escanea el código QR" />
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-header">
+            <span class="step-number">02</span>
+            <h3 class="step-title">CONFIGURA EN 15 S</h3>
+        </div>
+        <p class="step-desc">
+            La App te permite introducir los nombres de los jugadores, elegir las reglas de tu partido e "Iniciar Partido".
+        </p>
+        <div class="step-image">
+            <img src="/img/paso2_app.jpg" alt="Configura el partido en la App" />
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-header">
+            <span class="step-number">03</span>
+            <h3 class="step-title">JUEGA EN VIVO</h3>
+        </div>
+        <p class="step-desc">
+          La pantalla muestra los nombres de los jugadores y el puntaje en tiempo real. Visible para jugadores y público.
+        </p>
+        <div class="step-image">
+            <img src="/img/paso3_tv.jpg" alt="Marcador en vivo en TV" />
+        </div>
+      </div>
+      
+      <div class="step-card">
+        <div class="step-header">
+            <span class="step-number">04</span>
+            <h3 class="step-title">TOCA Y PUNTÚA</h3>
+        </div>
+        <p class="step-desc">
+            ¿Punto? Toca el sensor PadelBoard con la mano, y el marcador se actualiza al instante. Cero fricción.
+        </p>
+        <div class="step-image">
+            <img src="/img/paso4_sensor.jpg" alt="Toca el sensor" />
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .cf-section {
+    padding: 100px 0;
+    background-image:
+      /*Filtro azul oscuro (85% opacidad) para que el texto blanco se lea bien */
+      linear-gradient(rgba(4, 19, 62, 0.6), rgba(4, 19, 62, 0.6)),
+      url('/img/padelboard_fondo.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;
+  }
+
+  .section-title {
+    font-family: var(--fuente-titulos); /* Anton */
+    font-size: 3.5rem;
+    color: var(--color-amarillo);
+    text-align: center;
+    margin-bottom: 60px;
+    letter-spacing: 2px;
+  }
+
+  /* --- GRID DE 4 COLUMNAS --- */
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columnas iguales */
+    gap: 30px;
+    align-items: start; /* Alineación superior */
+  }
+
+  .step-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Números y Títulos */
+  .step-number {
+    font-family: var(--fuente-titulos);
+    font-size: 4rem; /* Número grande */
+    color: var(--color-amarillo);
+    line-height: 1;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .step-title {
+    font-family: var(--fuente-titulos);
+    font-size: 1.8rem; /* Título mediano */
+    color: var(--color-amarillo);
+    margin-bottom: 20px;
+    line-height: 1.1;
+  }
+
+  .step-desc {
+    font-family: var(--fuente-cuerpo); /* Outfit */
+    font-size: 1rem;
+    line-height: 1.5;
+    color: white;
+    margin-bottom: 30px;
+    min-height: 80px; /* Para que todos los textos ocupen similar altura */
+  }
+
+  /* Imágenes de los pasos */
+  .step-image {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Cuadrado perfecto */
+    overflow: hidden;
+    border-radius: 20px; /* Bordes redondeados como en la foto */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+  }
+
+  .step-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .step-card:hover .step-image {
+      transform: translateY(-5px); /* Pequeño efecto al pasar el mouse */
+  }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 1024px) {
+    .steps-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas en tablets */
+        gap: 50px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .steps-grid {
+        grid-template-columns: 1fr; /* 1 columna en móvil */
+        gap: 60px;
+    }
+    
+    .section-title {
+        font-size: 2.5rem;
+    }
+  }
+</style>
