@@ -5,7 +5,7 @@
 <section class="compra-section">
     <div class="container">
         
-        <div class="card product-card">
+        <div class="card product-card fade-up">
             
             <div class="product-info">
                 <h1>MARCADOR PADELBOARD</h1>
@@ -26,21 +26,21 @@
                 <p class="disclaimer">*Por la compra de 3 o más marcadores PadelBoard obtén un precio de $899.00 USD c/u*</p>
 
                 <div class="price-block">
-                    <span class="price">$999.00 USD</span>
+                    <span class="price" id="price-display">$999.00 USD</span>
                     <span class="tax">NO INCLUYE IVA</span>
                 </div>
 
                 <div class="actions-row">
                     <div class="qty-selector">
-                        <button id="btn-minus">-</button>
-                        <span id="qty-display">1</span>
-                        <button id="btn-plus">+</button>
+                        <button id="btn-minus" type="button">-</button>
+                        <input type="number" id="qty-input" value="1" min="1" max="99" />
+                        <button id="btn-plus" type="button">+</button>
                     </div>
                     
-                    <button class="btn btn-primary">AGREGAR AL CARRITO</button>
+                    <button class="btn btn-primary" id="btn-add">AGREGAR AL CARRITO</button>
                 </div>
                 
-                <button class="btn btn-full-width">PAGAR AHORA</button>
+                <button class="btn btn-full-width" id="btn-pay">PAGAR AHORA</button>
             </div>
 
             <div class="product-gallery">
@@ -54,7 +54,7 @@
             </div>
         </div>
 
-        <div class="card plan-card">
+        <div class="card plan-card fade-up">
             
             <div class="plan-header">
                 <div class="plan-title">
@@ -116,25 +116,90 @@
 </section>
 
 <script>
+    // 1. CONFIGURACIÓN
+    // Pon aquí tu número de WhatsApp real (con código de país, sin +)
+    const WHATSAPP_NUMBER = "593987225485"; 
+    
+    // Precios
+    const PRICE_BASE = 999;
+    const PRICE_DISCOUNT = 899; // Precio si compra 3 o más
+    const PLAN_PRICE = 25;      // Precio del plan mensual
+
+    // 2. ELEMENTOS DEL DOM
     const minusBtn = document.getElementById('btn-minus');
     const plusBtn = document.getElementById('btn-plus');
-    const display = document.getElementById('qty-display');
-    
-    let count = 1;
+    const input = document.getElementById('qty-input') as HTMLInputElement;
+    const priceDisplay = document.getElementById('price-display');
+    const btnPay = document.getElementById('btn-pay');
+    const btnAdd = document.getElementById('btn-add');
 
-    if(minusBtn && plusBtn && display) {
+    // 3. FUNCIÓN PARA ACTUALIZAR PRECIOS
+    function updatePrice() {
+        if (!input || !priceDisplay) return;
+
+        let qty = parseInt(input.value) || 1;
+        
+        // Lógica de descuento: Si son 3 o más, precio baja
+        let unitPrice = (qty >= 3) ? PRICE_DISCOUNT : PRICE_BASE;
+        let totalHardware = unitPrice * qty;
+
+        // Actualizamos el texto en pantalla visualmente
+        // Si hay descuento, mostramos el precio unitario nuevo
+        priceDisplay.innerText = `$${unitPrice}.00 USD`;
+        
+        // Opcional: Si quieres mostrar el TOTAL acumulado en vez del unitario, 
+        // cambia la línea de arriba por: priceDisplay.innerText = `$${totalHardware}.00 USD`;
+    }
+
+    // 4. FUNCIÓN PARA ENVIAR A WHATSAPP
+    function sendToWhatsapp() {
+        if (!input) return;
+        let qty = parseInt(input.value) || 1;
+        let unitPrice = (qty >= 3) ? PRICE_DISCOUNT : PRICE_BASE;
+        let total = unitPrice * qty;
+
+        // Creamos el mensaje
+        let message = `Hola Padel Board, estoy interesado en realizar una compra:%0A` +
+                      `%0A🎾 *Producto:* Marcador PadelBoard` +
+                      `%0A🔢 *Cantidad:* ${qty} unidades` +
+                      `%0A💲 *Precio Unitario:* $${unitPrice}` +
+                      `%0A💰 *TOTAL HARDWARE:* $${total} USD` +
+                      `%0A📅 *Plan Mensual:* $25.00/mes` +
+                      `%0A%0AQuisiera coordinar el pago y envío.`;
+
+        // Abrimos WhatsApp
+        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
+    }
+
+    // 5. EVENT LISTENERS (Escuchadores)
+    if(minusBtn && plusBtn && input) {
         plusBtn.addEventListener('click', () => {
-            count++;
-            display.innerText = count.toString();
+            let val = parseInt(input.value) || 0;
+            input.value = (val + 1).toString();
+            updatePrice(); // Actualizar precio al cambiar
         });
 
         minusBtn.addEventListener('click', () => {
-            if (count > 1) {
-                count--;
-                display.innerText = count.toString();
+            let val = parseInt(input.value) || 0;
+            if (val > 1) {
+                input.value = (val - 1).toString();
+                updatePrice(); // Actualizar precio al cambiar
             }
         });
+
+        input.addEventListener('change', () => {
+            let val = parseInt(input.value) || 1;
+            if (val < 1) input.value = "1";
+            updatePrice(); // Actualizar precio al escribir
+        });
+        
+        // Conectar botones a la acción
+        if (btnPay) btnPay.addEventListener('click', sendToWhatsapp);
+        if (btnAdd) btnAdd.addEventListener('click', sendToWhatsapp);
     }
+    
+    // Inicializar precio al cargar
+    updatePrice();
 </script>
 
 <style>
@@ -255,38 +320,82 @@
         flex-wrap: wrap; /* Permite que bajen si no caben */
     }
 
+    /* 1. Selector de Cantidad (La pastilla pequeña) */
     .qty-selector {
         display: flex;
         align-items: center;
         background-color: var(--color-azul-claro);
         border-radius: 50px;
-        padding: 5px 10px;
+        padding: 0px 10px; 
         color: white;
         font-weight: bold;
-        min-width: 100px;
+        
+        /* CAMBIO: Reducimos ancho mínimo */
+        min-width: 110px; 
+        
         justify-content: space-between;
+        
+        /* Opcional: Altura fija para alinearlo perfecto con el botón de al lado */
+        height: 42px; 
     }
     
+    /* 2. El número dentro del selector */
+    #qty-input {
+        background: transparent;
+        border: none;
+        color: white;
+        font-family: var(--fuente-titulos);
+        font-size: 1.2rem; 
+        text-align: center;
+        width: 45px;
+        outline: none;
+    }
+
+    /* Truco CSS para quitar las flechas de número nativas del navegador */
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    /* Firefox */
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+
+    /* 3. Botones + y - */
     .qty-selector button {
         background: none;
         border: none;
         color: white;
-        font-size: 1.2rem;
+        font-size: 1.2rem; 
         cursor: pointer;
         padding: 0 5px;
+        transition: transform 0.2s;
+        display: flex;       /* Ayuda a centrar el símbolo verticalmente */
+        align-items: center; /* Centrado vertical */
+    }
+    
+    .qty-selector button:hover {
+        transform: scale(1.2); /* Efecto al pasar mouse por +/- */
     }
 
+    /* 4. Botones de Acción (Agregar al Carrito / Pagar Ahora) */
     .btn {
         border: none;
-        padding: 12px 20px;
+        /* CAMBIO: Reducimos el padding vertical (antes 12px) */
+        padding: 0 25px; 
         border-radius: 50px;
-        font-weight: bold;
         cursor: pointer;
         font-family: var(--fuente-titulos);
-        font-size: 0.9rem;
-        letter-spacing: 0.5px;
+        font-size: 1.1rem; 
+        letter-spacing: 1.5px;
         transition: transform 0.2s, background-color 0.2s;
         text-transform: uppercase;
+        height: 42px; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .btn:hover {
@@ -327,7 +436,7 @@
 
     .img-main {
         /* Altura fija para la imagen grande */
-        height: 280px; 
+        height: 260px; 
         width: 100%;
     }
 
@@ -342,7 +451,7 @@
     }
 
     .img-grid-bottom img {
-        height: 210px !important; 
+        height: 220px !important; 
         width: 100%;
         object-fit: cover;
         border-radius: 20px; /* Aseguramos que mantengan el borde */
