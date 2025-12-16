@@ -1,0 +1,455 @@
+---
+// src/components/CompraDetalle.astro
+---
+
+<section class="compra-section">
+    <div class="container">
+        
+        <div class="card product-card">
+            
+            <div class="product-info">
+                <h1>MARCADOR PADELBOARD</h1>
+                
+                <p class="description">
+                    Con PadelBoard estás comprando un marcador digital profesional (alámbrico), 
+                    listo para usar y pensado para que juegues como en un torneo, 
+                    sin discusiones y con total claridad del puntaje. Que incluye:
+                </p>
+
+                <ul class="feature-list">
+                    <li><span class="bullet"></span> Pantalla HD 42”</li>
+                    <li><span class="bullet"></span> 2 Sensores PadelBoard con pedestal</li>
+                    <li><span class="bullet"></span> Soporte universal de pantalla</li>
+                    <li><span class="bullet"></span> Kit de montaje / sistema alámbrico</li>
+                </ul>
+
+                <p class="disclaimer">*Por la compra de 3 o más marcadores PadelBoard obtén un precio de $899.00 USD c/u*</p>
+
+                <div class="price-block">
+                    <span class="price">$999.00 USD</span>
+                    <span class="tax">NO INCLUYE IVA</span>
+                </div>
+
+                <div class="actions-row">
+                    <div class="qty-selector">
+                        <button id="btn-minus">-</button>
+                        <span id="qty-display">1</span>
+                        <button id="btn-plus">+</button>
+                    </div>
+                    
+                    <button class="btn btn-primary">AGREGAR AL CARRITO</button>
+                </div>
+                
+                <button class="btn btn-full-width">PAGAR AHORA</button>
+            </div>
+
+            <div class="product-gallery">
+                <div class="img-main">
+                    <img src="/img/formulario.jpg" alt="Pantalla Padel Board" />
+                </div>
+                <div class="img-grid-bottom">
+                    <img src="/img/sensor.jpg" alt="Sensor detalle" />
+                    <img src="/img/paso2_app.jpg" alt="App en mano" />
+                </div>
+            </div>
+        </div>
+
+        <div class="card plan-card">
+            
+            <div class="plan-header">
+                <div class="plan-title">
+                    <h2>PLAN MENSUAL <br> PADELBOARD</h2>
+                </div>
+                <div class="plan-desc">
+                    El Plan Mensual PadelBoard es un servicio requerido que asegura el funcionamiento óptimo de tu marcador inteligente y mantiene activa la garantía del equipo. Este plan garantiza que tu PadelBoard opere siempre con la mejor experiencia, estabilidad y personalización posible.
+                </div>
+                <div class="plan-price-tag">
+                    $25.00/Mes
+                </div>
+            </div>
+
+            <div class="plan-features">
+                <div class="feature-row">
+                    <div class="feature-name">
+                        <span class="bullet"></span> 
+                        <strong>Mantenimiento del sistema y garantía activa</strong>
+                    </div>
+                    <div class="feature-text">
+                        Revisión continua del funcionamiento interno, prevención de fallas y optimización del rendimiento del marcador. La garantía del hardware se mantiene vigente mientras el plan esté activo, asegurando respaldo ante cualquier inconveniente técnico.
+                    </div>
+                </div>
+                <hr>
+                <div class="feature-row">
+                    <div class="feature-name">
+                        <span class="bullet"></span> 
+                        <strong>Acceso completo a la App Web</strong>
+                    </div>
+                    <div class="feature-text">
+                        Configura tus partidos escaneando el código QR: nombres de jugadores, tipo de partido, punto de oro o ventaja, cambio de lado, entre otras opciones avanzadas.
+                    </div>
+                </div>
+                <hr>
+                <div class="feature-row">
+                    <div class="feature-name">
+                        <span class="bullet"></span> 
+                        <strong>Actualizaciones constantes y Soporte técnico en línea</strong>
+                    </div>
+                    <div class="feature-text">
+                        Mejoras periódicas en el sistema, nuevas funciones, mayor estabilidad y experiencia de uso actualizada. atención remota rápida para resolver dudas, problemas o asistencia en configuración.
+                    </div>
+                </div>
+                 <hr>
+                <div class="feature-row">
+                    <div class="feature-name">
+                        <span class="bullet"></span> 
+                        <strong>Eliminación de publicidad y Personalización del marcador</strong>
+                    </div>
+                    <div class="feature-text">
+                        Tu marcador funcionará sin anuncios, ofreciendo una experiencia más profesional y limpia. Configuración con el nombre y los colores oficiales de tu club, reforzando la identidad visual y profesionalización del espacio deportivo.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<script>
+    const minusBtn = document.getElementById('btn-minus');
+    const plusBtn = document.getElementById('btn-plus');
+    const display = document.getElementById('qty-display');
+    
+    let count = 1;
+
+    if(minusBtn && plusBtn && display) {
+        plusBtn.addEventListener('click', () => {
+            count++;
+            display.innerText = count.toString();
+        });
+
+        minusBtn.addEventListener('click', () => {
+            if (count > 1) {
+                count--;
+                display.innerText = count.toString();
+            }
+        });
+    }
+</script>
+
+<style>
+    /* --- ESTRUCTURA PRINCIPAL --- */
+    .compra-section {
+        padding: 40px 20px;
+        background: var(--gradiente-padel);
+        font-family: var(--fuente-cuerpo);
+    }
+
+    .container {
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    .card {
+        background: white;
+        border-radius: 30px;
+        padding: 40px;
+        margin-bottom: 30px;
+        color: #000;
+        /* SOLUCIÓN 1: Esto evita que nada se salga de los bordes redondeados */
+        overflow: hidden; 
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* Un poco de sombra para profundidad */
+    }
+
+    /* --- TARJETA 1: PRODUCTO --- */
+    .product-card {
+        display: grid;
+        /* SOLUCIÓN 2: Ajustamos las proporciones. 
+           1.2fr para texto (más espacio) y 0.8fr para fotos (más controlado) */
+        grid-template-columns: 1.2fr 0.8fr; 
+        gap: 40px;
+        align-items: start; /* Alinea al inicio para que no se estire raro */
+    }
+
+    .product-info {
+        /* Evita que el texto empuje el ancho más de lo debido */
+        min-width: 0; 
+    }
+
+    h1 {
+        font-family: var(--fuente-titulos);
+        font-size: 2.2rem; /* Ajustado levemente para que quepa mejor */
+        margin-top: 0;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        line-height: 1;
+        color: #000
+    }
+
+    .description {
+        font-size: 0.95rem;
+        line-height: 1.5;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    /* Lista con iconos amarillos */
+    .feature-list {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 20px;
+    }
+
+    .feature-list li {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        font-weight: 700;
+        font-size: 0.9rem;
+    }
+
+    .bullet {
+    display: inline-block;
+    width: 11px; 
+    height: 11px;
+    
+    /* Usamos la imagen como fondo */
+    background-image: url('/img/pelota-padelboard.png'); 
+    
+    /* Asegura que la pelotita entera quepa dentro del espacio */
+    background-size: contain; 
+    background-repeat: no-repeat;
+    background-position: center;
+
+    margin-right: 10px;
+    flex-shrink: 0;
+    }
+
+    .disclaimer {
+        font-size: 0.75rem;
+        font-style: italic;
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+    .price-block {
+        margin-bottom: 20px;
+    }
+    .price {
+        display: block;
+        font-size: 2.2rem;
+        font-weight: 700;
+        font-family: var(--fuente-titulos);
+    }
+    .tax {
+        font-size: 0.8rem;
+        color: #666;
+        font-weight: bold;
+    }
+
+    /* Botones y Selectores */
+    .actions-row {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 15px;
+        flex-wrap: wrap; /* Permite que bajen si no caben */
+    }
+
+    .qty-selector {
+        display: flex;
+        align-items: center;
+        background-color: var(--color-azul-claro);
+        border-radius: 50px;
+        padding: 5px 10px;
+        color: white;
+        font-weight: bold;
+        min-width: 100px;
+        justify-content: space-between;
+    }
+    
+    .qty-selector button {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.2rem;
+        cursor: pointer;
+        padding: 0 5px;
+    }
+
+    .btn {
+        border: none;
+        padding: 12px 20px;
+        border-radius: 50px;
+        font-weight: bold;
+        cursor: pointer;
+        font-family: var(--fuente-titulos);
+        font-size: 0.9rem;
+        letter-spacing: 0.5px;
+        transition: transform 0.2s, background-color 0.2s;
+        text-transform: uppercase;
+    }
+
+    .btn:hover {
+        transform: scale(1.02);
+        opacity: 0.9;
+    }
+
+    .btn-primary {
+        background-color: var(--color-azul-claro);
+        color: white;
+        flex-grow: 1;
+        text-align: center;
+    }
+
+    .btn-full-width {
+        width: 100%;
+        background-color: var(--color-azul-claro);
+        color: white;
+    }
+
+    /* --- GALERÍA DE IMÁGENES (FIX CRÍTICO) --- */
+    .product-gallery {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        /* SOLUCIÓN 4: Forzamos a que este contenedor nunca sea más ancho que su columna */
+        width: 100%;
+        min-width: 0; 
+    }
+
+    .product-gallery img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Esto recorta la imagen para llenar el espacio sin deformar */
+        border-radius: 20px;
+        display: block;
+    }
+
+    .img-main {
+        /* Altura fija para la imagen grande */
+        height: 280px; 
+        width: 100%;
+    }
+
+    /* 1. Modifica el contenedor (quitamos el height fijo) */
+    .img-grid-bottom {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        width: 100%;
+        /* Quitamos el height aquí para que no cause conflictos */
+        height: auto; 
+    }
+
+    .img-grid-bottom img {
+        height: 210px !important; 
+        width: 100%;
+        object-fit: cover;
+        border-radius: 20px; /* Aseguramos que mantengan el borde */
+    }
+
+    /* --- TARJETA 2: PLAN MENSUAL --- */
+    .plan-card {
+        padding: 0;
+    }
+
+    .plan-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 30px 40px;
+        gap: 20px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .plan-title h2 {
+        font-family: var(--fuente-titulos);
+        margin: 0;
+        font-size: 1.8rem;
+        line-height: 1;
+        text-transform: uppercase;
+    }
+
+    .plan-desc {
+        flex: 1;
+        font-size: 0.9rem;
+        line-height: 1.4;
+        color: #444;
+    }
+
+    .plan-price-tag {
+        background-color: var(--color-azul-claro);
+        color: white;
+        padding: 8px 20px;
+        border-radius: 50px;
+        font-weight: bold;
+        font-size: 1.1rem;
+        white-space: nowrap;
+    }
+
+    .plan-features {
+        padding: 30px 40px;
+    }
+
+    .feature-row {
+        display: grid;
+        grid-template-columns: 1.5fr 3fr; 
+        gap: 20px;
+        padding: 15px 0;
+    }
+
+    .feature-name {
+        display: flex;
+        align-items: center;
+        font-size: 0.95rem;
+        color: #000;
+    }
+
+    .feature-text {
+        font-size: 0.9rem;
+        color: #555;
+    }
+
+    hr {
+        border: 0;
+        border-top: 1px solid #e0e0e0;
+        margin: 0;
+    }
+
+    /* --- RESPONSIVE (MÓVIL) --- */
+    @media (max-width: 900px) { /* Cambié el breakpoint a 900px para tablets */
+        .product-card {
+            grid-template-columns: 1fr; /* Una sola columna */
+            gap: 30px;
+        }
+        
+        /* En móvil, las imágenes van primero o después? Normalmente después */
+        .product-gallery {
+            order: -1; /* Si quieres que las fotos salgan arriba, usa -1. Si no, quita esto */
+        }
+
+        .img-main {
+            height: 250px;
+        }
+        
+        .img-grid-bottom {
+            height: 180px;
+        }
+
+        .plan-header {
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .feature-row {
+            grid-template-columns: 1fr;
+            gap: 5px;
+        }
+        
+        .feature-name {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+    }
+</style>

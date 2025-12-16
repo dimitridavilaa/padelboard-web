@@ -5,7 +5,7 @@
 <nav class="navbar">
   <div class="nav-content">
     
-    <a href="#" class="logo-link">
+    <a href="/" class="logo-link">
       <img 
           src="/img/logo_padelboard.png" 
           alt="Padel Board Logo" 
@@ -14,14 +14,25 @@
     </a>
 
     <div class="nav-links desktop-only">
-      <a href="#como-funciona">CÓMO FUNCIONA</a>
-      <a href="#beneficios">BENEFICIOS</a>
-      <a href="#quienes-somos">POR QUÉ NOSOTROS</a>
-      <a href="#contacto">CONTACTO</a>
+      
+      <div class="dropdown-wrapper">
+        <span class="nav-link-text">COMPONENTES ▾</span>
+        
+        <div class="dropdown-content">
+            <a href="/#pantalla">PANTALLA</a>
+            <a href="/#sensores">SENSORES</a>
+            <a href="/#app-web">APP WEB</a>
+        </div>
+      </div>
+
+      <a href="/#como-funciona">CÓMO FUNCIONA</a>
+      <a href="/#beneficios">BENEFICIOS</a>
+      <a href="/#usp">POR QUÉ NOSOTROS</a>
+      <a href="/#formulario-b2b">CONTACTO</a>
     </div>
 
     <div class="nav-actions">
-        <a href="#comprar" class="btn-comprar">COMPRAR</a>
+        <a href="/compra" class="btn-comprar">COMPRAR</a>
         <div class="menu-toggle mobile-only">☰</div>
     </div>
 
@@ -122,6 +133,62 @@
   .btn-comprar:hover {
     background-color: #255bb5;
     transform: scale(1.05);
+  }
+
+  /* --- ESTILOS DEL DROPDOWN --- */
+  
+  /* 1. El contenedor del botón "COMPONENTES" */
+  .dropdown-wrapper {
+      position: relative; /* Vital para posicionar el menú hijo */
+      display: flex;
+      align-items: center;
+      height: 100%;
+      cursor: pointer;
+  }
+
+  /* 2. El texto "COMPONENTES ▾" */
+  .nav-link-text {
+      color: #FFFFFF;
+      font-family: 'Anton', sans-serif; 
+      font-size: 1.2rem; /* Mismo tamaño que tus otros links */
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: color 0.3s;
+  }
+  
+  .dropdown-wrapper:hover .nav-link-text {
+      color: var(--color-amarillo); /* Se ilumina al pasar el mouse */
+  }
+
+  /* 3. La caja oculta (El menú) */
+  .dropdown-content {
+      display: none; /* Oculto por defecto */
+      position: absolute;
+      top: 100%; /* Justo debajo del texto */
+      left: 50%;
+      transform: translateX(-50%); /* Centrado perfecto */
+      flex-direction: column;
+  }
+
+  /* 4. La interacción (Mostrar al hacer Hover) */
+  .dropdown-wrapper:hover .dropdown-content {
+      display: flex;
+  }
+
+  /* 5. Los enlaces dentro del menú */
+  .dropdown-content a {
+      color: white !important;
+      font-family: 'Anton', sans-serif !important; /* Usamos Outfit para mejor lectura en menú pequeño */
+      font-size: 1.2rem !important;
+      font-weight: bold;
+      padding: 6px 20px;
+      text-align: center;
+      display: block;
+      letter-spacing: 0.5px;
+  }
+
+  .dropdown-content a:hover {
+      color: var(--color-amarillo) !important;
   }
 
   .mobile-only { display: none; color: white; font-size: 1.8rem; cursor: pointer; }
