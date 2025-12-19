@@ -58,7 +58,7 @@
             
             <div class="plan-header">
                 <div class="plan-title">
-                    <h2>PLAN MENSUAL <br> PADELBOARD</h2>
+                    <h2>PLAN MENSUAL <br>PADELBOARD</h2>
                 </div>
                 <div class="plan-desc">
                     El Plan Mensual PadelBoard es un servicio requerido que asegura el funcionamiento óptimo de tu marcador inteligente y mantiene activa la garantía del equipo. Este plan garantiza que tu PadelBoard opere siempre con la mejor experiencia, estabilidad y personalización posible.
@@ -153,7 +153,7 @@
             
             <p class="secure-note">🔒 Tus datos se enviarán encriptados al chat de ventas.</p>
         </div>
-    </div> 593987225485
+    </div>
 
 </section>
 
@@ -566,13 +566,16 @@
     }
 
     .plan-price-tag {
-        background-color: var(--color-azul-claro);
-        color: white;
-        padding: 8px 20px;
+        background-color: transparent; /* Quitamos el fondo sólido */
+        color: var(--color-azul-claro); /* Texto del color de la marca */
+        border: 2px solid var(--color-azul-claro); /* Borde sólido */
+        padding: 6px 18px; /* Un poco más compacto */
         border-radius: 50px;
-        font-weight: bold;
-        font-size: 1.1rem;
+        font-weight: 800; /* Más negrita para que se lea bien */
+        font-size: 1.4rem;
         white-space: nowrap;
+        display: inline-block; /* Asegura que se comporte bien */
+        margin-top: 10px; /* Separación visual del texto */
     }
 
     .plan-features {
@@ -602,43 +605,6 @@
         border: 0;
         border-top: 1px solid #e0e0e0;
         margin: 0;
-    }
-
-    /* --- RESPONSIVE (MÓVIL) --- */
-    @media (max-width: 900px) { /* Cambié el breakpoint a 900px para tablets */
-        .product-card {
-            grid-template-columns: 1fr; /* Una sola columna */
-            gap: 30px;
-        }
-        
-        /* En móvil, las imágenes van primero o después? Normalmente después */
-        .product-gallery {
-            order: -1; /* Si quieres que las fotos salgan arriba, usa -1. Si no, quita esto */
-        }
-
-        .img-main {
-            height: 250px;
-        }
-        
-        .img-grid-bottom {
-            height: 180px;
-        }
-
-        .plan-header {
-            flex-direction: column;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .feature-row {
-            grid-template-columns: 1fr;
-            gap: 5px;
-        }
-        
-        .feature-name {
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
     }
 
     /* --- ESTILOS DEL MODAL DE CHECKOUT --- */
@@ -756,4 +722,111 @@
     color: #999;
     margin-top: 20px;
 }
+
+/* --- RESPONSIVE MÓVIL (MODO APP NATIVA) --- */
+@media (max-width: 900px) {
+        /* SOLUCIÓN ZOOM: Desactiva el zoom al tocar rápido botones */
+        button, .btn, .qty-selector button, input {
+            touch-action: manipulation; 
+        }
+        
+        /* 1. Ajustes Generales de Espacio */
+        .compra-section {
+            padding: 20px 5px; /* Menos relleno lateral para ganar espacio */
+        }
+        
+        .card {
+            padding: 25px 20px; /* Tarjetas más compactas */
+            border-radius: 20px;
+        }
+
+        /* 2. Tarjeta de Producto (Vertical) */
+        .product-card {
+            grid-template-columns: 1fr; /* Una sola columna */
+            gap: 25px;
+        }
+        
+        /* Ponemos las imágenes arriba */
+        .product-gallery {
+            order: -1; 
+        }
+
+        /* Imagen principal más apaisada para que no empuje todo el contenido abajo */
+        .img-main {
+            height: 200px; 
+        }
+        
+        /* Ocultamos las miniaturas en móvil para limpiar la vista y enfocar en la venta */
+        .img-grid-bottom {
+            display: none; 
+        }
+
+        /* 3. Tipografía Ajustada */
+        h1 {
+            font-size: 1.8rem; /* Título más fácil de leer */
+            margin-bottom: 10px;
+        }
+        
+        .description {
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .price {
+            font-size: 2.2rem; /* Precio grande y claro */
+        }
+
+        /* 4. BOTONES Y ACCIONES (LO MÁS IMPORTANTE) */
+        .actions-row {
+            flex-direction: column; /* Apilamos verticalmente */
+            gap: 15px;
+            width: 100%;
+        }
+
+        /* Selector de Cantidad: Grande y centrado */
+        .qty-selector {
+            width: 100%; 
+            justify-content: space-between;
+            padding: 0 30px; /* Buen espacio para los dedos */
+            height: 55px; /* Altura cómoda para tocar */
+            box-sizing: border-box;
+            font-size: 1.3rem; /* Números más grandes */
+        }
+        
+        /* Botones de Acción: Ancho completo estilo App */
+        .btn {
+            width: 100%;
+            height: 55px; /* Misma altura que el selector */
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        /* 5. Tarjeta del Plan Mensual */
+        .plan-header {
+            flex-direction: column;
+            text-align: justify;
+            padding: 20px 5px;
+            gap: 15px;
+        }
+
+        .plan-features {
+        padding: 20px 5px;
+    }
+        
+        .plan-title h2 {
+            font-size: 1.5rem;
+        }
+
+        .feature-row {
+            grid-template-columns: 1fr; /* Texto debajo del título */
+            gap: 8px;
+            text-align: left;
+        }
+        
+        .feature-name {
+            margin-bottom: 0;
+            font-size: 1rem;
+            color: var(--color-azul-fondo); /* Resaltamos el título */
+        }
+    }
 </style>
