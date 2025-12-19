@@ -71,6 +71,7 @@
     right: 0; /* Siempre pegado a la derecha */
     width: 35%;
     background-color: rgba(59, 130, 246, 0.6);
+    backdrop-filter: blur(4px);
     z-index: 1; /* Nivel 1 */
 }
 
@@ -180,40 +181,110 @@
       .info-panel-blue { width: 55%; padding: 60px 40px; }
   }
 
-  @media (max-width: 900px) {
-      .pantalla-full-section { 
-          height: auto; 
-          flex-direction: column; /* Apilar en móvil */
-      }
-      
-      .content-wrapper { 
-          flex-direction: column; 
-          padding: 0;
-      }
+  /* --- CORRECCIÓN FINAL DEFINITIVA (MÓVIL) --- */
+@media (max-width: 900px) {
+    
+    /* 1. Limpieza */
+    .blue-overlay-fixed { display: none; }
 
-      .title-container {
-          width: 100%;
-          padding: 60px 20px;
-          /* En móvil, el título necesita un fondo oscuro o sombra fuerte si la foto es clara */
-          background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);
-      }
-      
-      .main-title { text-align: center; font-size: 5rem; }
+    /* 2. CONTENEDOR PRINCIPAL (FOTO DE FONDO) */
+    .pantalla-full-section { 
+        background-image: none !important;
+        background-color: #04133E;
+        height: auto;
+        flex-direction: column;
+        padding-top: 0;
+        
+        /* AJUSTE DE LA IMAGEN */
+        background-attachment: scroll; 
+        background-size: cover; 
+        background-repeat: no-repeat;
+        
+        /* AQUÍ ESTÁ LA CLAVE: 
+           Primer valor (Eje X - Horizontal): 20% (Mueve la "cámara" a la izquierda donde está la TV)
+           Segundo valor (Eje Y - Vertical): center (Centrado verticalmente) 
+        */
+        background-position: 20% center; 
+    }
+    
+    .content-wrapper { 
+        flex-direction: column;
+        padding: 0;
+        width: 100%;
+    }
 
-      .info-panel-blue { 
-          width: 100%; 
-          padding: 60px 30px;
-          background-color: rgba(9, 28, 110, 0.85); /* Más oscuro en móvil para leer mejor */
-      }
-      
-      .feature-row { 
-          grid-template-columns: 1fr; /* Título arriba, texto abajo */
-          text-align: center;
-          gap: 15px;
-      }
-      
-      .feat-title { text-align: center; }
-      .feat-desc { text-align: center; }
-      .action-wrapper { justify-content: center; padding-right: 0; }
-  }
+    /* 3. BLOQUE SUPERIOR (TÍTULO + DEGRADADO) */
+    .title-container {
+        width: 100%;
+        height: 50vh; /* Ocupa la mitad de la pantalla */
+        min-height: 350px;
+        
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-end;
+        padding: 20px;
+        box-sizing: border-box;  /* Evita que el texto se salga */
+        
+        background:
+            linear-gradient(to bottom, transparent 85%, #04133E 100%), 
+            url('/img/pantalla.jpg');
+            
+        background-size: 160%;
+        /* Enfocamos al 20% horizontal (izquierda) para centrar la TV */
+        background-position: 18% center; 
+        background-repeat: no-repeat;
+    }
+    
+    .main-title { 
+        text-align: right; 
+        font-size: 4.3rem; 
+        line-height: 1;
+        width: auto;
+        /* Sombra fuerte para que el amarillo resalte sobre el techo/TV */
+        text-shadow: 0 5px 15px rgba(0,0,0,0.9);
+        margin-top: 10px;
+    }
+
+    /* 4. BLOQUE INFERIOR (TEXTO) */
+    .info-panel-blue { 
+        width: 100%;
+        background-color: #04133E;
+        /* Espaciado */
+        padding: 35px 25px 40px 25px; 
+        box-sizing: border-box; /* IMPORTANTE: Esto arregla el texto cortado a la derecha */
+        
+        /* Sin línea amarilla ni bordes */
+        border-top: none; 
+        
+        position: relative;
+        z-index: 2;
+    }
+    
+    /* Ajustes de los textos internos */
+    .features-list { gap: 35px; }
+    
+    .feature-row { 
+        grid-template-columns: 1fr; 
+        text-align: center;
+        gap: 10px;
+        width: 100%;
+    }
+    
+    .feat-title { 
+        text-align: center;
+        font-size: 2rem;
+        margin-bottom: 5px;
+        color: var(--color-amarillo);
+    }
+    
+    .feat-desc { 
+        text-align: center; 
+        font-size: 1.1rem;
+        color: white;
+        opacity: 0.9;
+        margin: 0 auto;
+    }
+    
+    .action-wrapper { justify-content: center; padding-right: 0; }
+}
 </style>

@@ -37,7 +37,83 @@
     </div>
 
   </div>
+  <div id="mobile-menu" class="mobile-menu-dropdown">
+    <div class="mobile-links-container">
+        
+        <div class="accordion-wrapper">
+            <button id="accordion-toggle" class="mobile-link accordion-btn">
+                COMPONENTES <span id="arrow-icon">▾</span>
+            </button>
+            
+            <div id="accordion-content" class="accordion-content">
+                <a href="/#pantalla" class="mobile-link sub-link">Pantalla</a>
+                <a href="/#sensores" class="mobile-link sub-link">Sensores</a>
+                <a href="/#app-web" class="mobile-link sub-link">App Web</a>
+            </div>
+        </div>
+        
+        <a href="/#como-funciona" class="mobile-link">CÓMO FUNCIONA</a>
+        <a href="/#beneficios" class="mobile-link">BENEFICIOS</a>
+        <a href="/#usp" class="mobile-link">POR QUÉ NOSOTROS</a>
+        <a href="/#formulario-b2b" class="mobile-link">CONTACTO</a>
+        
+        <a href="/compra" class="mobile-btn-comprar">COMPRAR AHORA</a>
+    </div>
+</div>
 </nav>
+<script>
+  // Elementos principales
+  const menuToggle = document.querySelector('.menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  
+  // Elementos del Acordeón
+  const accordionToggle = document.getElementById('accordion-toggle');
+  const accordionContent = document.getElementById('accordion-content');
+  const arrowIcon = document.getElementById('arrow-icon');
+
+  // Enlaces que cierran el menú (todos MENOS el botón de acordeón)
+  const links = document.querySelectorAll('.mobile-link:not(.accordion-btn), .mobile-btn-comprar');
+
+  if (menuToggle && mobileMenu) {
+      
+      // 1. ABRIR / CERRAR MENÚ PRINCIPAL
+      menuToggle.addEventListener('click', () => {
+          mobileMenu.classList.toggle('active');
+          
+          if (mobileMenu.classList.contains('active')) {
+              menuToggle.textContent = '✕';
+              document.body.style.overflow = 'hidden'; // Evita scroll fondo
+          } else {
+              menuToggle.textContent = '☰';
+              document.body.style.overflow = '';
+              
+              // Opcional: Resetear acordeón al cerrar menú
+              if(accordionContent) {
+                  accordionContent.classList.remove('open');
+                  accordionToggle?.classList.remove('open');
+              }
+          }
+      });
+
+      // 2. LÓGICA DEL ACORDEÓN (COMPONENTES)
+      if (accordionToggle && accordionContent) {
+          accordionToggle.addEventListener('click', (e) => {
+              e.stopPropagation(); // Evita conflictos
+              accordionContent.classList.toggle('open');
+              accordionToggle.classList.toggle('open');
+          });
+      }
+
+      // 3. CERRAR AL TOCAR UN ENLACE
+      links.forEach(link => {
+          link.addEventListener('click', () => {
+              mobileMenu.classList.remove('active');
+              menuToggle.textContent = '☰';
+              document.body.style.overflow = '';
+          });
+      });
+  }
+</script>
 
 <style>
   .navbar {
@@ -196,16 +272,17 @@
 
   /* --- RESPONSIVE (MÓVIL) --- */
   @media (max-width: 1024px) {
-      /* En tablets/laptops pequeñas, reducimos espacio para que quepa todo */
       .nav-links { gap: 20px; }
       .nav-links a { font-size: 0.9rem; }
   }
 
+  /* --- MÓVIL PRINCIPAL (Celulares) --- */
   @media (max-width: 900px) {
-    /* En móvil cambiamos de Grid a Flex para simplificar */
+    /* Usamos Flex para separar Logo (izq) y Hamburguesa (der) */
     .nav-content {
-        display: flex; 
+        display: flex;
         justify-content: space-between;
+        align-items: center;
         padding-left: 20px;
         padding-right: 20px;
     }
@@ -213,7 +290,131 @@
     .desktop-only { display: none; }
     .mobile-only { display: block; }
     
-    /* Opcional: Si el botón es muy grande en móvil, puedes ocultarlo o achicarlo aquí */
-    /* .btn-comprar { display: none; } */
+    /* [FIX HEADER] Ocultamos botón comprar de la barra superior */
+    .nav-actions .btn-comprar { display: none !important; }
+    
+    /* Ajuste para que la hamburguesa sea fácil de tocar */
+    .nav-actions { gap: 0; } 
+  }
+
+  /* --- ESTILO MENÚ DESPLEGABLE --- */
+  .mobile-menu-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #04133E; /* Azul oscuro */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.7);
+    
+    /* [FIX LÍNEA] Aquí borramos la línea molesta: */
+    border-top: none; 
+    
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out;
+  }
+
+  .mobile-menu-dropdown.active {
+      max-height: 100vh; /* Permitimos que crezca lo necesario */
+  }
+
+  .mobile-links-container {
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center; /* Centramos todo el texto */
+  }
+
+  /* Enlaces normales */
+  .mobile-link {
+      color: white;
+      font-family: 'Anton', sans-serif;
+      font-size: 1.4rem; /* Un poco más grande para leer bien */
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+  }
+
+  /* --- ESTILOS DEL ACORDEÓN (COMPONENTES) --- */
+  .accordion-wrapper {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+
+  /* El botón se disfraza de enlace normal */
+  .accordion-btn {
+      background: none;
+      border: none;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: color 0.3s;
+      width: 100%;
+  }
+
+  /* Esto crea un espacio invisible a la izquierda igual al de la flecha de la derecha,
+     equilibrando el texto perfectamente en el centro. */
+  .accordion-btn::before {
+      content: "▾";      /* Mismo contenido que la flecha */
+      font-size: 1.2rem; /* Mismo tamaño */
+      visibility: hidden;/* ¡Invisible! */
+  }
+  
+  /* Flechita */
+  #arrow-icon {
+      font-size: 1.2rem;
+      transition: transform 0.3s ease;
+      display: inline-block;
+  }
+
+  /* Al abrir, rotamos la flecha y cambiamos color */
+  .accordion-btn.open { color: var(--color-amarillo); }
+  .accordion-btn.open #arrow-icon { transform: rotate(180deg); }
+
+  /* Contenido oculto (Pantalla, Sensores...) */
+  .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      border-radius: 10px;
+  }
+
+  .accordion-content.open {
+      max-height: 150px;
+  }
+
+  .sub-link {
+      font-family: 'Outfit', sans-serif; /* Fuente diferente para jerarquía */
+      font-size: 1rem;
+      color: white;
+      margin: 8px 0;
+  }
+
+  .divider {
+      border: 0; border-top: 1px solid rgba(255,255,255,0.1);
+      width: 50%;
+      margin: 0px 0;
+  }
+
+  .mobile-btn-comprar {
+      background-color: var(--color-azul-claro);
+      color: white;
+      text-align: center;
+      padding: 15px 40px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-family: 'Anton', sans-serif;
+      letter-spacing: 1px;
+      margin-top: 15px;
   }
 </style>

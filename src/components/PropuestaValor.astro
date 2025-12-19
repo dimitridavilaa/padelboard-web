@@ -4,172 +4,208 @@
 ---
 
 <section id="beneficios" class="propuesta-section">
-    <div class="container fade-up">
-      <h2 class="h2-titulo">Una experiencia profesional para todos</h2>
+  <div class="container fade-up">
+    <h2 class="h2-titulo">UNA EXPERIENCIA PROFESIONAL PARA TODOS</h2>
+
+    <div class="tabs-wrapper">
+      
+      <div class="tab-links">
+        <button class="tab-link active" data-tab="tab-b2b">
+          Para Clubes y Patrocinadores
+        </button>
   
-      <div class="tabs-wrapper">
+        <button class="tab-link" data-tab="tab-b2c">
+          Para Jugadores
+        </button>
+      </div>
+
+      <div class="tab-content">
         
-        <div class="tab-links">
-          <button class="tab-link active" data-tab="tab-b2b">
-            Para Clubes y Patrocinadores
-          </button>
-          <button class="tab-link" data-tab="tab-b2c">
-            Para Jugadores
-          </button>
+        <div id="tab-b2b" class="tab-pane active">
+          <ul>
+            <li>
+              <strong>Moderniza tus Instalaciones:</strong> Diferénciate radicalmente de la competencia. Ofrece la experiencia tecnológica que tus socios esperan.
+            </li>
+            <li>
+              <strong>Nuevos Ingresos (Patrocinios Dinámicos):</strong> Vende espacio publicitario digital premium en la pantalla. Rota patrocinadores y maximiza tus ingresos.
+            </li>
+            <li>
+              <strong>Eleva la Experiencia:</strong> Cada partido se siente como una final profesional. Esto genera lealtad y hace que tus socios vuelvan más a menudo.
+            </li>
+            <li>
+              <strong>Potencia tu Marketing:</strong> Cuando los jugadores graben sus puntos para Instagram, tu marcador (¡y el logo de tu patrocinador!) saldrán en todos los videos.
+            </li>
+          </ul>
         </div>
-  
-        <div class="tab-content">
-          
-          <div id="tab-b2b" class="tab-pane active">
-            <ul>
-              <li>
-                <strong>Moderniza tus Instalaciones:</strong> Diferénciate radicalmente de la competencia. Ofrece la experiencia tecnológica que tus socios esperan.
-              </li>
-              <li>
-                <strong>Nuevos Ingresos (Patrocinios Dinámicos):</strong> Vende espacio publicitario digital premium en la pantalla. Rota patrocinadores y maximiza tus ingresos.
-              </li>
-              <li>
-                <strong>Eleva la Experiencia:</strong> Cada partido se siente como una final profesional. Esto genera lealtad y hace que tus socios vuelvan más a menudo.
-              </li>
-              <li>
-                <strong>Potencia tu Marketing:</strong> Cuando los jugadores graben sus puntos para Instagram, tu marcador (¡y el logo de tu patrocinador!) saldrán en todos los videos.
-              </li>
-            </ul>
-          </div>
-  
-          <div id="tab-b2c" class="tab-pane">
-            <ul>
-              <li>
-                <strong>Cero Discusiones:</strong> El marcador siempre es correcto. Cero fricción, 100% pádel.
-              </li>
-              <li>
-                <strong>Experiencia Pro:</strong> Siéntete jugando un torneo profesional cada vez que entras a la cancha.
-              </li>
-              <li>
-                <strong>Enfócate en el Juego:</strong> Deja de usar energía mental en recordar el marcador y úsala para ganar el siguiente punto.
-              </li>
-            </ul>
-          </div>
-  
-        </div> </div> </div> </section>
-  
-        <style>
-          .propuesta-section {
-            padding: 80px 20px;
-            background-color: #F9FAFB; 
-            color: #111;
-          }
-          
-          .container { max-width: 1100px; margin: 0 auto; }
-          
-          .h2-titulo {
-            font-size: 2.5rem; text-align: center; margin-top: 0; margin-bottom: 40px;
-          }
-        
-          /* Estilos del Contenedor de Pestañas */
-          .tabs-wrapper { max-width: 800px; margin: 0 auto; }
-        
-          /* Estilos de los Botones de Pestaña */
-          .tab-links {
-            display: flex;
-            border-bottom: 2px solid #D1D5DB; /* Un borde un poquito más visible */
-            margin-bottom: 24px;
-          }
-          .tab-link {
-            font-family: system-ui, sans-serif;
-            padding: 12px 24px;
-            cursor: pointer;
-            background: none;
-            border: none;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #6B7280; /* Gris medio */
-            position: relative;
-            top: 2px;
-            transition: all 0.3s ease;
-          }
-          .tab-link:hover { color: var(--color-azul-oscuro); }
-          
-          /* Estilo del botón ACTIVO */
-          .tab-link.active {
-            color: var(--color-azul-claro);
-            border-bottom: 3px solid var(--color-azul-claro); /* Borde más grueso */
-            background: rgba(255,255,255,0.5); /* Fondo sutil al activo */
-            border-radius: 8px 8px 0 0;
-          }
-        
-          /* Estilos del Contenido de Pestaña */
-          .tab-pane { display: none; }
-          .tab-pane.active { display: block; animation: fadeIn 0.5s ease; }
-        
-          /* Estilos de la lista de beneficios */
-          .tab-pane ul {
-            list-style-type: none; /* Quitamos el punto aburrido por defecto */
-            padding-left: 0;
-            margin: 0;
-          }
 
-          .tab-pane li {
-            font-size: 1.15rem; /* Un poco más grande para leer mejor */
-            line-height: 1.6;
-            margin-bottom: 24px;
-            padding-left: 40px; /* Espacio para la pelota */
-            position: relative; /* Necesario para posicionar la pelota */
-          }
+        <div id="tab-b2c" class="tab-pane">
+          <ul>
+            <li>
+              <strong>Cero Discusiones:</strong> El marcador siempre es correcto. Cero fricción, 100% pádel.
+            </li>
+            <li>
+              <strong>Experiencia Pro:</strong> Siéntete jugando un torneo profesional cada vez que entras a la cancha.
+            </li>
+            <li>
+              <strong>Enfócate en el Juego:</strong> Deja de usar energía mental en recordar el marcador y úsala para ganar el siguiente punto.
+            </li>
+          </ul>
+        </div>
 
-          /* CMO: Usar la pelota como viñeta */
-          .tab-pane li::before {
-            content: '';
-            position: absolute;
-            left: 5px;
-            top: 6px; /* Ajusta esto según el tamaño de tu texto */
-            width: 20px; /* Tamaño de la pelota */
-            height: 24px;
-            background-image: url('/img/pelota-padelboard.png'); /* <--- TU ARCHIVO */
-            background-size: contain;
-            background-repeat: no-repeat;
-          }
+      </div> 
+  </div> 
+</section>
 
-          .tab-pane li strong {
-            display: block;
-            font-size: 1.25rem;
-            font-weight: 800; /* Títulos de los puntos más fuertes */
-            color: var(--color-azul-claro);
-            margin-bottom: 6px;
-          }
-        
-          @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-          @media (max-width: 768px) {
-            .h2-titulo { font-size: 2rem; }
-            .tab-link { font-size: 0.95rem; padding: 12px 10px; }
-          }
-        </style>
+<style>
+  .propuesta-section {
+      padding: 80px 20px;
+      /* CAMBIO: Fondo oscuro para mantener la inmersión */
+      background-color: var(--color-azul-fondo); 
+      color: white;
+      /* Opcional: Un borde sutil arriba para separarlo de la sección anterior */
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
   
-  <script is:inline>
-    // Espera a que todo el contenido de la página esté cargado
-    document.addEventListener('DOMContentLoaded', () => {
-      // Selecciona todos los botones de pestaña
-      const tabLinks = document.querySelectorAll('.tab-link');
-      // Selecciona todos los paneles de contenido
-      const tabPanes = document.querySelectorAll('.tab-pane');
+  .container { 
+      max-width: 1100px;
+      margin: 0 auto; 
+  }
   
-      // Añade un "oyente" de clic a cada botón
-      tabLinks.forEach(link => {
-        link.addEventListener('click', () => {
-          // Obtiene el ID del panel que este botón debe mostrar
-          const tabId = link.getAttribute('data-tab');
+  .h2-titulo {
+      font-family: var(--fuente-titulos);
+      font-size: 3rem;
+      text-transform: uppercase;
+      text-align: center; 
+      margin-top: 0; 
+      margin-bottom: 50px;
+      color: var(--color-amarillo);
+      text-shadow: 0 5px 20px rgba(0,0,0,0.6);
+      letter-spacing: 1px;
+  }
+
+  /* --- ESTILOS DE PESTAÑAS (TABS) --- */
+  .tabs-wrapper { 
+      max-width: 800px;
+      margin: 0 auto; 
+  }
+
+  .tab-links {
+      display: flex;
+      /* CAMBIO: Borde inferior más sutil y transparente */
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1); 
+      margin-bottom: 30px;
+  }
+
+  .tab-link {
+      font-family: var(--fuente-cuerpo);
+      padding: 15px 24px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      font-weight: 400;
+      /* Texto inactivo en gris claro */
+      color: rgba(255, 255, 255, 0.5); 
+      position: relative;
+      top: 2px;
+      transition: all 0.3s ease;
+      flex: 1; /* Esto ayuda a distribuir espacio en móvil */
+  }
+
+  .tab-link:hover { 
+      color: white;
+  }
   
-          // 1. Quita la clase "active" de TODOS los botones
-          tabLinks.forEach(btn => btn.classList.remove('active'));
-          // 2. Quita la clase "active" de TODOS los paneles
-          tabPanes.forEach(pane => pane.classList.remove('active'));
-  
-          // 3. Añade la clase "active" SOLO al botón en el que hicimos clic
-          link.classList.add('active');
-          // 4. Añade la clase "active" SOLO al panel correspondiente
-          document.getElementById(tabId).classList.add('active');
-        });
+  /* ESTILO PESTAÑA ACTIVA */
+  .tab-link.active {
+      color: white;
+      font-weight: 700;
+      /* Borde inferior brillante */
+      border-bottom: 3px solid var(--color-azul-claro); 
+      /* Fondo degradado muy sutil */
+      background: linear-gradient(to top, rgba(255, 222, 89, 0.05), transparent);
+  }
+
+  /* --- CONTENIDO DE LAS PESTAÑAS --- */
+  .tab-pane { display: none; }
+  .tab-pane.active { display: block; animation: fadeIn 0.5s ease; }
+
+  .tab-pane ul {
+      list-style-type: none;
+      padding-left: 0;
+      margin: 0;
+  }
+
+  .tab-pane li {
+      font-family: var(--fuente-cuerpo);
+      font-size: 1.2rem;
+      line-height: 1.6;
+      margin-bottom: 30px;
+      padding-left: 45px; 
+      position: relative;
+      color: rgba(255, 255, 255, 0.9); /* Blanco casi puro */
+  }
+
+  /* La pelotita como viñeta */
+  .tab-pane li::before {
+      content: '';
+      position: absolute;
+      left: 12px;
+      top: 7px; 
+      width: 18px;
+      height: 18px;
+      background-image: url('/img/pelota-padelboard.png'); 
+      background-size: contain;
+      background-repeat: no-repeat;
+  }
+
+  /* Títulos de cada punto */
+  .tab-pane li strong {
+      display: block;
+      font-size: 1.3rem;
+      font-weight: 500; 
+      color: white;
+      margin-bottom: 5px;
+      font-family: var(--fuente-titulos); /* Usamos la fuente de títulos para dar fuerza */
+      letter-spacing: 0.5px;
+  }
+
+  @keyframes fadeIn { 
+      from { opacity: 0; transform: translateY(10px); } 
+      to { opacity: 1; transform: translateY(0); } 
+  }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 768px) {
+      .h2-titulo { font-size: 2.2rem; }
+      
+      .tab-link { 
+          font-size: 1rem; 
+          padding: 12px 10px;
+          white-space: normal; /* Asegura que el texto pueda bajar de línea */
+          line-height: 1.2;
+      }
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const tabLinks = document.querySelectorAll('.tab-link');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+
+    tabLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        const tabId = link.getAttribute('data-tab');
+
+        // Resetear todos
+        tabLinks.forEach(btn => btn.classList.remove('active'));
+        tabPanes.forEach(pane => pane.classList.remove('active'));
+
+        // Activar el seleccionado
+        link.classList.add('active');
+        const activePane = document.getElementById(tabId);
+        if(activePane) activePane.classList.add('active');
       });
     });
-  </script>
+  });
+</script>

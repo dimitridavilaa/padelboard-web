@@ -21,16 +21,16 @@
 
                 <div class="center-col">
                     <p class="main-desc">
-                        Los sensores PadelBoard son dispositivos alámbricos diseñados para pádel. Cada sensor detecta la pulsación del jugador garantizando una respuesta inmediata, sin retrasos y sin interferencias.
+                        Los sensores PadelBoard son dispositivos <strong>alámbricos</strong> diseñados para pádel. Cada sensor detecta la pulsación del jugador garantizando una respuesta inmediata, sin retrasos y sin interferencias.
                     </p>
                     
                     <h3 class="benefits-title">BENEFICIOS</h3>
                     
                     <ul class="benefits-list">
-                        <li>No existe el riesgo de que se apaguen en medio del partido.</li>
-                        <li>No necesitan cargarse nunca.</li>
-                        <li>La instalación se hace una sola vez.</li>
-                        <li>No se deteriora con el tiempo.</li>
+                        <li>- No existe el riesgo de que se apaguen en medio del partido.</li>
+                        <li>- No necesitan cargarse nunca.</li>
+                        <li>- La instalación se hace una sola vez.</li>
+                        <li>- No se deteriora con el tiempo.</li>
                     </ul>
                 </div>
 
@@ -100,7 +100,7 @@
         transform: translateY(-30px);
     }
   
-    /* --- FRANJA AZUL CENTRAL --- */
+    /* --- FRANJA CENTRAL --- */
     .blue-block-middle {
         position: relative;
         /* CAMBIO: Ya no usamos 100vw aquí para el contenido */
@@ -180,13 +180,18 @@
     .center-col {
         text-align: center;
         color: white;
-        padding: 0 40px; /* Aire a los lados del texto */
+        padding: 0 20px; /* Aire a los lados del texto */
     }
   
     .main-desc {
-        font-size: 1.1rem;
-        line-height: 1.5;
+        font-size: 1.2rem;
+        line-height: 1.4;
         margin-bottom: 20px;
+    }
+
+    /* Negritas dentro del texto */
+    .main-desc strong {
+      font-weight: bold;
     }
   
     .benefits-title {
@@ -205,7 +210,7 @@
   
     .benefits-list li {
         font-family: var(--fuente-cuerpo);
-        font-size: 1rem;
+        font-size: 1.2rem;
         margin-bottom: 8px;
         opacity: 0.9;
     }
@@ -240,21 +245,183 @@
         text-align: center;
     }
   
-    /* --- RESPONSIVE --- */
-    @media (max-width: 1024px) {
-        .main-title { font-size: 4rem; margin-bottom: 40px;}
-        .sensores-grid { grid-template-columns: 1fr; gap: 40px; }
+
+    /* --- OPTIMIZACIÓN MÓVIL --- */
+@media (max-width: 900px) {
+
+/* 0. RESETEO DE CAJA */
+.sensores-section, .sensores-section * { box-sizing: border-box; }
+
+/* 1. SECCIÓN CON FONDO COMPLETO */
+.sensores-section {
+    height: auto;
+    min-height: auto;
+    padding: 50px 0 50px 0;
+    position: relative; /* Vital para posicionar el bloque oscuro */
+    
+    /* IMAGEN DE FONDO (Visible en toda la sección) */
+    background-image: 
+        url('/img/sensores_bg.jpg');
+    /* Mantenemos tu zoom preferido o usamos cover */
+    background-size: 650px; 
+    background-position: center top;
+    background-repeat: repeat;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 2. EL BLOQUE "GLASS" (NEGRO TRANSPARENTE + BLUR) */
+/* Creamos una capa que empieza a mitad de la sección */
+.sensores-section::before {
+    content: '';
+    position: absolute;
+    
+    /* --- [CONTROL DE ALTURA] --- */
+    /* Ajusta este número para subir/bajar el inicio del bloque negro */
+    top: 225px; 
+    bottom: 85px;
+    
+    left: 0; 
+    width: 100%;
+    
+    /* LAS PROPIEDADES DE ESCRITORIO */
+    background-color: rgba(0, 0, 0, 0.6); /* Negro al 75% */
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px); /* Para que funcione en iPhone */
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.5); /* Sombra hacia arriba */
+    
+    z-index: 1; /* Se pone detrás del texto, pero encima de la foto */
+}
+
+/* 3. CONTENIDO (Z-INDEX PARA ESTAR SOBRE EL BLOQUE) */
+.relative-container {
+    width: 100%;
+    padding: 0;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative; 
+    z-index: 2; /* ¡IMPORTANTE! Texto encima del bloque glass */
+}
+
+/* 4. TÍTULO Y DESCRIPCIÓN (Zona Foto) */
+.main-title {
+    font-size: 4.1rem;
+    line-height: 1;
+    text-align: center;
+    width: 100%;
+    margin: 20px 0 100px 0;
+    /* Sombra fuerte para leerse sobre la foto clara */
+    text-shadow: 0 4px 15px rgba(0,0,0,0.9); 
+}
+
+.center-col {
+    order: 1; /* Sigue siendo el primero */
+    grid-column: span 2; /* TRUCO: Le decimos que ocupe las 2 columnas él solo */        
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    margin-bottom: 20px; /* Empujamos los sensores hacia abajo */
+}
+
+.main-desc {
+    text-align: center;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: white;
+    margin: 0 auto;
+    max-width: 390px;
+    /* Sombra para leerse sobre la foto */
+    text-shadow: 0 2px 8px rgba(0,0,0,0.9);
+    
+    /* EMPUJE: Esto separa la descripción de los Beneficios */
+    margin-bottom: 40px; 
+}
+
+/* 5. BENEFICIOS Y SENSORES (Zona Glass) */
+.blue-block-middle {
+    background: transparent;
+    padding: 0;
+    width: 100%;
+}
+.blue-block-middle::before { display: none; }
+
+.sensores-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 0;
+    align-items: start;
+    width: 100%;
+    gap: 15px;
+}
+
+.benefits-title {
+    text-align: center;
+    color: #FFDE59;
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+    width: 100%;
+    /* Ya no necesita sombra fuerte porque tiene fondo negro detrás */
+    text-shadow: none; 
+}
+
+.benefits-list {
+    padding: 0; margin: 0; list-style: none; text-align: center;
+}
+.benefits-list li {
+    margin-bottom: 10px;
+    color: rgba(255,255,255,0.95);
+    font-size: 1.1rem;
+}
+
+/* 6. TARJETAS */
+.side-col {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.side-col:nth-child(1) { order: 2; }
+.side-col:nth-child(3) { order: 3; }
+
+.side-col:nth-child(1)::after, .side-col:nth-child(3)::after {
+    font-family: var(--fuente-titulos);
+    font-size: 1.4rem;
+    margin-top: 10px;
+    display: block;
+    width: 100%;
+    text-align: center;
+    white-space: nowrap;
+    text-transform: uppercase;
+    text-shadow: 0 5px 10px rgba(0,0,0,0.8);
+}
+.side-col:nth-child(1)::after { content: "SUMA PUNTOS"; color: #FFDE59; }
+.side-col:nth-child(3)::after { content: "RESTA PUNTOS"; color: #FFDE59; }
+
+.sensor-card {
+    width: 100%; /* Ocupa todo el ancho de su columna */
+    max-width: 160px; /* Pero no te pases de 160px */
+    height: auto; 
+    aspect-ratio: 1 / 1; /* Mantiene la forma cuadrada automáticamente */
         
-        /* En tablet/móvil cambiamos el orden */
-        .center-col { order: -1; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px;}
-        
-        .bottom-titles {
-            flex-direction: column;
-            gap: 20px;
-            align-items: center;
-            margin-top: 40px;
-        }
-        
-        .action-title { width: auto; }
+    border-radius: 15px; /* Bordes un poco menos redondos para ahorrar espacio */
+    border: 1px solid rgba(255,255,255,0.3);
+    background: #000;
+    display: flex; justify-content: center; align-items: center; overflow: hidden;
     }
+.sensor-card img { width: 100%; height: 100%; object-fit: cover; }
+
+.sensor-text {
+    text-align: center;
+    margin-top: 5px;
+    max-width: 150px;
+}
+
+.bottom-titles { display: none; }
+}
   </style>

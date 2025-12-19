@@ -4,65 +4,115 @@
 
 <section id="app-web" class="app-split-section">
     
-    <div class="container app-content-wrapper">
+    <div class="diagonal-image-container">
+        <div class="image-inner"></div>
         
+        <h2 class="app-title-in-image">APP WEB</h2>
+    </div>
+
+    <div class="container app-content-wrapper">
         <div class="text-content">
-            <h2 class="app-title">APP WEB</h2>
             
             <div class="app-description">
                 <p>
-                    Configura tu partido al instante desde cualquier celular. Personaliza nombres, reglas, tipo de juego y más, todo desde una App Web sin descargas y diseñada para que juegues como un profesional.
-                </p>
-                <p>
-                    Accede a todas las configuraciones del partido de manera rápida y sencilla. Ajusta cada detalle del marcador, define tus reglas favoritas y disfruta de una experiencia única.
+                    Configura tu partido al instante desde cualquier celular. Personaliza:
                 </p>
                 
+                <ul class="app-list">
+                    <li>Nombres de jugadores</li>
+                    <li>Tipo de Juego</li>
+                    <li>Sistema de Puntuación</li>
+                    <li>Cambio de Lado</li>
+                    <li>¡Y más!</li>
+                </ul>
+
+                <p>
+                    Todo desde una App Web sin descargas y diseñada para que juegues como un profesional.
+                </p>
             </div>
+            
         </div>
-
-    </div>
-
-    <div class="diagonal-image-container">
-        <div class="image-inner"></div>
     </div>
 
 </section>
 
 <style>
+  /* --- 0. RESETEO DE CAJA --- */
+  .app-split-section, .app-split-section * {
+      box-sizing: border-box;
+  }
+
   /* --- SECCIÓN PRINCIPAL --- */
   .app-split-section {
       position: relative;
       width: 100%;
-      /* CAMBIO: Altura fija más controlada (NO 100vh) para que no sea tan alta */
-      height: 600px; 
-      
-      background-color: var(--color-azul-claro);
-      overflow: hidden; /* Corta lo que se salga */
+      height: 600px; /* Altura controlada en escritorio */
+      background-color: var(--color-azul-fondo);
+      overflow: hidden; 
       display: flex;
       align-items: center;
   }
 
+  /* --- BLOQUE DERECHO (IMAGEN + TÍTULO) --- */
+  .diagonal-image-container {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      width: 65%; 
+      z-index: 1;
+  }
+
+  /* LA FOTO DE FONDO */
+  .image-inner {
+      width: 100%;
+      height: 100%;
+      background-image: url('/img/appweb_bg.jpg');
+      background-size: cover;
+      
+      /* --- [AQUÍ MUEVES LA FOTO] --- 
+         El primer valor es Horizontal (0% izq, 100% der).
+         El segundo es Vertical (0% arriba, 100% abajo).
+         Juega con estos porcentajes: 
+      */
+      background-position: 50% 30%; 
+  }
+
+  /* EL TÍTULO FLOTANTE (Escritorio) */
+  .app-title-in-image {
+      position: absolute;
+      top: 40px; 
+      right: 40px; 
+      
+      font-family: var(--fuente-titulos);
+      font-size: 6rem;
+      color: var(--color-amarillo);
+      line-height: 1;
+      margin: 0;
+      text-transform: uppercase;
+    
+      text-shadow: 0 5px 20px rgba(0,0,0,0.6);
+      z-index: 2;
+      text-align: right;
+  }
+
+  /* --- BLOQUE IZQUIERDO (TEXTO) --- */
   .app-content-wrapper {
       position: relative;
-      z-index: 2; /* Texto encima de todo */
+      z-index: 2;
       height: 100%;
       display: flex;
       align-items: center;
+      width: 100%;
+      padding-left: 0;
   }
 
-  /* --- COLUMNA DE TEXTO (IZQUIERDA) --- */
   .text-content {
-      width: 45%; /* Ocupa menos de la mitad para no chocar con la diagonal */
+      width: 35%;
       padding-right: 20px;
-  }
-
-  .app-title {
-      font-family: var(--fuente-titulos); /* Anton */
-      font-size: 5rem;
-      color: white;
-      line-height: 1;
-      margin-bottom: 30px;
-      text-transform: uppercase;
+      margin-left: 0px;
+      position: relative;
+      z-index: 10;
   }
 
   .app-description p {
@@ -74,98 +124,140 @@
       text-align: left;
   }
 
-  .btn-black {
-      background-color: white;
-      color: #3b82f6;
-      font-family: var(--fuente-titulos);
-      font-size: 1.3rem;
-      padding: 10px 40px;
-      border-radius: 10px;
-      text-decoration: none;
-      display: inline-block;
-      margin-top: 10px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-      transition: transform 0.2s;
+  /* --- ESTILOS DE LA LISTA CON PELOTA --- */
+  .app-list {
+      list-style: none; /* Quitamos los puntos feos por defecto */
+      padding: 0;
+      margin: 20px 0; /* Espacio arriba y abajo de la lista */
+  }
+
+  .app-list li {
+      font-family: var(--fuente-cuerpo);
+      font-size: 1.3rem; /* Mismo tamaño que el párrafo */
+      color: white;
+      margin-bottom: 10px; /* Espacio entre items */
+      padding-left: 25px; /* Espacio para que quepa la pelota */
+      position: relative;
+      text-align: left;
+  }
+
+  /* La Pelotita (Pseudo-elemento) */
+  .app-list li::before {
+      content: '';
+      position: absolute;
+      left: 0px;
+      top: 6px; /* Ajuste fino vertical para alinear con el texto */
+      width: 13px; 
+      height: 13px;
+      background-image: url('/img/pelota-padelboard.png'); 
+      background-size: contain;
+      background-repeat: no-repeat;
   }
   
-  .btn-black:hover { transform: scale(1.05); }
+  /* Negritas dentro del texto */
+  .app-description strong, .app-list strong {
+      color: var(--color-amarillo);
+      font-weight: 700;
+  }
 
-  /* --- BLOQUE DERECHO (LA MAGIA DIAGONAL) --- */
-  .diagonal-image-container {
+  /* --- Degradado de fusión (Escritorio) --- */
+  .diagonal-image-container::after {
+      content: '';
       position: absolute;
-      top: 0;
-      bottom: 0;
-      right: 0;
-      
-      /* Ancho: un poco más de la mitad para que el corte quede bien */
-      width: 55%; 
-      
-      /* TRANSFORMACIÓN: Inclinamos el contenedor hacia la izquierda */
-      transform: skewX(12deg); 
-      
-      /* Ajuste de posición para cubrir bien el borde derecho tras la inclinación */
-      transform-origin: top right;
-      
-      overflow: hidden; /* Oculta la imagen que se sale al "des-inclinarla" */
-      z-index: 1;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 3;
+      background: linear-gradient(
+          to right, 
+          var(--color-azul-fondo) 10%, 
+          rgba(59, 130, 246, 0) 20%
+      );
   }
 
-  /* LA IMAGEN DENTRO DEL BLOQUE */
-  .image-inner {
-      width: 100%;
-      height: 100%;
-      
-      /* FOTO DE FONDO: Usa la foto del celular aquí */
-      background-image: url('/img/appweb_bg.jpg');
-      background-size: cover;
-      background-position: center;
-      
-      /* CONTRA-TRANSFORMACIÓN: "Enderezamos" la imagen para que no se vea torcida */
-      transform: skewX(-12deg) scale(1.2); 
-      transform-origin: center;
-  }
-
-  /* --- RESPONSIVE --- */
+  /* --- RESPONSIVE TABLET --- */
   @media (max-width: 1024px) {
-      .app-title { font-size: 4rem; }
-      .diagonal-image-container { width: 50%; } /* Menos ancho en tablet */
-      .text-content { width: 50%; }
+      .app-title-in-image { font-size: 4rem; right: 50px; }
+      .diagonal-image-container { width: 50%; } 
+      .text-content { width: 45%; }
   }
 
+  /* --- RESPONSIVE MÓVIL (DISEÑO VERTICAL) --- */
   @media (max-width: 900px) {
-      /* En móvil cambiamos a diseño vertical estándar */
+      
       .app-split-section {
-          height: auto; /* Altura automática */
-          flex-direction: column;
+          height: auto;
+          flex-direction: column; 
       }
 
+      /* 1. LA IMAGEN (ARRIBA) */
+      .diagonal-image-container {
+          position: relative;
+          width: 100%;
+          height: 450px; /* Altura en móvil */
+          transform: none;
+          border-left: none;
+          right: auto;
+          order: 1; 
+      }
+
+      .image-inner {
+          transform: none;
+          /* En móvil solemos querer centrarla, pero puedes ajustar esto también */
+          background-position: 60%; 
+      }
+
+      /* TÍTULO EN MÓVIL */
+      .app-title-in-image {
+          font-size: 4.1rem;
+          top: 30px;
+          right: 20px;
+          transform: none; 
+          text-align: right;
+          width: 95%; 
+      }
+
+      /* 2. EL TEXTO (ABAJO) */
       .app-content-wrapper {
-          padding: 60px 20px;
-          order: 1; /* Texto primero */
+          order: 2;
+          width: 100%;
+          padding: 30px 20px; 
+          justify-content: center;
+          margin: 0;
       }
 
       .text-content {
           width: 100%;
+          max-width: 500px; 
           text-align: center;
-          padding-right: 0;
+          padding-right: 0; 
+          padding-left: 0;
+          margin: 0 auto; 
       }
       
-      .app-description p { text-align: center; }
-
-      /* El bloque de imagen pasa a estar abajo, rectangular */
-      .diagonal-image-container {
-          position: relative;
-          order: 2; /* Imagen después */
-          width: 100%;
-          height: 400px; /* Altura de la foto en móvil */
-          transform: none; /* Quitamos la diagonal */
-          border-left: none;
-          right: auto;
+      .app-description p { 
+          text-align: center;
+          font-size: 1.15rem;
       }
 
-      .image-inner {
-          transform: none; /* Quitamos la contra-rotación */
-          background-position: center top;
+      /* Alineación de la lista en móvil */
+      .app-list {
+          display: inline-block; /* Truco para que la lista no se estire al 100% y quede fea */
+          text-align: left; /* El texto de la lista se lee mejor a la izquierda */
+          margin-top: 20px;
+          margin-bottom: 20px;
+      }
+      
+      .app-list li {
+          font-size: 1.1rem;
+      }
+
+      /* Dirección del degradado en móvil */
+      .diagonal-image-container::after {
+          background: linear-gradient(
+          to top, 
+          var(--color-azul-fondo) 0%, 
+          rgba(59, 130, 246, 0) 10%
+         );
       }
   }
 </style>

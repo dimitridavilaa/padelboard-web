@@ -18,7 +18,7 @@
         <div class="content-col">
           
           <h2 class="qs-title">
-            <img src="/img/pelota-padelboard.png" alt="Pelota PadelBoard" class="title-icon" /> ¿ QUIÉNES SOMOS ?
+            <img src="/img/pelota-padelboard.png" alt="Pelota PadelBoard" class="title-icon" /> ¿QUIÉNES SOMOS?
           </h2>
   
           <div class="info-layout">
@@ -137,9 +137,10 @@
     .title-icon {
       height: 35px; /* Ajusta este tamaño según lo grande que quieras la pelota */
       width: auto;
-      display: inline-block;
+      display: inline-block; /*inline-block;*/
       margin-right: 5px; /* Espacio entre la pelota y el texto */
       vertical-align: middle; /* Alinea la pelota con el centro del texto */
+    
     }
   
     .info-layout {
@@ -175,7 +176,7 @@
         display: block;
         color: var(--color-amarillo);
         font-family: var(--fuente-titulos);
-        font-size: 1.1rem;
+        font-size: 1.2rem;
         padding: 5px 0;
         letter-spacing: 2px;
         margin-top: 5px;
@@ -189,40 +190,122 @@
         color: white;
         text-align: justify;
     }
+
   
-    /* --- RESPONSIVE --- */
+    /* --- RESPONSIVE MÓVIL (CORREGIDO) --- */
     @media (max-width: 900px) {
+      
+      /* 1. AGREGAMOS MÁRGENES LATERALES */
+      .qs-section {
+          padding: 60px 20px; /* Reducimos altura vertical y damos aire a los lados */
+          background-attachment: scroll;
+          background-position: center top;
+      }
+
       .main-grid {
-          grid-template-columns: 1fr;
-          text-align: center;
-      }
-  
-      .image-col {
-          height: 400px; /* Video un poco más corto en móvil */
-          order: -1;
-      }
-  
-      .qs-title {
-          justify-content: center;
-          font-size: 2.5rem;
-      }
-  
-      .info-layout {
-          grid-template-columns: 1fr;
+          display: flex;
+          flex-direction: column;
           gap: 30px;
       }
   
-      .features-stack {
-          flex-direction: row;
-          justify-content: center;
+      /* 2. VIDEO MÁS COMPACTO */
+      .image-col {
+          height: 300px; /* Antes 400px (muy alto). 250px es ideal para formato panorámico en móvil */
+          order: -1; /* Mantiene el video arriba */
+          border-radius: 20px;
       }
-      
-      .feature-card {
-          width: 30%;
+
+        /* 1. EL TÍTULO (CON TRUCO DE INVERSIÓN) */
+        .qs-title {
+            display: flex;
+            /* column-reverse: Pone el texto ARRIBA y la imagen ABAJO */
+            flex-direction: column-reverse; 
+            align-items: center; /* Centrado horizontal */
+            justify-content: center;
+            font-size: 3rem;
+            margin-bottom: 5px; /* Espacio debajo de la pelotita */
+            white-space: nowrap; 
+            gap: 25px; /* Espacio entre el texto y la pelotita */
+        }
+        
+        /* 2. LA PELOTITA (Ajuste individual) */
+        .title-icon {
+            height: 30px; /* Un poquito más grande para que luzca sola */
+            width: auto;
+            margin-right: 0; /* Quitamos el margen lateral que tenía en PC */
+
+            /* Opcional: una animación suave flotante */
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        /* Animación flotante opcional (agrégala si quieres que se mueva bonito) */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
+        }
+  
+      .info-layout {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
       }
-      
-      .text-stack p {
-          text-align: left;
-      }
+  
+      /* 1. EL TEXTO PASA A PRIMER LUGAR */
+      .text-stack {
+            order: 1; /* ¡Aquí ocurre la magia! */
+        }
+        
+        .text-stack p {
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        /* 2. LOS ICONOS PASAN AL FINAL (SEGUNDO LUGAR) */
+        .features-stack {
+            order: 2; /* Se va al fondo */
+            
+            display: flex;
+            flex-direction: row; /* En fila horizontal */
+            justify-content: center; /* Centrados */
+            gap: 35px;
+        }
+
+        .feature-card {
+            width: auto; /* Que ocupen lo necesario */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        /* Ajustamos tamaño de iconos para móvil */
+        .feat-img-box {
+            width: 100%;
+            max-width: 80px;
+            height: 75px;
+            margin-bottom: 5px;
+            overflow: visible;
+        }
+
+        .feat-img-box img {
+           width: 100%;
+           height: 100%;
+           object-fit: cover; 
+        }
+        /* selecciona SOLO al segundo elemento (Sensores) */
+        .feature-card:nth-child(2) .feat-img-box img {
+            object-fit: contain; /* Este sí se ajusta para no cortarse */
+            transform: scale(1.3); /* Truco Pro: Lo agrandamos un poquito (30%) para compensar */
+        }
+        .feature-card:nth-child(1) .feat-img-box img {
+            transform: scale(1.1); /* Truco Pro: Lo agrandamos un poquito (10%) para compensar */
+        }
+        .feature-card:nth-child(3) .feat-img-box img {
+            transform: scale(0.9); /* Truco Pro: Lo agrandamos un poquito (10%) para compensar */
+        }
+
+        .feat-label {
+            font-size: 1.1rem;
+        }
     }
   </style>

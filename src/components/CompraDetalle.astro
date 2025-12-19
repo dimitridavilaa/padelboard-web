@@ -113,19 +113,57 @@
         </div>
 
     </div>
+
+    <div id="checkout-modal" class="modal-overlay hidden">
+        <div class="modal-content fade-up">
+            <button id="close-modal" class="close-btn">&times;</button>
+            
+            <div class="modal-header">
+                <h3>RESUMEN DE TU PEDIDO</h3>
+                <p>Confirma los detalles antes de contactar a un asesor.</p>
+            </div>
+    
+            <div class="order-summary">
+                <div class="summary-row">
+                    <span>Producto:</span>
+                    <strong>Marcador PadelBoard</strong>
+                </div>
+                <div class="summary-row">
+                    <span>Cantidad:</span>
+                    <strong id="modal-qty">1</strong>
+                </div>
+                <div class="summary-row total">
+                    <span>Total Estimado:</span>
+                    <strong id="modal-total">$999.00 USD</strong>
+                </div>
+            </div>
+    
+            <form id="checkout-form" class="checkout-form">
+                <label>Tu Nombre Completo</label>
+                <input type="text" id="client-name" placeholder="Ej. Juan Pérez" required>
+                
+                <label>Nombre de tu Club / Empresa</label>
+                <input type="text" id="client-company" placeholder="Ej. Padel Center" required>
+    
+                <button type="submit" class="btn-confirm">
+                    CONFIRMAR Y SOLICITAR EN WHATSAPP
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20" style="margin-left:8px">
+                </button>
+            </form>
+            
+            <p class="secure-note">🔒 Tus datos se enviarán encriptados al chat de ventas.</p>
+        </div>
+    </div> 593987225485
+
 </section>
 
 <script>
     // 1. CONFIGURACIÓN
-    // Pon aquí tu número de WhatsApp real (con código de país, sin +)
-    const WHATSAPP_NUMBER = "593987225485"; 
-    
-    // Precios
+    const WHATSAPP_NUMBER = "593987225485"; // TU NÚMERO
     const PRICE_BASE = 999;
-    const PRICE_DISCOUNT = 899; // Precio si compra 3 o más
-    const PLAN_PRICE = 25;      // Precio del plan mensual
+    const PRICE_DISCOUNT = 899;
 
-    // 2. ELEMENTOS DEL DOM
+    // 2. ELEMENTOS (Usamos "as HTMLElement" para evitar errores de null)
     const minusBtn = document.getElementById('btn-minus');
     const plusBtn = document.getElementById('btn-plus');
     const input = document.getElementById('qty-input') as HTMLInputElement;
@@ -133,73 +171,114 @@
     const btnPay = document.getElementById('btn-pay');
     const btnAdd = document.getElementById('btn-add');
 
-    // 3. FUNCIÓN PARA ACTUALIZAR PRECIOS
-    function updatePrice() {
-        if (!input || !priceDisplay) return;
+    // Elementos del Modal
+    const modal = document.getElementById('checkout-modal') as HTMLElement;
+    const closeModal = document.getElementById('close-modal');
+    const modalQty = document.getElementById('modal-qty');
+    const modalTotal = document.getElementById('modal-total');
+    const checkoutForm = document.getElementById('checkout-form');
+    const clientName = document.getElementById('client-name') as HTMLInputElement;
+    const clientCompany = document.getElementById('client-company') as HTMLInputElement;
 
-        let qty = parseInt(input.value) || 1;
-        
-        // Lógica de descuento: Si son 3 o más, precio baja
-        let unitPrice = (qty >= 3) ? PRICE_DISCOUNT : PRICE_BASE;
-        let totalHardware = unitPrice * qty;
-
-        // Actualizamos el texto en pantalla visualmente
-        // Si hay descuento, mostramos el precio unitario nuevo
-        priceDisplay.innerText = `$${unitPrice}.00 USD`;
-        
-        // Opcional: Si quieres mostrar el TOTAL acumulado en vez del unitario, 
-        // cambia la línea de arriba por: priceDisplay.innerText = `$${totalHardware}.00 USD`;
-    }
-
-    // 4. FUNCIÓN PARA ENVIAR A WHATSAPP
-    function sendToWhatsapp() {
-        if (!input) return;
+    // 3. CALCULAR PRECIOS
+    function getPriceData() {
         let qty = parseInt(input.value) || 1;
         let unitPrice = (qty >= 3) ? PRICE_DISCOUNT : PRICE_BASE;
         let total = unitPrice * qty;
-
-        // Creamos el mensaje
-        let message = `Hola Padel Board, estoy interesado en realizar una compra:%0A` +
-                      `%0A🎾 *Producto:* Marcador PadelBoard` +
-                      `%0A🔢 *Cantidad:* ${qty} unidades` +
-                      `%0A💲 *Precio Unitario:* $${unitPrice}` +
-                      `%0A💰 *TOTAL HARDWARE:* $${total} USD` +
-                      `%0A📅 *Plan Mensual:* $25.00/mes` +
-                      `%0A%0AQuisiera coordinar el pago y envío.`;
-
-        // Abrimos WhatsApp
-        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
+        return { qty, unitPrice, total };
     }
 
-    // 5. EVENT LISTENERS (Escuchadores)
+    function updatePriceDisplay() {
+        if (!input || !priceDisplay) return;
+        const { unitPrice } = getPriceData();
+        priceDisplay.innerText = `$${unitPrice}.00 USD`;
+    }
+
+    // 4. ABRIR MODAL (Agregamos el tipo ": Event" aquí)
+    function openModal(e: Event) {
+        e.preventDefault(); 
+        const { qty, total } = getPriceData();
+        
+        // Actualizamos los datos dentro del modal
+        if(modalQty) modalQty.innerText = qty.toString();
+        if(modalTotal) modalTotal.innerText = `$${total}.00 USD`;
+        
+        // Mostramos el modal (TypeScript ya sabe que 'modal' existe gracias al "as HTMLElement")
+        modal.classList.remove('hidden');
+    }
+
+    // 5. ENVIAR A WHATSAPP (Agregamos el tipo ": Event" aquí)
+    function sendToWhatsapp(e: Event) {
+        e.preventDefault(); 
+        
+        const { qty, unitPrice, total } = getPriceData();
+        const name = clientName ? clientName.value : "";
+        const company = clientCompany ? clientCompany.value : "";
+
+        if(!name || !company) {
+            alert("Por favor completa tu nombre y empresa");
+            return;
+        }
+
+        let rawMessage = `*NUEVO PEDIDO WEB - PADEL BOARD* 🚀\n\n` +
+                      `👤 *Cliente:* ${name}\n` +
+                      `🏢 *Club/Empresa:* ${company}\n\n` +
+                      `📝 *DETALLE DEL PEDIDO:*\n` +
+                      `--------------------------------\n` +
+                      `🎾 Producto: Marcador PadelBoard\n` +
+                      `🔢 Cantidad: ${qty}\n` +
+                      `💲 Precio Unitario: $${unitPrice}\n` +
+                      `💰 *TOTAL A PAGAR: $${total} USD*\n` +
+                      `--------------------------------\n` +
+                      `📅 Plan Mensual: $25.00/mes\n\n` +
+                      `Quedo a la espera de los datos bancarios para realizar el pago.`;
+
+        let encodedMessage = encodeURIComponent(rawMessage);
+        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank');
+        
+        if(modal) modal.classList.add('hidden');
+    }
+
+    // 6. EVENT LISTENERS
     if(minusBtn && plusBtn && input) {
         plusBtn.addEventListener('click', () => {
             let val = parseInt(input.value) || 0;
             input.value = (val + 1).toString();
-            updatePrice(); // Actualizar precio al cambiar
+            updatePriceDisplay();
         });
 
         minusBtn.addEventListener('click', () => {
             let val = parseInt(input.value) || 0;
             if (val > 1) {
                 input.value = (val - 1).toString();
-                updatePrice(); // Actualizar precio al cambiar
+                updatePriceDisplay();
             }
         });
 
         input.addEventListener('change', () => {
             let val = parseInt(input.value) || 1;
             if (val < 1) input.value = "1";
-            updatePrice(); // Actualizar precio al escribir
+            updatePriceDisplay();
         });
         
-        // Conectar botones a la acción
-        if (btnPay) btnPay.addEventListener('click', sendToWhatsapp);
-        if (btnAdd) btnAdd.addEventListener('click', sendToWhatsapp);
+        // Botones principales abren el modal
+        if (btnPay) btnPay.addEventListener('click', openModal);
+        if (btnAdd) btnAdd.addEventListener('click', openModal);
+
+        // Acciones del Modal
+        if (closeModal) closeModal.addEventListener('click', () => modal.classList.add('hidden'));
+        if (checkoutForm) checkoutForm.addEventListener('submit', sendToWhatsapp);
+        
+        // Cerrar si clic afuera
+        if (modal) {
+            modal.addEventListener('click', (e: Event) => {
+                if (e.target === modal) modal.classList.add('hidden');
+            });
+        }
     }
     
-    // Inicializar precio al cargar
-    updatePrice();
+    // Inicializar
+    updatePriceDisplay();
 </script>
 
 <style>
@@ -561,4 +640,120 @@
             font-weight: bold;
         }
     }
+
+    /* --- ESTILOS DEL MODAL DE CHECKOUT --- */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(4, 19, 62, 0.85); /* Fondo azul oscuro semitransparente */
+    backdrop-filter: blur(5px); /* Efecto borroso moderno */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.hidden {
+    opacity: 0;
+    pointer-events: none; /* No se puede hacer clic si está oculto */
+}
+
+.modal-content {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 450px;
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    text-align: center;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px; right: 20px;
+    background: none; border: none;
+    font-size: 2rem; cursor: pointer;
+    color: #666;
+}
+
+.modal-header h3 {
+    font-family: var(--fuente-titulos);
+    color: var(--color-azul-fondo);
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+}
+
+.order-summary {
+    background: #f4f6f9;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+    text-align: left;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.summary-row.total {
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+    color: var(--color-azul-fondo);
+    font-size: 1.2rem;
+}
+
+/* Formulario */
+.checkout-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: left;
+}
+
+.checkout-form label {
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.checkout-form input {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: var(--fuente-cuerpo);
+    font-size: 1rem;
+}
+
+.btn-confirm {
+    background-color: #25D366; /* Color WhatsApp */
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    transition: transform 0.2s;
+}
+
+.btn-confirm:hover {
+    transform: scale(1.02);
+    background-color: #1ebc57;
+}
+
+.secure-note {
+    font-size: 0.75rem;
+    color: #999;
+    margin-top: 20px;
+}
 </style>
