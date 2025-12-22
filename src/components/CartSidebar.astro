@@ -1,0 +1,193 @@
+---
+// src/components/CartSidebar.astro
+---
+
+<div id="cart-overlay" class="cart-overlay hidden"></div>
+
+<aside id="cart-sidebar" class="cart-sidebar hidden">
+    <div class="cart-header">
+        <h3>TU PEDIDO</h3>
+        <button id="close-cart-btn">&times;</button>
+    </div>
+
+    <div id="cart-items-container" class="cart-body">
+        <p class="empty-msg">Tu carrito está vacío.</p>
+    </div>
+
+    <div class="cart-footer">
+        <div class="total-row">
+            <span>Total:</span>
+            <strong id="cart-total-price">$0.00 USD</strong>
+        </div>
+        <button id="checkout-whatsapp-btn" class="btn-checkout">
+            FINALIZAR PEDIDO EN WHATSAPP
+        </button>
+    </div>
+</aside>
+
+<script>
+    import { cartItems, isCartOpen, removeFromCart, toggleCart } from '../store/cart.js';
+
+    // 1. DEFINIR TIPOS (Para que TypeScript no se queje)
+    interface CartItem {
+        id: string;
+        name: string;
+        price: number;
+        quantity: number;
+    }
+
+    // 2. OBTENER ELEMENTOS CON TIPADO SEGURO
+    // Usamos "as HTMLElement" para prometerle al código que el elemento existe
+    const overlay = document.getElementById('cart-overlay') as HTMLElement;
+    const sidebar = document.getElementById('cart-sidebar') as HTMLElement;
+    const closeBtn = document.getElementById('close-cart-btn') as HTMLButtonElement;
+    const container = document.getElementById('cart-items-container') as HTMLElement;
+    const totalDisplay = document.getElementById('cart-total-price') as HTMLElement;
+    const checkoutBtn = document.getElementById('checkout-whatsapp-btn') as HTMLButtonElement;
+
+    // 3. LOGICA VISUAL (ABRIR/CERRAR)
+    isCartOpen.subscribe(state => {
+        if (!overlay || !sidebar) return;
+
+        // Ahora 'state.isOpen' es un booleano real (true/false), no el texto 'true'
+        if (state.isOpen) {
+            overlay.classList.remove('hidden');
+            sidebar.classList.remove('hidden');
+        } else {
+            overlay.classList.add('hidden');
+            sidebar.classList.add('hidden');
+        }
+    });
+
+    // Cerrar carrito
+    if(closeBtn) closeBtn.addEventListener('click', () => toggleCart(false));
+    if(overlay) overlay.addEventListener('click', () => toggleCart(false));
+
+    // 4. PINTAR PRODUCTOS
+    cartItems.subscribe((items: Record<string, CartItem>) => {
+        if (!container || !checkoutBtn || !totalDisplay) return;
+
+        const products = Object.values(items).filter(i => i !== undefined) as CartItem[];
+        
+        container.innerHTML = '';
+        let total = 0;
+
+        if (products.length === 0) {
+            container.innerHTML = '<p class="empty-msg">Tu carrito está vacío 🎾</p>';
+            checkoutBtn.disabled = true;
+            checkoutBtn.style.opacity = '0.5';
+            totalDisplay.innerText = `$0.00 USD`;
+        } else {
+            checkoutBtn.disabled = false;
+            checkoutBtn.style.opacity = '1';
+
+            products.forEach((item: CartItem) => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+
+                const div = document.createElement('div');
+                div.classList.add('cart-item');
+                div.innerHTML = `
+                    <div class="item-info">
+                        <h4>${item.name}</h4>
+                        <p>${item.quantity} x $${item.price}</p>
+                    </div>
+                    <div class="item-actions">
+                        <span>$${itemTotal}</span>
+                        <button class="btn-remove" data-id="${item.id}">🗑️</button>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+
+            // Re-conectar botones de eliminar
+            document.querySelectorAll('.btn-remove').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const target = e.target as HTMLElement;
+                    const id = target.getAttribute('data-id');
+                    if(id) removeFromCart(id);
+                });
+            });
+            
+            totalDisplay.innerText = `$${total}.00 USD`;
+        }
+    });
+
+    // 5. ENVIAR A WHATSAPP
+    if(checkoutBtn) {
+        checkoutBtn.addEventListener('click', () => {
+            const itemsMap = cartItems.get() as Record<string, CartItem>;
+            const items = Object.values(itemsMap).filter(i => i !== undefined);
+            
+            if(items.length === 0) return;
+
+            let message = "*HOLA! QUIERO REALIZAR UN PEDIDO WEB* 🚀\n\n";
+            let total = 0;
+
+            items.forEach((item) => {
+                const subtotal = item.price * item.quantity;
+                total += subtotal;
+                message += `🎾 *${item.name}*\n   Cant: ${item.quantity} | Sub: $${subtotal}\n`;
+            });
+
+            message += `\n💰 *TOTAL FINAL: $${total} USD*`;
+            message += `\n\nQuedo a la espera de los datos de pago.`;
+
+            const phone = "593987225485"; // TU NUMERO
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
+        });
+    }
+</script>
+
+<style>
+    /* ESTILOS DEL CARRITO LATERAL */
+    .cart-overlay {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.5); z-index: 998;
+        backdrop-filter: blur(2px);
+    }
+    .cart-sidebar {
+        position: fixed; top: 0; right: 0; width: 350px; height: 100%;
+        background: #04133E; color: white; z-index: 999;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+        display: flex; flex-direction: column;
+        transition: transform 0.3s ease;
+    }
+    
+    /* Animación de entrada/salida */
+    .cart-sidebar.hidden { transform: translateX(100%); }
+    .cart-overlay.hidden { display: none; }
+
+    .cart-header {
+        padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.1);
+        display: flex; justify-content: space-between; align-items: center;
+    }
+    .cart-header h3 { margin: 0; font-family: var(--fuente-titulos); }
+    #close-cart-btn { background: none; border: none; color: white; font-size: 2rem; cursor: pointer; }
+
+    .cart-body { flex: 1; padding: 20px; overflow-y: auto; }
+    .empty-msg { text-align: center; color: #888; margin-top: 50px; }
+
+    .cart-item {
+        display: flex; justify-content: space-between; align-items: center;
+        background: rgba(255,255,255,0.05); padding: 15px;
+        border-radius: 10px; margin-bottom: 10px;
+    }
+    .item-info h4 { margin: 0 0 5px 0; font-size: 0.9rem; }
+    .item-info p { margin: 0; font-size: 0.8rem; color: #ccc; }
+    .btn-remove { background: none; border: none; cursor: pointer; font-size: 1.2rem; }
+
+    .cart-footer { padding: 20px; background: rgba(0,0,0,0.2); }
+    .total-row { display: flex; justify-content: space-between; font-size: 1.2rem; margin-bottom: 15px; }
+    
+    .btn-checkout {
+        width: 100%; padding: 15px; background: #25D366; color: white;
+        border: none; border-radius: 50px; font-weight: bold; cursor: pointer;
+    }
+    .btn-checkout:hover { background: #1ebc57; }
+
+    /* MÓVIL */
+    @media (max-width: 500px) {
+        .cart-sidebar { width: 100%; }
+    }
+</style>

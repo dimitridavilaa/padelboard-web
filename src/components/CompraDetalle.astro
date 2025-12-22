@@ -158,6 +158,8 @@
 </section>
 
 <script>
+    import { addToCart } from '../store/cart.js';
+
     // 1. CONFIGURACIÓN
     const WHATSAPP_NUMBER = "593987225485"; // TU NÚMERO
     const PRICE_BASE = 999;
@@ -263,7 +265,27 @@
         
         // Botones principales abren el modal
         if (btnPay) btnPay.addEventListener('click', openModal);
-        if (btnAdd) btnAdd.addEventListener('click', openModal);
+    
+        if (btnAdd) {
+            btnAdd.addEventListener('click', (e) => {
+                e.preventDefault(); // Evita saltos raros
+                
+                // Obtenemos los datos actuales (cantidad y precio según descuento)
+                const { qty, unitPrice } = getPriceData();
+                
+                // Creamos el objeto producto
+                const product = {
+                    id: 'marcador-padelboard', // ID único
+                    name: 'Marcador PadelBoard',
+                    price: unitPrice,
+                    quantity: qty,
+                    image: '/img/formulario.jpg' // Opcional: para que se vea bonito si mejoras el sidebar luego
+                };
+
+                // ¡Al carrito! (Esto abrirá el sidebar automáticamente)
+                addToCart(product);
+            });
+        }
 
         // Acciones del Modal
         if (closeModal) closeModal.addEventListener('click', () => modal.classList.add('hidden'));
@@ -295,11 +317,13 @@
     }
 
     .card {
-        background: white;
+        background-color: rgba(12, 18, 35, 0.55); /* Azul muy transparente */
+        backdrop-filter: blur(3px); /* Efecto borroso detrás */
+        -webkit-backdrop-filter: blur(3px); /* Soporte para Safari */
         border-radius: 30px;
         padding: 40px;
         margin-bottom: 30px;
-        color: #000;
+        color: white;
         /* SOLUCIÓN 1: Esto evita que nada se salga de los bordes redondeados */
         overflow: hidden; 
         box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* Un poco de sombra para profundidad */
@@ -327,14 +351,14 @@
         margin-bottom: 20px;
         text-transform: uppercase;
         line-height: 1;
-        color: #000
+        color: var(--color-amarillo)
     }
 
     .description {
         font-size: 0.95rem;
         line-height: 1.5;
         margin-bottom: 20px;
-        color: #333;
+        color: white;
     }
 
     /* Lista con iconos amarillos */
@@ -372,7 +396,7 @@
     .disclaimer {
         font-size: 0.75rem;
         font-style: italic;
-        color: #666;
+        color: #c2c2c2;
         margin-bottom: 20px;
     }
 
@@ -387,7 +411,7 @@
     }
     .tax {
         font-size: 0.8rem;
-        color: #666;
+        color: #c2c2c2;
         font-weight: bold;
     }
 
@@ -552,6 +576,7 @@
 
     .plan-title h2 {
         font-family: var(--fuente-titulos);
+        color: var(--color-amarillo);
         margin: 0;
         font-size: 1.8rem;
         line-height: 1;
@@ -562,17 +587,16 @@
         flex: 1;
         font-size: 0.9rem;
         line-height: 1.4;
-        color: #444;
+        color: white;
     }
 
     .plan-price-tag {
         background-color: transparent; /* Quitamos el fondo sólido */
-        color: var(--color-azul-claro); /* Texto del color de la marca */
-        border: 2px solid var(--color-azul-claro); /* Borde sólido */
-        padding: 6px 18px; /* Un poco más compacto */
-        border-radius: 50px;
+        color: var(--color-amarillo); /* Texto del color de la marca */
+        text-shadow:  0 4px 10px rgba(0,0,0,0.3);
+        padding: 6px 5px; /* Un poco más compacto */
         font-weight: 800; /* Más negrita para que se lea bien */
-        font-size: 1.4rem;
+        font-size: 2rem;
         white-space: nowrap;
         display: inline-block; /* Asegura que se comporte bien */
         margin-top: 10px; /* Separación visual del texto */
@@ -593,12 +617,12 @@
         display: flex;
         align-items: center;
         font-size: 0.95rem;
-        color: #000;
+        color: white;
     }
 
     .feature-text {
         font-size: 0.9rem;
-        color: #555;
+        color: whitesmoke;
     }
 
     hr {
