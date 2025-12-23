@@ -1,0 +1,252 @@
+---
+// src/components/ComoFunciona.astro
+---
+
+<section id="como-funciona" class="cf-section">
+  <div class="container fade-up">
+    <h2 class="section-title">¿HOW IT WORKS?</h2>
+
+    <div class="steps-grid">
+      
+      <div class="step-card">
+        <div class="step-header">
+            <span class="step-number">01</span>
+            <h3 class="step-title">SCAN THE QR</h3>
+        </div>
+        <p class="step-desc">
+            When entering the court, scan the QR code with your phone. This takes you directly to our Web App.
+        </p>
+        <div class="step-image">
+            <img src="/img/paso1_qr.jpg" alt="Scan QR" />
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-header">
+            <span class="step-number">02</span>
+            <h3 class="step-title">SETUP IN 15S</h3>
+        </div>
+        <p class="step-desc">
+          The App allows you to enter player names, choose match rules, and hit "Start Match".
+      </p>
+        <div class="step-image">
+            <img src="/img/paso2_app.jpg" alt="Setup the match in the App" />
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-header">
+            <span class="step-number">03</span>
+            <h3 class="step-title">PLAY LIVE</h3>
+        </div>
+        <p class="step-desc">
+          The display shows player names and the score in real-time. Visible for players and the audience.
+      </p>
+        <div class="step-image">
+            <img src="/img/paso3_tv.jpg" alt="Live score in the display" />
+        </div>
+      </div>
+      
+      <div class="step-card">
+        <div class="step-header">
+            <span class="step-number">04</span>
+            <h3 class="step-title">TOUCH AND SCORE</h3>
+        </div>
+        <p class="step-desc">
+          Point? Touch the PadelBoard sensor with your hand, and the scoreboard updates instantly. Zero friction.
+      </p>
+        <div class="step-image">
+            <img src="/img/paso4_sensor.jpg" alt="Touch the sensor" />
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .cf-section {
+    padding: 100px 0;
+    background-image:
+      /*Filtro azul oscuro (85% opacidad) para que el texto blanco se lea bien */
+      linear-gradient(rgba(4, 19, 62, 0.6), rgba(4, 19, 62, 0.6)),
+      url('/img/padelboard_fondo.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;
+  }
+
+  .section-title {
+    font-family: var(--fuente-titulos); /* Anton */
+    font-size: 4.5rem;
+    color: var(--color-amarillo);
+    text-shadow: 0 5px 20px rgba(0,0,0,0.6);
+    text-align: center;
+    margin-bottom: 60px;
+    letter-spacing: 2px;
+  }
+
+  /* --- GRID DE 4 COLUMNAS --- */
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columnas iguales */
+    gap: 30px;
+    align-items: start; /* Alineación superior */
+  }
+
+  .step-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Números y Títulos */
+  .step-number {
+    font-family: var(--fuente-titulos);
+    font-size: 4rem; /* Número grande */
+    color: var(--color-amarillo);
+    line-height: 1;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .step-title {
+    font-family: var(--fuente-titulos);
+    font-size: 1.8rem; /* Título mediano */
+    color: var(--color-amarillo);
+    margin-bottom: 20px;
+    line-height: 1.1;
+  }
+
+  .step-desc {
+    font-family: var(--fuente-cuerpo); /* Outfit */
+    font-size: 1rem;
+    line-height: 1.5;
+    color: white;
+    margin-bottom: 30px;
+    min-height: 80px; /* Para que todos los textos ocupen similar altura */
+  }
+
+  /* Imágenes de los pasos */
+  .step-image {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Cuadrado perfecto */
+    overflow: hidden;
+    border-radius: 20px; /* Bordes redondeados como en la foto */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+  }
+
+  .step-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .step-card:hover .step-image {
+      transform: translateY(-5px); /* Pequeño efecto al pasar el mouse */
+  }
+
+  /* --- RESPONSIVE (TABLETS) --- */
+  @media (max-width: 1024px) {
+    .steps-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas en tablets */
+        gap: 40px;
+    }
+  }
+
+  /* --- RESPONSIVE (MÓVIL - CARRUSEL SWIPE) --- */
+  @media (max-width: 900px) {
+    .cf-section {
+        padding: 60px 0; /* Menos relleno vertical */
+        background-attachment: scroll;
+    }
+
+    .section-title {
+        font-size:2.65rem;
+        margin-bottom: 40px;
+        padding: 0px 0px; /* Para que no pegue a los bordes */
+    }
+
+    .steps-grid {
+        /* MAGIA: Convertimos el Grid en un Flex con Scroll */
+        display: flex;
+        overflow-x: auto; /* Permite deslizar horizontalmente */
+        scroll-snap-type: x mandatory; /* "Imán" que centra la tarjeta al soltar */
+        gap: 20px;
+        padding: 0 20px 40px 20px; /* Relleno a los lados y abajo para scrollbar */
+        
+        /* Ocultar barra de scroll fea en Chrome/Safari */
+        scrollbar-width: none; 
+        -ms-overflow-style: none;
+    }
+    
+    .steps-grid::-webkit-scrollbar { 
+        display: none; 
+    }
+
+    .step-card {
+        /* Tamaño fijo para activar el scroll */
+        min-width: 85%; /* Muestra un poquito de la siguiente carta para invitar a deslizar */
+        scroll-snap-align: center; /* La tarjeta siempre se centra */
+        background: rgba(0,0,0,0.3); /* Un fondo sutil para leer mejor */
+        padding: 20px;
+        border-radius: 20px;
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* Ajustamos la imagen para que no sea tan alta en móvil */
+    .step-image {
+        aspect-ratio: 1 / 1; /* Más panorámica, menos cuadrada */
+        height: 230px; /* Altura controlada */
+    }
+    
+    .step-desc {
+        font-size: 1.1rem; /* Texto legible */
+        min-height: auto; /* Quitamos altura mínima forzada */
+        margin-bottom: 20px;
+    }
+
+    /* --- FLECHA ENTRE PASOS (MOBILE) --- */
+    
+    /* 1. Habilitamos posicionamiento relativo en la tarjeta para pegar la flecha */
+    .step-card {
+        position: relative; 
+        overflow: visible; /* Importante para que la flecha se vea fuera de la caja */
+    }
+
+    /* 2. Dibujamos la flecha usando ::after */
+    .step-card::after {
+        content: '>'; /* El símbolo */
+        position: absolute;
+        
+        /* Posición: A la derecha y centrada verticalmente */
+        right: -14px; /* La movemos al hueco (gap) entre tarjetas */
+        top: 50%;
+        transform: translateY(-50%);
+        
+        /* Estilo visual */
+        font-family: var(--fuente-titulos);
+        font-size: 2rem;
+        color: var(--color-amarillo);
+        font-weight: bold;
+        
+        /* Animación para que "reboten" */
+        animation: flecha-rebote 1.5s infinite ease-in-out;
+        pointer-events: none; /* Para que no interfiera con el dedo al deslizar */
+    }
+
+    /* 3. Ocultamos la flecha en la ÚLTIMA tarjeta (porque no hay paso 5) */
+    .step-card:last-child::after {
+        display: none;
+    }
+
+    /* 4. Definimos la animación de rebote */
+    @keyframes flecha-rebote {
+        0%, 100% { transform: translateY(-50%) translateX(0); }
+        50% { transform: translateY(-50%) translateX(3px); }
+    }
+  }
+</style>

@@ -1,0 +1,290 @@
+---
+// src/components/Pantalla.astro
+---
+
+<section id="pantalla" class="pantalla-full-section">
+
+    <div class="blue-overlay-fixed"></div>
+    
+    <div class="content-wrapper">
+        
+        <div class="title-container">
+            <h2 class="main-title">43” DISPLAY</h2>
+        </div>
+
+        <div class="info-panel-blue">
+            
+            <div class="features-list">
+                
+                <div class="feature-row">
+                    <h3 class="feat-title">HIGH<br>VISIBILITY</h3>
+                    <p class="feat-desc">
+                        The scoreboard is clearly visible from any point on the court. Ideal for both recreational and competitive matches.
+                    </p>
+                </div>
+
+                <div class="feature-row">
+                    <h3 class="feat-title">HEAVY<br>DUTY</h3>
+                    <p class="feat-desc">
+                        Designed to operate in sports environments, it withstands dust, humidity, and prolonged gaming sessions. Perfect for clubs, academies, and complexes that use the display all day long.
+                    </p>
+                </div>
+
+                <div class="feature-row">
+                    <h3 class="feat-title">UNIVERSAL<br>MOUNT</h3>
+                    <p class="feat-desc">
+                        Sturdy and adaptable mount that allows the display to be installed on different types of structures, ensuring stable fixation and an ideal viewing angle without interrupting the game.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+  /* --- SECCIÓN PRINCIPAL --- */
+  .pantalla-full-section {
+      position: relative;
+      width: 100%;
+      padding-top: 30px;
+      
+      /* IMAGEN DE FONDO */
+      background-image: url('/img/pantalla.jpg'); 
+      background-size: cover;
+      background-position: center;
+      /* IMPORTANTE: Quitamos 'fixed' para que la imagen se mueva CON el contenido */
+      /* background-attachment: scroll; (valor por defecto) */
+      
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+  }
+
+  .blue-overlay-fixed {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0; /* Siempre pegado a la derecha */
+    width: 35%;
+    background-color: rgba(59, 130, 246, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 1; /* Nivel 1 */
+}
+
+  /* Contenedor Flex para distribuir Izquierda/Derecha */
+  .content-wrapper {
+      width: 100%;
+      height: 100%;
+      max-width: 1600px; /* Ancho máximo amplio */
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between; 
+      align-items: stretch; /* Estira los hijos para ocupar toda la altura */
+  }
+
+  /* --- IZQUIERDA: TÍTULO --- */
+  .title-container {
+      flex: 1; /* Ocupa el espacio restante a la izquierda */
+      display: flex;
+      align-items: flex-start; /* Centra el título verticalmente */
+      justify-content: center; /* Centra el título horizontalmente en su espacio */
+      padding: 40px;
+      padding-top: 20px;
+  }
+
+  .main-title {
+      font-family: var(--fuente-titulos); /* Anton */
+      font-size: 7rem; 
+      color: #FFDE59;
+      line-height: 0.9;
+      text-transform: uppercase;
+      text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      text-align: left;
+  }
+
+  /* --- DERECHA: PANEL AZUL ÚNICO --- */
+  .info-panel-blue {
+      width: 44%; 
+      padding: 80px 60px; /* Espacio interno */
+      display: flex;
+      flex-direction: column;
+      justify-content: center; /* Centra el contenido verticalmente dentro de la franja azul */
+      position: relative;
+      z-index: 2; /* Nivel 2: Encima del azul */
+  }
+
+  .features-list {
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+  }
+
+  /* FILA INDIVIDUAL (Título fuera | Texto) */
+  .feature-row {
+      display: grid;
+      /* Grid: Título a la izquierda, Texto a la derecha */
+      grid-template-columns: 180px 1fr; 
+      gap: 30px;
+      align-items: center;
+  }
+
+  .feat-title {
+      font-family: var(--fuente-titulos);
+      font-size: 2rem;
+      color: #FFDE59;
+      text-align: right;
+      line-height: 1;
+      margin: 0;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  }
+
+  .feat-desc {
+      font-family: var(--fuente-cuerpo);
+      font-size: 1.1rem;
+      color: white;
+      line-height: 1.5;
+      margin: 0;
+      text-align: left;
+      /* Sin fondo individual, ahora están sobre el gran fondo azul */
+  }
+
+  .action-wrapper {
+      margin-top: 60px;
+      display: flex;
+      justify-content: flex-end; /* Botón a la derecha */
+      padding-right: 20px;
+  }
+
+  .btn-black {
+      background-color: var(--color-azul-claro);
+      color: white;
+      font-family: var(--fuente-titulos);
+      font-size: 1.5rem;
+      padding: 10px 50px;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: transform 0.2s;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  }
+  
+  .btn-black:hover {
+      transform: scale(1.05);
+  }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 1200px) {
+      .main-title { font-size: 6rem; }
+      .info-panel-blue { width: 55%; padding: 60px 40px; }
+  }
+
+  /* --- CORRECCIÓN FINAL DEFINITIVA (MÓVIL) --- */
+@media (max-width: 900px) {
+    
+    /* 1. Limpieza */
+    .blue-overlay-fixed { display: none; }
+
+    /* 2. CONTENEDOR PRINCIPAL (FOTO DE FONDO) */
+    .pantalla-full-section { 
+        background-image: none !important;
+        background-color: #04133E;
+        height: auto;
+        flex-direction: column;
+        padding-top: 0;
+        
+        /* AJUSTE DE LA IMAGEN */
+        background-attachment: scroll; 
+        background-size: cover; 
+        background-repeat: no-repeat;
+        
+        /* AQUÍ ESTÁ LA CLAVE: 
+           Primer valor (Eje X - Horizontal): 20% (Mueve la "cámara" a la izquierda donde está la TV)
+           Segundo valor (Eje Y - Vertical): center (Centrado verticalmente) 
+        */
+        background-position: 20% center; 
+    }
+    
+    .content-wrapper { 
+        flex-direction: column;
+        padding: 0;
+        width: 100%;
+    }
+
+    /* 3. BLOQUE SUPERIOR (TÍTULO + DEGRADADO) */
+    .title-container {
+        width: 100%;
+        height: 50vh; /* Ocupa la mitad de la pantalla */
+        min-height: 350px;
+        
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-end;
+        padding: 20px;
+        box-sizing: border-box;  /* Evita que el texto se salga */
+        
+        background:
+            linear-gradient(to bottom, transparent 85%, #04133E 100%), 
+            url('/img/pantalla.jpg');
+            
+        background-size: 160%;
+        /* Enfocamos al 20% horizontal (izquierda) para centrar la TV */
+        background-position: 18% center; 
+        background-repeat: no-repeat;
+    }
+    
+    .main-title { 
+        text-align: right; 
+        font-size: 4.3rem; 
+        line-height: 1;
+        width: auto;
+        /* Sombra fuerte para que el amarillo resalte sobre el techo/TV */
+        text-shadow: 0 5px 15px rgba(0,0,0,0.9);
+        margin-top: 10px;
+    }
+
+    /* 4. BLOQUE INFERIOR (TEXTO) */
+    .info-panel-blue { 
+        width: 100%;
+        background-color: #04133E;
+        /* Espaciado */
+        padding: 35px 25px 40px 25px; 
+        box-sizing: border-box; /* IMPORTANTE: Esto arregla el texto cortado a la derecha */
+        
+        /* Sin línea amarilla ni bordes */
+        border-top: none; 
+        
+        position: relative;
+        z-index: 2;
+    }
+    
+    /* Ajustes de los textos internos */
+    .features-list { gap: 35px; }
+    
+    .feature-row { 
+        grid-template-columns: 1fr; 
+        text-align: center;
+        gap: 10px;
+        width: 100%;
+    }
+    
+    .feat-title { 
+        text-align: center;
+        font-size: 2rem;
+        margin-bottom: 5px;
+        color: var(--color-amarillo);
+    }
+    
+    .feat-desc { 
+        text-align: center; 
+        font-size: 1.1rem;
+        color: white;
+        opacity: 0.9;
+        margin: 0 auto;
+    }
+    
+    .action-wrapper { justify-content: center; padding-right: 0; }
+}
+</style>

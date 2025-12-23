@@ -1,0 +1,263 @@
+---
+// src/components/AppWeb.astro
+---
+
+<section id="app-web" class="app-split-section">
+    
+    <div class="diagonal-image-container">
+        <div class="image-inner"></div>
+        
+        <h2 class="app-title-in-image">WEB APP</h2>
+    </div>
+
+    <div class="container app-content-wrapper">
+        <div class="text-content">
+            
+            <div class="app-description">
+                <p>
+                    Set up your match instantly from any mobile device. Customize:
+                </p>
+                
+                <ul class="app-list">
+                    <li>Player names</li>
+                    <li>Match Type</li>
+                    <li>Scoring System</li>
+                    <li>Side Changes</li>
+                    <li>And more!</li>
+                </ul>
+
+                <p>
+                    All from a Web App with no downloads, designed for you to play like a pro.
+                </p>
+            </div>
+            
+        </div>
+    </div>
+
+</section>
+
+<style>
+  /* --- 0. RESETEO DE CAJA --- */
+  .app-split-section, .app-split-section * {
+      box-sizing: border-box;
+  }
+
+  /* --- SECCIÓN PRINCIPAL --- */
+  .app-split-section {
+      position: relative;
+      width: 100%;
+      height: 600px; /* Altura controlada en escritorio */
+      background-color: var(--color-azul-fondo);
+      overflow: hidden; 
+      display: flex;
+      align-items: center;
+  }
+
+  /* --- BLOQUE DERECHO (IMAGEN + TÍTULO) --- */
+  .diagonal-image-container {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      width: 65%; 
+      z-index: 1;
+  }
+
+  /* LA FOTO DE FONDO */
+  .image-inner {
+      width: 100%;
+      height: 100%;
+      background-image: url('/img/appweb_bg.jpg');
+      background-size: cover;
+      
+      /* --- [AQUÍ MUEVES LA FOTO] --- 
+         El primer valor es Horizontal (0% izq, 100% der).
+         El segundo es Vertical (0% arriba, 100% abajo).
+         Juega con estos porcentajes: 
+      */
+      background-position: 50% 30%; 
+  }
+
+  /* EL TÍTULO FLOTANTE (Escritorio) */
+  .app-title-in-image {
+      position: absolute;
+      top: 40px; 
+      right: 40px; 
+      
+      font-family: var(--fuente-titulos);
+      font-size: 6rem;
+      color: var(--color-amarillo);
+      line-height: 1;
+      margin: 0;
+      text-transform: uppercase;
+    
+      text-shadow: 0 5px 20px rgba(0,0,0,0.6);
+      z-index: 2;
+      text-align: right;
+  }
+
+  /* --- BLOQUE IZQUIERDO (TEXTO) --- */
+  .app-content-wrapper {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding-left: 0;
+  }
+
+  .text-content {
+      width: 35%;
+      padding-right: 20px;
+      margin-left: 0px;
+      position: relative;
+      z-index: 10;
+  }
+
+  .app-description p {
+      font-family: var(--fuente-cuerpo);
+      font-size: 1.3rem;
+      line-height: 1.6;
+      color: white;
+      margin-bottom: 20px;
+      text-align: left;
+  }
+
+  /* --- ESTILOS DE LA LISTA CON PELOTA --- */
+  .app-list {
+      list-style: none; /* Quitamos los puntos feos por defecto */
+      padding: 0;
+      margin: 20px 0; /* Espacio arriba y abajo de la lista */
+  }
+
+  .app-list li {
+      font-family: var(--fuente-cuerpo);
+      font-size: 1.3rem; /* Mismo tamaño que el párrafo */
+      color: white;
+      margin-bottom: 10px; /* Espacio entre items */
+      padding-left: 25px; /* Espacio para que quepa la pelota */
+      position: relative;
+      text-align: left;
+  }
+
+  /* La Pelotita (Pseudo-elemento) */
+  .app-list li::before {
+      content: '';
+      position: absolute;
+      left: 0px;
+      top: 6px; /* Ajuste fino vertical para alinear con el texto */
+      width: 13px; 
+      height: 13px;
+      background-image: url('/img/pelota-padelboard.png'); 
+      background-size: contain;
+      background-repeat: no-repeat;
+  }
+  
+  /* Negritas dentro del texto */
+  .app-description strong, .app-list strong {
+      color: var(--color-amarillo);
+      font-weight: 700;
+  }
+
+  /* --- Degradado de fusión (Escritorio) --- */
+  .diagonal-image-container::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 3;
+      background: linear-gradient(
+          to right, 
+          var(--color-azul-fondo) 10%, 
+          rgba(59, 130, 246, 0) 20%
+      );
+  }
+
+  /* --- RESPONSIVE TABLET --- */
+  @media (max-width: 1024px) {
+      .app-title-in-image { font-size: 4rem; right: 50px; }
+      .diagonal-image-container { width: 50%; } 
+      .text-content { width: 45%; }
+  }
+
+  /* --- RESPONSIVE MÓVIL (DISEÑO VERTICAL) --- */
+  @media (max-width: 900px) {
+      
+      .app-split-section {
+          height: auto;
+          flex-direction: column; 
+      }
+
+      /* 1. LA IMAGEN (ARRIBA) */
+      .diagonal-image-container {
+          position: relative;
+          width: 100%;
+          height: 450px; /* Altura en móvil */
+          transform: none;
+          border-left: none;
+          right: auto;
+          order: 1; 
+      }
+
+      .image-inner {
+          transform: none;
+          /* En móvil solemos querer centrarla, pero puedes ajustar esto también */
+          background-position: 60%; 
+      }
+
+      /* TÍTULO EN MÓVIL */
+      .app-title-in-image {
+          font-size: 4.1rem;
+          top: 30px;
+          right: 20px;
+          transform: none; 
+          text-align: right;
+          width: 95%; 
+      }
+
+      /* 2. EL TEXTO (ABAJO) */
+      .app-content-wrapper {
+          order: 2;
+          width: 100%;
+          padding: 30px 20px; 
+          justify-content: center;
+          margin: 0;
+      }
+
+      .text-content {
+          width: 100%;
+          max-width: 500px; 
+          text-align: center;
+          padding-right: 0; 
+          padding-left: 0;
+          margin: 0 auto; 
+      }
+      
+      .app-description p { 
+          text-align: center;
+          font-size: 1.15rem;
+      }
+
+      /* Alineación de la lista en móvil */
+      .app-list {
+          display: inline-block; /* Truco para que la lista no se estire al 100% y quede fea */
+          text-align: left; /* El texto de la lista se lee mejor a la izquierda */
+          margin-top: 20px;
+          margin-bottom: 20px;
+      }
+      
+      .app-list li {
+          font-size: 1.1rem;
+      }
+
+      /* Dirección del degradado en móvil */
+      .diagonal-image-container::after {
+          background: linear-gradient(
+          to top, 
+          var(--color-azul-fondo) 0%, 
+          rgba(59, 130, 246, 0) 10%
+         );
+      }
+  }
+</style>

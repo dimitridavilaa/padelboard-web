@@ -1,0 +1,313 @@
+---
+// src/components/QuienesSomos.astro
+---
+
+<section id="quienes-somos" class="qs-section">
+    <div class="container fade-up">
+      
+      <div class="main-grid">
+        
+        <div class="image-col">
+          <video class="main-video" autoplay muted loop playsinline poster="/img/quienes_somos_poster.jpg">
+              <source src="/video/quienes_somos_video.mp4" type="video/mp4">
+              Your browser does not support HTML5 video.
+          </video>
+          <div class="video-overlay"></div>
+        </div>
+  
+        <div class="content-col">
+          
+          <h2 class="qs-title">
+            ¿WHAT IS PADELBOARD?
+          </h2>
+  
+          <div class="info-layout">
+              
+              <div class="features-stack">
+                  <div class="feature-card">
+                      <div class="feat-img-box">
+                          <img src="/img/icon_pantalla.png" alt="Screen" />
+                      </div>
+                      <span class="feat-label">SCREEN</span>
+                  </div>
+                  <div class="feature-card">
+                      <div class="feat-img-box">
+                          <img src="/img/icon_sensores.png" alt="Sensors" />
+                      </div>
+                      <span class="feat-label">SENSORS</span>
+                  </div>
+                  <div class="feature-card">
+                      <div class="feat-img-box">
+                          <img src="/img/icon_app.png" alt="App" />
+                      </div>
+                      <span class="feat-label">WEB APP</span>
+                  </div>
+              </div>
+  
+              <div class="text-stack">
+                  <p>
+                    PadelBoard is a smart scoring system created for padel courts, designed to transform the way the game is experienced.
+                </p>
+                <p>
+                    Our purpose is to provide clarity and excitement in a modern, intuitive, and transparent way that enhances the experience for both players and spectators.
+                </p>
+                <p>
+                    With PadelBoard, clubs can incorporate high-level technology that elevates the performance, professionalism, and value of every court.
+                </p>
+                  </p>
+              </div>
+  
+          </div>
+  
+        </div>
+  
+      </div>
+  
+    </div>
+  </section>
+  
+  <style>
+    .qs-section {
+    padding: 100px 0;
+    
+    /* CAMBIO: Foto de fondo con capa oscura encima */
+    background-image: 
+        linear-gradient(rgba(4, 19, 62, 0.7), rgba(4, 19, 62, 0.6)), /* Capa azul oscuro al 90% y 80% */
+        url('/img/padelboard_fondo.jpg'); /* Tu imagen */
+        
+    background-size: cover;   /* Cubre todo el espacio */
+    background-position: center; /* Centra la foto */
+    background-attachment: fixed; /* Opcional: Efecto Parallax elegante */
+    
+    color: white;
+    overflow: hidden;
+    }
+  
+    .main-grid {
+      display: grid;
+      grid-template-columns: 40% 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+  
+    /* --- ESTILOS VIDEO IZQUIERDA --- */
+    .image-col {
+      position: relative;
+      height: 600px;
+      border-radius: 30px;
+      overflow: hidden; /* Esto recorta el video para que tenga bordes redondos */
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+      border: 2px solid rgba(255,255,255,0.1);
+      background-color: black; /* Fondo negro mientras carga */
+    }
+  
+    .main-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* CLAVE: Hace que el video llene todo el espacio sin deformarse */
+      display: block;
+    }
+  
+    /* Sombra interna para darle profundidad al video (opcional) */
+    .video-overlay {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: linear-gradient(to bottom, transparent 80%, rgba(0,0,0,0.4) 100%);
+        pointer-events: none;
+    }
+  
+    /* --- ESTILOS CONTENIDO DERECHA --- */
+    .qs-title {
+      font-family: var(--fuente-titulos);
+      font-size: 4.5rem;
+      color: var(--color-amarillo);
+      text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+
+    /* flex-start = Izquierda (por defecto) */
+    /* center = Centro */
+    /* flex-end = Derecha */
+    justify-content: flex-end; /* Lo empuja hacia la derecha */
+    /* Opcional: Si lo quieres mover solo un poco, usa margin-left */
+    /* margin-left: 50px; */
+    }
+  
+    /* --- ESTILOS DEL ICONO DE PELOTA --- */
+    .title-icon {
+      height: 35px; /* Ajusta este tamaño según lo grande que quieras la pelota */
+      width: auto;
+      display: inline-block; /*inline-block;*/
+      margin-right: 5px; /* Espacio entre la pelota y el texto */
+      vertical-align: middle; /* Alinea la pelota con el centro del texto */
+    
+    }
+  
+    .info-layout {
+        display: grid;
+        grid-template-columns: 150px 1fr;
+        gap: 40px;
+    }
+  
+    .features-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+  
+    .feature-card {
+        background: transparent;
+        text-align: center;
+    }
+  
+    .feat-img-box {
+        width: 100%;
+        height: 110px;
+        overflow: hidden;
+    }
+    
+    .feat-img-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+  
+    .feat-label {
+        display: block;
+        color: var(--color-amarillo);
+        font-family: var(--fuente-titulos);
+        font-size: 1.2rem;
+        padding: 5px 0;
+        letter-spacing: 2px;
+        margin-top: 5px;
+    }
+  
+    .text-stack p {
+        font-family: var(--fuente-cuerpo);
+        font-size: 1.4rem;
+        line-height: 1.5;
+        margin-bottom: 25px;
+        color: white;
+        text-align: justify;
+    }
+
+  
+    /* --- RESPONSIVE MÓVIL (CORREGIDO) --- */
+    @media (max-width: 900px) {
+      
+      /* 1. AGREGAMOS MÁRGENES LATERALES */
+      .qs-section {
+          padding: 60px 20px; /* Reducimos altura vertical y damos aire a los lados */
+          background-attachment: scroll;
+          background-position: center top;
+      }
+
+      .main-grid {
+          display: flex;
+          flex-direction: column;
+          gap: 30px;
+      }
+  
+      /* 2. VIDEO MÁS COMPACTO */
+      .image-col {
+          height: 300px; /* Antes 400px (muy alto). 250px es ideal para formato panorámico en móvil */
+          order: -1; /* Mantiene el video arriba */
+          border-radius: 20px;
+      }
+
+        /* 1. EL TÍTULO (CON TRUCO DE INVERSIÓN) */
+        .qs-title {
+            display: flex;
+            /* column-reverse: Pone el texto ARRIBA y la imagen ABAJO */
+            flex-direction: column-reverse; 
+            align-items: center; /* Centrado horizontal */
+            justify-content: center;
+            font-size: 3rem;
+            margin-bottom: 5px; /* Espacio debajo de la pelotita */
+            white-space: nowrap; 
+            gap: 25px; /* Espacio entre el texto y la pelotita */
+        }
+        
+        /* 2. LA PELOTITA (Ajuste individual) */
+        .title-icon {
+            height: 30px; /* Un poquito más grande para que luzca sola */
+            width: auto;
+            margin-right: 0; /* Quitamos el margen lateral que tenía en PC */
+
+            /* Opcional: una animación suave flotante */
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        /* Animación flotante opcional (agrégala si quieres que se mueva bonito) */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
+        }
+  
+      .info-layout {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+  
+      /* 1. EL TEXTO PASA A PRIMER LUGAR */
+      .text-stack {
+            order: 1; /* ¡Aquí ocurre la magia! */
+        }
+        
+        .text-stack p {
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        /* 2. LOS ICONOS PASAN AL FINAL (SEGUNDO LUGAR) */
+        .features-stack {
+            order: 2; /* Se va al fondo */
+            
+            display: flex;
+            flex-direction: row; /* En fila horizontal */
+            justify-content: center; /* Centrados */
+            gap: 35px;
+        }
+
+        .feature-card {
+            width: auto; /* Que ocupen lo necesario */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        /* Ajustamos tamaño de iconos para móvil */
+        .feat-img-box {
+            width: 100%;
+            max-width: 80px;
+            height: 75px;
+            margin-bottom: 5px;
+            overflow: visible;
+        }
+
+        .feat-img-box img {
+           width: 100%;
+           height: 100%;
+           object-fit: cover; 
+        }
+        /* selecciona SOLO al segundo elemento (Sensores) */
+        .feature-card:nth-child(2) .feat-img-box img {
+            object-fit: contain; /* Este sí se ajusta para no cortarse */
+            transform: scale(1.3); /* Truco Pro: Lo agrandamos un poquito (30%) para compensar */
+        }
+        .feature-card:nth-child(1) .feat-img-box img {
+            transform: scale(1.1); /* Truco Pro: Lo agrandamos un poquito (10%) para compensar */
+        }
+        .feature-card:nth-child(3) .feat-img-box img {
+            transform: scale(0.9); /* Truco Pro: Lo agrandamos un poquito (10%) para compensar */
+        }
+
+        .feat-label {
+            font-size: 1.1rem;
+        }
+    }
+  </style>

@@ -1,0 +1,429 @@
+---
+// src/components/Sensores.astro
+---
+
+<section id="sensores" class="sensores-section">
+    
+    <div class="container fade-up relative-container">
+        
+        <h2 class="main-title">SENSORS</h2>
+
+        <div class="blue-block-middle">
+            
+            <div class="sensores-grid">
+                
+                <div class="side-col">
+                    <div class="sensor-card">
+                        <img src="/img/sensor_verde.jpg" alt="Sensor Suma" />
+                    </div>
+                    <p class="sensor-text">Touch it for 1 second and it lights up green</p>
+                </div>
+
+                <div class="center-col">
+                    <p class="main-desc">
+                        <p class="main-desc">
+                            PadelBoard sensors are <strong>wired</strong> devices designed for padel. Each sensor detects the player's touch, ensuring an immediate response with no delays or interference.
+                        </p>
+                    </p>
+                    
+                    <h3 class="benefits-title">BENEFITS</h3>
+                    
+                    <ul class="benefits-list">
+                        <li>- No risk of turning off mid-match.</li>
+                        <li>- Never need charging.</li>
+                        <li>- One-time installation.</li>
+                        <li>- Does not deteriorate over time.</li>
+                    </ul>
+                </div>
+
+                <div class="side-col">
+                    <div class="sensor-card">
+                        <img src="/img/sensor_rojo.jpg" alt="Sensor Resta" />
+                    </div>
+                    <p class="sensor-text">Touch it for 3 seconds and it lights up red</p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="bottom-titles">
+            <h3 class="action-title">ADD POINTS</h3>
+            <h3 class="action-title">REMOVE POINTS</h3>
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+    /* --- SECCIÓN PRINCIPAL --- */
+    .sensores-section {
+        position: relative;
+        width: 100%;
+        min-height: 750px;
+        
+        /* IMAGEN DE FONDO */
+        background-image: url('/img/sensores_bg.jpg'); 
+        background-size: cover;
+        background-position: center;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+  
+    .relative-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Centramos verticalmente el conjunto */
+        padding-top: 100px; 
+        padding-bottom: 60px;
+    }
+  
+    /* --- TÍTULO SUPERIOR --- */
+    .main-title {
+        font-family: var(--fuente-titulos); /* Anton */
+        font-size: 6rem;
+        color: #FFDE59;
+        text-align: center;
+        text-transform: uppercase;
+        
+        /* CAMBIO: Más espacio abajo para empujar el bloque azul */
+        margin-bottom: 140px; 
+        
+        text-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        position: relative;
+        z-index: 2;
+
+        transform: translateY(-30px);
+    }
+  
+    /* --- FRANJA CENTRAL --- */
+    .blue-block-middle {
+        position: relative;
+        /* CAMBIO: Ya no usamos 100vw aquí para el contenido */
+        width: 100%; 
+        max-width: 1200px; /* Igual que abajo */
+        margin: 0 auto; /* Centrado igual que abajo */
+        
+        padding: 25px 0; 
+        
+        /* Quitamos el background-color de aquí y lo pasamos al ::before */
+    }
+
+    /* ESTO CREA EL FONDO AZUL INFINITO DETRÁS */
+    .blue-block-middle::before {
+        content: '';
+        position: absolute;
+        top: 0; 
+        bottom: 0;
+        left: 50%; /* Punto de partida: centro */
+        width: 100vw; /* Ancho total de la pantalla */
+        transform: translateX(-50%); /* Lo centramos a la fuerza */
+        
+        background-color: rgba(0, 0, 0, 0.6); /* rgba(4, 19, 62, 0.7); */
+        backdrop-filter: blur(2px);
+        z-index: -1; /* Se pone detrás del contenido */
+    }
+  
+    /* GRID DEL CONTENIDO */
+    .sensores-grid {
+        width: 100%;
+        max-width: 1200px;
+        padding: 0 20px;
+        display: grid;
+        /* Ajuste de columnas: Centro más ancho para el texto */
+        grid-template-columns: 1fr 2fr 1fr; 
+        gap: 20px;
+        align-items: center;
+    }
+  
+    /* --- COLUMNAS LATERALES (Para centrar las fotos pequeñas) --- */
+    .side-col {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+  
+    /* --- IMÁGENES DE SENSORES --- */
+    .sensor-card {
+        /* CAMBIO: Tamaño fijo mucho más pequeño */
+        width: 220px; 
+        height: 220px; /* Cuadrado perfecto */
+        
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        margin-bottom: 15px;
+    }
+  
+    .sensor-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+  
+    .sensor-text {
+        font-family: var(--fuente-cuerpo);
+        font-size: 0.9rem; /* Texto descriptivo pequeño */
+        font-weight: bold;
+        color: white;
+        text-align: center;
+        line-height: 1.3;
+        max-width: 200px; /* Que no se ensanche más que la foto */
+    }
+  
+    /* TEXTO CENTRAL */
+    .center-col {
+        text-align: center;
+        color: white;
+        padding: 0 20px; /* Aire a los lados del texto */
+    }
+  
+    .main-desc {
+        font-size: 1.2rem;
+        line-height: 1.4;
+        margin-bottom: 20px;
+    }
+
+    /* Negritas dentro del texto */
+    .main-desc strong {
+      font-weight: bold;
+    }
+  
+    .benefits-title {
+        font-family: var(--fuente-titulos);
+        color: #FFDE59;
+        font-size: 2rem;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+    }
+  
+    .benefits-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+  
+    .benefits-list li {
+        font-family: var(--fuente-cuerpo);
+        font-size: 1.2rem;
+        margin-bottom: 8px;
+        opacity: 0.9;
+    }
+  
+    /* --- TÍTULOS INFERIORES --- */
+    .bottom-titles {
+        margin-top: 15px; 
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+        gap: 20px;
+        width: 100%;
+        max-width: 1200px;
+        padding: 0 20px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .action-title:last-child {
+      grid-column: 3;
+    }
+  
+    .action-title {
+        font-family: var(--fuente-titulos);
+        color: #FFDE59;
+        font-size: 2rem;
+        text-transform: uppercase;
+        text-shadow: 0 5px 10px rgba(0,0,0,0.8);
+        margin: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center; 
+        text-align: center;
+    }
+  
+
+    /* --- OPTIMIZACIÓN MÓVIL --- */
+@media (max-width: 900px) {
+
+/* 0. RESETEO DE CAJA */
+.sensores-section, .sensores-section * { box-sizing: border-box; }
+
+/* 1. SECCIÓN CON FONDO COMPLETO */
+.sensores-section {
+    height: auto;
+    min-height: auto;
+    padding: 50px 0 50px 0;
+    position: relative; /* Vital para posicionar el bloque oscuro */
+    
+    /* IMAGEN DE FONDO (Visible en toda la sección) */
+    background-image: 
+        url('/img/sensores_bg.jpg');
+    /* Mantenemos tu zoom preferido o usamos cover */
+    background-size: 650px; 
+    background-position: center top;
+    background-repeat: repeat;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 2. EL BLOQUE "GLASS" (NEGRO TRANSPARENTE + BLUR) */
+/* Creamos una capa que empieza a mitad de la sección */
+.sensores-section::before {
+    content: '';
+    position: absolute;
+    
+    /* --- [CONTROL DE ALTURA] --- */
+    /* Ajusta este número para subir/bajar el inicio del bloque negro */
+    top: 225px; 
+    bottom: 85px;
+    
+    left: 0; 
+    width: 100%;
+    
+    /* LAS PROPIEDADES DE ESCRITORIO */
+    background-color: rgba(0, 0, 0, 0.6); /* Negro al 75% */
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px); /* Para que funcione en iPhone */
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.5); /* Sombra hacia arriba */
+    
+    z-index: 1; /* Se pone detrás del texto, pero encima de la foto */
+}
+
+/* 3. CONTENIDO (Z-INDEX PARA ESTAR SOBRE EL BLOQUE) */
+.relative-container {
+    width: 100%;
+    padding: 0;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative; 
+    z-index: 2; /* ¡IMPORTANTE! Texto encima del bloque glass */
+}
+
+/* 4. TÍTULO Y DESCRIPCIÓN (Zona Foto) */
+.main-title {
+    font-size: 4.1rem;
+    line-height: 1;
+    text-align: center;
+    width: 100%;
+    margin: 20px 0 100px 0;
+    /* Sombra fuerte para leerse sobre la foto clara */
+    text-shadow: 0 4px 15px rgba(0,0,0,0.9); 
+}
+
+.center-col {
+    order: 1; /* Sigue siendo el primero */
+    grid-column: span 2; /* TRUCO: Le decimos que ocupe las 2 columnas él solo */        
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    margin-bottom: 20px; /* Empujamos los sensores hacia abajo */
+}
+
+.main-desc {
+    text-align: center;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: white;
+    margin: 0 auto;
+    max-width: 390px;
+    /* Sombra para leerse sobre la foto */
+    text-shadow: 0 2px 8px rgba(0,0,0,0.9);
+    
+    /* EMPUJE: Esto separa la descripción de los Beneficios */
+    margin-bottom: 40px; 
+}
+
+/* 5. BENEFICIOS Y SENSORES (Zona Glass) */
+.blue-block-middle {
+    background: transparent;
+    padding: 0;
+    width: 100%;
+}
+.blue-block-middle::before { display: none; }
+
+.sensores-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 0;
+    align-items: start;
+    width: 100%;
+    gap: 15px;
+}
+
+.benefits-title {
+    text-align: center;
+    color: #FFDE59;
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+    width: 100%;
+    /* Ya no necesita sombra fuerte porque tiene fondo negro detrás */
+    text-shadow: none; 
+}
+
+.benefits-list {
+    padding: 0; margin: 0; list-style: none; text-align: center;
+}
+.benefits-list li {
+    margin-bottom: 10px;
+    color: rgba(255,255,255,0.95);
+    font-size: 1.1rem;
+}
+
+/* 6. TARJETAS */
+.side-col {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.side-col:nth-child(1) { order: 2; }
+.side-col:nth-child(3) { order: 3; }
+
+.side-col:nth-child(1)::after, .side-col:nth-child(3)::after {
+    font-family: var(--fuente-titulos);
+    font-size: 1.4rem;
+    margin-top: 10px;
+    display: block;
+    width: 100%;
+    text-align: center;
+    white-space: nowrap;
+    text-transform: uppercase;
+    text-shadow: 0 5px 10px rgba(0,0,0,0.8);
+}
+.side-col:nth-child(1)::after { content: "ADD POINTS"; color: #FFDE59; }
+.side-col:nth-child(3)::after { content: "REMOVE POINTS"; color: #FFDE59; }
+
+.sensor-card {
+    width: 100%; /* Ocupa todo el ancho de su columna */
+    max-width: 160px; /* Pero no te pases de 160px */
+    height: auto; 
+    aspect-ratio: 1 / 1; /* Mantiene la forma cuadrada automáticamente */
+        
+    border-radius: 15px; /* Bordes un poco menos redondos para ahorrar espacio */
+    border: 1px solid rgba(255,255,255,0.3);
+    background: #000;
+    display: flex; justify-content: center; align-items: center; overflow: hidden;
+    }
+.sensor-card img { width: 100%; height: 100%; object-fit: cover; }
+
+.sensor-text {
+    text-align: center;
+    margin-top: 5px;
+    max-width: 150px;
+}
+
+.bottom-titles { display: none; }
+}
+  </style>
