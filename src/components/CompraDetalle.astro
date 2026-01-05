@@ -8,12 +8,19 @@
         <div class="card product-card fade-up">
             
             <div class="product-info">
-                <h1>MARCADOR PADELBOARD</h1>
+                <div class="pricing-toggle-wrapper">
+                    <button class="toggle-btn active" id="mode-buy">
+                        COMPRAR EQUIPO
+                    </button>
+                    <button class="toggle-btn" id="mode-rent">
+                        ALQUILAR
+                    </button>
+                </div>
+
+                <h1 id="product-title">MARCADOR PADELBOARD</h1>
                 
-                <p class="description">
-                    Con PadelBoard estás comprando un marcador digital profesional (alámbrico), 
-                    listo para usar y pensado para que juegues como en un torneo, 
-                    sin discusiones y con total claridad del puntaje. Que incluye:
+                <p class="description" id="main-desc">
+                    <strong>Lleva tu club al siguiente nivel.</strong> Con PadelBoard adquieres un activo que valoriza tus canchas, moderniza tus instalaciones y ofrece una experiencia profesional que fideliza a tus clientes.<br>Obtienes:
                 </p>
 
                 <ul class="feature-list">
@@ -23,11 +30,11 @@
                     <li><span class="bullet"></span> Kit de montaje / sistema alámbrico</li>
                 </ul>
 
-                <p class="disclaimer">*Por la compra de 3 o más marcadores PadelBoard obtén un precio de $899.00 USD c/u*</p>
+                <p class="disclaimer" id="disclaimer-text"></p>
 
                 <div class="price-block">
-                    <span class="price" id="price-display">$999.00 USD</span>
-                    <span class="tax">NO INCLUYE IVA</span>
+                    <span class="price" id="price-display">$1,190.00 USD</span>
+                    <span class="tax" id="price-label"> NO INCLUYE IVA</span>
                 </div>
 
                 <div class="actions-row">
@@ -48,8 +55,8 @@
                     <img src="/img/formulario.jpg" alt="Pantalla Padel Board" />
                 </div>
                 <div class="img-grid-bottom">
-                    <img src="/img/sensor.jpg" alt="Sensor detalle" />
-                    <img src="/img/paso2_app.jpg" alt="App en mano" />
+                    <img src="/img/sensor.jpg" alt="Sensor detalle frontal" />
+                    <img src="/img/sensor2.jpg" alt="Sensor detalle trasero" />
                 </div>
             </div>
         </div>
@@ -58,14 +65,12 @@
             
             <div class="plan-header">
                 <div class="plan-title">
-                    <h2>PLAN MENSUAL <br>PADELBOARD</h2>
+                    <h2 id="plan-title">PLAN MENSUAL <br>PADELBOARD</h2>
                 </div>
                 <div class="plan-desc">
                     El Plan Mensual PadelBoard es un servicio requerido que asegura el funcionamiento óptimo de tu marcador inteligente y mantiene activa la garantía del equipo. Este plan garantiza que tu PadelBoard opere siempre con la mejor experiencia, estabilidad y personalización posible.
                 </div>
-                <div class="plan-price-tag">
-                    $25.00/Mes
-                </div>
+                <div class="plan-price-tag" id="plan-price-display">$25.00 USD<small>(por mes)</small></div> 
             </div>
 
             <div class="plan-features">
@@ -134,7 +139,7 @@
                 </div>
                 <div class="summary-row total">
                     <span>Total Estimado:</span>
-                    <strong id="modal-total">$999.00 USD</strong>
+                    <strong id="modal-total">$1,190.00 USD</strong>
                 </div>
             </div>
     
@@ -160,21 +165,43 @@
 <script>
     import { addToCart } from '../store/cart.js';
 
-    // 1. CONFIGURACIÓN
-    const WHATSAPP_NUMBER = "593987225485"; // TU NÚMERO
-    const PRICE_BASE = 999;
-    const PRICE_DISCOUNT = 899;
+    // --- CONFIGURACIÓN DE PRECIOS ---
+    const WHATSAPP_NUMBER = "593987225485";
+    
+    // MODO COMPRA
+    const BUY_PRICE = 1190;
+    //const BUY_PRICE_DISCOUNT = 899; // Si compra 3+
+    const BUY_PLAN_PRICE = 25;      // Mensualidad software
+    
+    // MODO ALQUILER
+    const RENT_INIT_FEE = 150;      // Precio Instalación
+    const RENT_MONTHLY = 99;        // Cuota mensual total
+    
+    // ESTADO
+    let currentMode = 'buy'; 
 
-    // 2. ELEMENTOS (Usamos "as HTMLElement" para evitar errores de null)
+    // ELEMENTOS DOM (Casting para TypeScript)
     const minusBtn = document.getElementById('btn-minus');
     const plusBtn = document.getElementById('btn-plus');
-    const input = document.getElementById('qty-input') as HTMLInputElement;
+    const input = document.getElementById('qty-input') as HTMLInputElement; 
+    
+    // Elementos de texto
     const priceDisplay = document.getElementById('price-display');
-    const btnPay = document.getElementById('btn-pay');
-    const btnAdd = document.getElementById('btn-add');
+    const priceLabel = document.getElementById('price-label');
+    const mainDesc = document.getElementById('main-desc');
+    const planTitle = document.getElementById('plan-title');
+    const planPriceDisplay = document.getElementById('plan-price-display');
+    
+    // Botones Toggle
+    const btnModeBuy = document.getElementById('mode-buy');
+    const btnModeRent = document.getElementById('mode-rent');
 
-    // Elementos del Modal
-    const modal = document.getElementById('checkout-modal') as HTMLElement;
+    // Botones Acción
+    const btnPay = document.getElementById('btn-pay');
+    const btnAdd = document.getElementById('btn-add'); // <--- AHORA SÍ LO USAREMOS
+
+    // Modal
+    const modal = document.getElementById('checkout-modal');
     const closeModal = document.getElementById('close-modal');
     const modalQty = document.getElementById('modal-qty');
     const modalTotal = document.getElementById('modal-total');
@@ -182,38 +209,94 @@
     const clientName = document.getElementById('client-name') as HTMLInputElement;
     const clientCompany = document.getElementById('client-company') as HTMLInputElement;
 
-    // 3. CALCULAR PRECIOS
-    function getPriceData() {
-        let qty = parseInt(input.value) || 1;
-        let unitPrice = (qty >= 3) ? PRICE_DISCOUNT : PRICE_BASE;
-        let total = unitPrice * qty;
-        return { qty, unitPrice, total };
+
+    // --- LÓGICA DE CAMBIO DE MODO ---
+    function setMode(mode: string) {
+        currentMode = mode;
+        const disclaimerText = document.getElementById('disclaimer-text');
+        
+        if (btnModeBuy && btnModeRent && mainDesc && priceLabel && planTitle && disclaimerText && input) {
+            
+            // SIEMPRE permitimos comprar desde 1 unidad (en ambos modos)
+            input.min = "1";
+
+            if(mode === 'buy') {
+                // --- MODO COMPRA ---
+                btnModeBuy.classList.add('active');
+                btnModeRent.classList.remove('active');
+                
+                mainDesc.innerHTML = `<strong>Lleva tu club al siguiente nivel.</strong> Con PadelBoard adquieres un activo que valoriza tus canchas, moderniza tus instalaciones y ofrece una experiencia profesional que fideliza a tus clientes. Obtienes:`;
+                
+                // Sin texto de descuento
+                disclaimerText.innerHTML = ""; 
+                
+                priceLabel.innerText = "NO INCLUYE IVA";
+                planTitle.innerHTML = "PLAN MENSUAL <br>PADELBOARD";
+                
+            } else {
+                // --- MODO ALQUILER ---
+                btnModeRent.classList.add('active');
+                btnModeBuy.classList.remove('active');
+                
+                mainDesc.innerHTML = `<strong>Moderniza tu club sin descapitalizarte.</strong> Con el modelo de Alquiler equipas tus canchas con tecnología de punta mediante una suscripción mensual flexible, manteniendo tu liquidez y garantizando soporte total. Obtienes:`;
+                
+                // Sin texto de restricción (ya no exigimos 3)
+                disclaimerText.innerHTML = "";
+                
+                priceLabel.innerText = "NO INCLUYE IVA";
+                planTitle.innerHTML = "PLAN MENSUAL <br>PADELBOARD";
+            }
+        }
+        updateCalculations();
     }
 
-    function updatePriceDisplay() {
-        if (!input || !priceDisplay) return;
-        const { unitPrice } = getPriceData();
-        priceDisplay.innerText = `$${unitPrice}.00 USD`;
+    // --- CÁLCULOS ---
+    function updateCalculations() {
+        let qty = parseInt(input?.value) || 1;
+        
+        if (priceDisplay && planPriceDisplay) {
+            if (currentMode === 'buy') {
+                // --- MODO COMPRA ---
+                let unitPrice = BUY_PRICE;
+                priceDisplay.innerText = `$${unitPrice.toLocaleString('en-US', {minimumFractionDigits: 2})} USD`; 
+                planPriceDisplay.innerHTML = `$${BUY_PLAN_PRICE}.00 USD<small>(por mes)</small>`;
+                planPriceDisplay.style.color = "var(--color-amarillo)";
+
+            } else {
+                // --- MODO ALQUILER ---
+                priceDisplay.innerHTML = `$${RENT_MONTHLY}.00 USD<small> /MES</small>`;
+                planPriceDisplay.innerText = "INCLUIDO";
+                planPriceDisplay.style.color = "#4ade80"; 
+            }
+        }
     }
 
-    // 4. ABRIR MODAL (Agregamos el tipo ": Event" aquí)
+    // --- MODAL Y WHATSAPP ---
     function openModal(e: Event) {
-        e.preventDefault(); 
-        const { qty, total } = getPriceData();
+        e.preventDefault();
+        let qty = parseInt(input?.value) || 1;
+        let totalDisplay = "";
         
-        // Actualizamos los datos dentro del modal
+        if(currentMode === 'buy') {
+            let unitPrice = BUY_PRICE;
+            let total = unitPrice * qty;
+            totalDisplay = `$${total}.00 USD (Pago Único)`;
+        } else {
+            // MODO ALQUILER
+            // Mostramos el total a pagar hoy (Instalación + 1er mes o solo Instalación, como tú prefieras cobrar)
+            let totalInit = RENT_INIT_FEE * qty;
+            totalDisplay = `$${totalInit}.00 USD (Instalación) + Mes 1`;
+        }
+
         if(modalQty) modalQty.innerText = qty.toString();
-        if(modalTotal) modalTotal.innerText = `$${total}.00 USD`;
+        if(modalTotal) modalTotal.innerText = totalDisplay;
         
-        // Mostramos el modal (TypeScript ya sabe que 'modal' existe gracias al "as HTMLElement")
-        modal.classList.remove('hidden');
+        if(modal) modal.classList.remove('hidden');
     }
 
-    // 5. ENVIAR A WHATSAPP (Agregamos el tipo ": Event" aquí)
     function sendToWhatsapp(e: Event) {
-        e.preventDefault(); 
-        
-        const { qty, unitPrice, total } = getPriceData();
+        e.preventDefault();
+        let qty = parseInt(input?.value) || 1;
         const name = clientName ? clientName.value : "";
         const company = clientCompany ? clientCompany.value : "";
 
@@ -222,85 +305,102 @@
             return;
         }
 
-        let rawMessage = `*NUEVO PEDIDO WEB - PADEL BOARD* 🚀\n\n` +
-                      `👤 *Cliente:* ${name}\n` +
-                      `🏢 *Club/Empresa:* ${company}\n\n` +
-                      `📝 *DETALLE DEL PEDIDO:*\n` +
-                      `--------------------------------\n` +
-                      `🎾 Producto: Marcador PadelBoard\n` +
-                      `🔢 Cantidad: ${qty}\n` +
-                      `💲 Precio Unitario: $${unitPrice}\n` +
-                      `💰 *TOTAL A PAGAR: $${total} USD*\n` +
-                      `--------------------------------\n` +
-                      `📅 Plan Mensual: $25.00/mes\n\n` +
-                      `Quedo a la espera de los datos bancarios para realizar el pago.`;
+        let message = "";
 
-        let encodedMessage = encodeURIComponent(rawMessage);
-        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank');
-        
+        if (currentMode === 'buy') {
+            let unitPrice = BUY_PRICE;
+            let total = unitPrice * qty;
+            
+            message = `*NUEVO PEDIDO DE COMPRA* 🛒\n` +
+                      `👤 Cliente: ${name}\n🏢 Club: ${company}\n` +
+                      `--------------------------------\n` +
+                      `🔢 Cantidad: ${qty} Marcadores\n` +
+                      `💲 Precio Unitario: $${unitPrice}\n` +
+                      `💰 *TOTAL EQUIPOS: $${total} USD*\n` +
+                      `📅 Plan Software: $${BUY_PLAN_PRICE}/mes por equipo`;
+        } else {
+            let totalInit = RENT_INIT_FEE * qty;
+            let totalMonthly = RENT_MONTHLY * qty;
+
+            message = `*SOLICITUD DE ALQUILER* 🔄\n` +
+                      `👤 Cliente: ${name}\n🏢 Club: ${company}\n` +
+                      `--------------------------------\n` +
+                      `🔢 Cantidad: ${qty} Marcadores\n` +
+                      `💵 Inscripción Total: $${totalInit} USD\n` +
+                      `📅 *Cuota Mensual Total: $${totalMonthly} USD*\n` +
+                      `(Incluye Equipo + Software)`;
+        }
+
+        let encoded = encodeURIComponent(message);
+        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encoded}`, '_blank');
         if(modal) modal.classList.add('hidden');
     }
 
-    // 6. EVENT LISTENERS
+    // --- LISTENERS ---
     if(minusBtn && plusBtn && input) {
+        
         plusBtn.addEventListener('click', () => {
-            let val = parseInt(input.value) || 0;
-            input.value = (val + 1).toString();
-            updatePriceDisplay();
+            input.value = ((parseInt(input.value) || 0) + 1).toString();
+            updateCalculations();
         });
 
         minusBtn.addEventListener('click', () => {
             let val = parseInt(input.value) || 0;
-            if (val > 1) {
+            // SIEMPRE el límite es 1, ya no depende del modo
+            let minLimit = 1; 
+
+            if (val > minLimit) {
                 input.value = (val - 1).toString();
-                updatePriceDisplay();
+                updateCalculations();
             }
         });
 
         input.addEventListener('change', () => {
-            let val = parseInt(input.value) || 1;
-            if (val < 1) input.value = "1";
-            updatePriceDisplay();
+            let val = parseInt(input.value) || 0;
+            // SIEMPRE el límite es 1
+            if(val < 1) input.value = "1";
+            updateCalculations();
         });
-        
-        // Botones principales abren el modal
-        if (btnPay) btnPay.addEventListener('click', openModal);
-    
-        if (btnAdd) {
-            btnAdd.addEventListener('click', (e) => {
-                e.preventDefault(); // Evita saltos raros
-                
-                // Obtenemos los datos actuales (cantidad y precio según descuento)
-                const { qty, unitPrice } = getPriceData();
-                
-                // Creamos el objeto producto
-                const product = {
-                    id: 'marcador-padelboard', // ID único
-                    name: 'Marcador PadelBoard',
-                    price: unitPrice,
-                    quantity: qty,
-                    image: '/img/formulario.jpg' // Opcional: para que se vea bonito si mejoras el sidebar luego
-                };
-
-                // ¡Al carrito! (Esto abrirá el sidebar automáticamente)
-                addToCart(product);
-            });
-        }
-
-        // Acciones del Modal
-        if (closeModal) closeModal.addEventListener('click', () => modal.classList.add('hidden'));
-        if (checkoutForm) checkoutForm.addEventListener('submit', sendToWhatsapp);
-        
-        // Cerrar si clic afuera
-        if (modal) {
-            modal.addEventListener('click', (e: Event) => {
-                if (e.target === modal) modal.classList.add('hidden');
-            });
-        }
     }
-    
+
+    if(btnModeBuy) btnModeBuy.addEventListener('click', () => setMode('buy'));
+    if(btnModeRent) btnModeRent.addEventListener('click', () => setMode('rent'));
+
+    if (btnPay) btnPay.addEventListener('click', openModal);
+    if (closeModal && modal) closeModal.addEventListener('click', () => modal.classList.add('hidden'));
+    if (checkoutForm) checkoutForm.addEventListener('submit', sendToWhatsapp);
+    if (modal) modal.addEventListener('click', (e) => { if(e.target === modal) modal.classList.add('hidden'); });
+
+    // SOLUCIÓN AL IMPORT GRIS: Usamos addToCart aquí
+    if (btnAdd) {
+        btnAdd.addEventListener('click', (e) => {
+            e.preventDefault();
+            const qty = parseInt(input?.value) || 1;
+            
+            // Calculamos precio según modo
+            let finalPrice = 0;
+            let productName = "";
+
+            if (currentMode === 'buy') {
+                finalPrice = BUY_PRICE;
+                productName = "Marcador PadelBoard (Compra)";
+            } else {
+                finalPrice = RENT_INIT_FEE;
+                productName = "Marcador PadelBoard (Alquiler)";
+            }
+
+            addToCart({
+                id: currentMode === 'buy' ? 'marcador-padelboard' : 'renting-padelboard',
+                name: productName,
+                price: finalPrice,
+                quantity: qty,
+                image: '/img/formulario.jpg'
+            });
+        });
+    }
+
     // Inicializar
-    updatePriceDisplay();
+    setMode('buy');
 </script>
 
 <style>
@@ -539,7 +639,7 @@
 
     .img-main {
         /* Altura fija para la imagen grande */
-        height: 260px; 
+        height: 380px; 
         width: 100%;
     }
 
@@ -554,7 +654,7 @@
     }
 
     .img-grid-bottom img {
-        height: 220px !important; 
+        height: 183px !important; 
         width: 100%;
         object-fit: cover;
         border-radius: 20px; /* Aseguramos que mantengan el borde */
@@ -591,15 +691,28 @@
     }
 
     .plan-price-tag {
-        background-color: transparent; /* Quitamos el fondo sólido */
-        color: var(--color-amarillo); /* Texto del color de la marca */
+        background-color: transparent;
+        color: var(--color-amarillo);
         text-shadow:  0 4px 10px rgba(0,0,0,0.3);
-        padding: 6px 5px; /* Un poco más compacto */
-        font-weight: 800; /* Más negrita para que se lea bien */
+        padding: 6px 5px;
+        font-weight: 800;
         font-size: 2rem;
-        white-space: nowrap;
-        display: inline-block; /* Asegura que se comporte bien */
-        margin-top: 10px; /* Separación visual del texto */
+        
+        /* --- CAMBIOS PARA APILAR TEXTO --- */
+        display: inline-flex;     /* Usamos flex para controlar la dirección */
+        flex-direction: column;   /* Pone uno encima del otro */
+        align-items: center;      /* Centra los textos */
+        line-height: 1;           /* Reduce espacio entre el precio y el mes */
+        white-space: normal;      /* Permitimos salto de línea */
+        margin-top: 5px;
+    }
+
+    /* Esto hará que la parte de "/Mes" se vea más pequeña automáticamente */
+    .plan-price-tag small {
+        font-size: 0.5em; /* 50% del tamaño del precio */
+        opacity: 0.9;
+        font-weight: 900;
+        margin-top: 5px;
     }
 
     .plan-features {
@@ -747,6 +860,36 @@
     margin-top: 20px;
 }
 
+/* --- ESTILOS DEL TOGGLE --- */
+.pricing-toggle-wrapper {
+        display: flex;
+        background-color: rgba(255,255,255,0.1);
+        border-radius: 50px;
+        padding: 5px;
+        margin-bottom: 25px;
+        width: fit-content;
+        border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .toggle-btn {
+        background: transparent;
+        border: none;
+        color: white;
+        padding: 10px 25px;
+        border-radius: 40px;
+        cursor: pointer;
+        font-family: var(--fuente-titulos);
+        font-size: 1rem;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+    }
+
+    .toggle-btn.active {
+        background-color: var(--color-amarillo);
+        color: black;
+        box-shadow: 0 4px 15px rgba(255, 222, 89, 0.4);
+    }
+
 /* --- RESPONSIVE MÓVIL (MODO APP NATIVA) --- */
 @media (max-width: 900px) {
         /* SOLUCIÓN ZOOM: Desactiva el zoom al tocar rápido botones */
@@ -828,7 +971,6 @@
         /* 5. Tarjeta del Plan Mensual */
         .plan-header {
             flex-direction: column;
-            text-align: justify;
             padding: 20px 5px;
             gap: 15px;
         }
@@ -838,7 +980,12 @@
     }
         
         .plan-title h2 {
-            font-size: 1.5rem;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .plan-desc {
+            text-align: justify;
         }
 
         .feature-row {
@@ -850,7 +997,6 @@
         .feature-name {
             margin-bottom: 0;
             font-size: 1rem;
-            color: var(--color-azul-fondo); /* Resaltamos el título */
         }
     }
 </style>
