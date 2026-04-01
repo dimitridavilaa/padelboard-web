@@ -8,11 +8,6 @@
         <div class="card product-card fade-up">
             
             <div class="product-info">
-                <div class="pricing-toggle-wrapper">
-                    <button class="toggle-btn active" id="mode-buy">BUY</button>
-                    <button class="toggle-btn" id="mode-rent">RENT</button>
-                </div>
-
                 <h1>PADELBOARD SCOREBOARD</h1>
                 
                 <p class="description" id="main-desc">
@@ -168,28 +163,15 @@
     
     // PRICES
     const BUY_PRICE = 1190;
-    //const BUY_PRICE_DISCOUNT = 899; // 3+ units
     const BUY_PLAN_PRICE = 25;
-    
-    const RENT_INIT_FEE = 150;
-    const RENT_MONTHLY = 99;
-    
-    let currentMode = 'buy'; 
 
     // DOM ELEMENTS
     const minusBtn = document.getElementById('btn-minus');
     const plusBtn = document.getElementById('btn-plus');
-    const input = document.getElementById('qty-input') as HTMLInputElement; 
-    
+    const input = document.getElementById('qty-input') as HTMLInputElement;
+
     const priceDisplay = document.getElementById('price-display');
-    const priceLabel = document.getElementById('price-label');
-    const mainDesc = document.getElementById('main-desc');
-    const planTitle = document.getElementById('plan-title');
     const planPriceDisplay = document.getElementById('plan-price-display');
-    const disclaimerText = document.getElementById('disclaimer-text');
-    
-    const btnModeBuy = document.getElementById('mode-buy');
-    const btnModeRent = document.getElementById('mode-rent');
 
     const btnPay = document.getElementById('btn-pay');
     const btnAdd = document.getElementById('btn-add');
@@ -203,86 +185,28 @@
     const clientCompany = document.getElementById('client-company') as HTMLInputElement;
 
     // --- LOGIC ---
-    function setMode(mode: string) {
-        currentMode = mode;
-        const disclaimerText = document.getElementById('disclaimer-text');
-
-        if (btnModeBuy && btnModeRent && mainDesc && priceLabel && planTitle && disclaimerText && input) {
-            
-            // SIEMPRE min 1
-            input.min = "1";
-
-            if(mode === 'buy') {
-                // --- BUY MODE ---
-                btnModeBuy.classList.add('active');
-                btnModeRent.classList.remove('active');
-                
-                mainDesc.innerHTML = `<strong>Take your club to the next level.</strong> With PadelBoard, you acquire an asset that increases the value of your courts, modernizes your facilities, and offers a professional experience that builds client loyalty. You get:`;
-                
-                // Sin texto de descuento
-                disclaimerText.innerHTML = ""; 
-                
-                priceLabel.innerText = "TAX NOT INCLUDED";                
-                
-            } else {
-                // --- RENT MODE ---
-                btnModeRent.classList.add('active');
-                btnModeBuy.classList.remove('active');
-                
-                mainDesc.innerHTML = `<strong>Modernize your club without breaking the bank.</strong> With the Renting model, you equip your courts with state-of-the-art technology through a flexible monthly subscription that includes full support. You get:`;
-                
-                // Sin texto de restricción
-                disclaimerText.innerHTML = "";
-                
-                priceLabel.innerText = "TAX NOT INCLUDED";
-            }
-        }
-        updateCalculations();
-    }
-
     function updateCalculations() {
-        let qty = parseInt(input?.value) || 1;
-        
         if (priceDisplay && planPriceDisplay) {
-            if (currentMode === 'buy') {
-                // --- BUY MODE ---
-                let unitPrice = BUY_PRICE;
-                priceDisplay.innerText = `$${unitPrice.toLocaleString('en-US', {minimumFractionDigits: 2})} USD`; 
-                planPriceDisplay.innerHTML = `$${BUY_PLAN_PRICE}.00 USD<small>(per month)</small>`;
-                planPriceDisplay.style.color = "var(--color-amarillo)";
-                
-            } else {
-                // --- RENT MODE ---
-                priceDisplay.innerHTML = `$${RENT_MONTHLY}.00 USD<small> /MONTH</small>`;
-                planPriceDisplay.innerText = "INCLUDED";
-                planPriceDisplay.style.color = "#4ade80"; 
-            }
+            const qty = parseInt(input?.value) || 1;
+            priceDisplay.innerText = `$${BUY_PRICE.toLocaleString('en-US', {minimumFractionDigits: 2})} USD`;
+            planPriceDisplay.innerHTML = `$${BUY_PLAN_PRICE}.00 USD<small>(per month)</small>`;
+            planPriceDisplay.style.color = "var(--color-amarillo)";
         }
     }
 
     // --- MODAL & WHATSAPP ---
     function openModal(e: Event) {
         e.preventDefault();
-        let qty = parseInt(input?.value) || 1;
-        let totalDisplay = "";
-        
-        if(currentMode === 'buy') {
-            let unitPrice = BUY_PRICE;
-            let total = unitPrice * qty;
-            totalDisplay = `$${total}.00 USD (One-time Payment)`;
-        } else {
-            let totalInit = RENT_INIT_FEE * qty;
-            totalDisplay = `$${totalInit}.00 USD (Installation Fee)`;
-        }
-
+        const qty = parseInt(input?.value) || 1;
+        const total = BUY_PRICE * qty;
         if(modalQty) modalQty.innerText = qty.toString();
-        if(modalTotal) modalTotal.innerText = totalDisplay;
+        if(modalTotal) modalTotal.innerText = `$${total}.00 USD (One-time Payment)`;
         if(modal) modal.classList.remove('hidden');
     }
 
     function sendToWhatsapp(e: Event) {
         e.preventDefault();
-        let qty = parseInt(input?.value) || 1;
+        const qty = parseInt(input?.value) || 1;
         const name = clientName ? clientName.value : "";
         const company = clientCompany ? clientCompany.value : "";
 
@@ -291,34 +215,16 @@
             return;
         }
 
-        let message = "";
+        const total = BUY_PRICE * qty;
+        const message = `*NEW BUY ORDER* 🛒\n` +
+                  `👤 Client: ${name}\n🏢 Club: ${company}\n` +
+                  `--------------------------------\n` +
+                  `🔢 Quantity: ${qty} Scoreboards\n` +
+                  `💲 Unit Price: $${BUY_PRICE}\n` +
+                  `💰 *TOTAL EQUIPMENT: $${total} USD*\n` +
+                  `📅 Software Plan: $${BUY_PLAN_PRICE}/month per unit`;
 
-        if (currentMode === 'buy') {
-            let unitPrice = BUY_PRICE;
-            let total = unitPrice * qty;
-            
-            message = `*NEW BUY ORDER* 🛒\n` +
-                      `👤 Client: ${name}\n🏢 Club: ${company}\n` +
-                      `--------------------------------\n` +
-                      `🔢 Quantity: ${qty} Scoreboards\n` +
-                      `💲 Unit Price: $${unitPrice}\n` +
-                      `💰 *TOTAL EQUIPMENT: $${total} USD*\n` +
-                      `📅 Software Plan: $${BUY_PLAN_PRICE}/month per unit`;
-        } else {
-            let totalInit = RENT_INIT_FEE * qty;
-            let totalMonthly = RENT_MONTHLY * qty;
-
-            message = `*RENTING REQUEST* 🔄\n` +
-                      `👤 Client: ${name}\n🏢 Club: ${company}\n` +
-                      `--------------------------------\n` +
-                      `🔢 Quantity: ${qty} Scoreboards\n` +
-                      `💵 Total Installation: $${totalInit} USD\n` +
-                      `📅 *Total Monthly Fee: $${totalMonthly} USD*\n` +
-                      `(Includes Equipment + Software)`;
-        }
-
-        let encoded = encodeURIComponent(message);
-        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encoded}`, '_blank');
+        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
         if(modal) modal.classList.add('hidden');
     }
 
@@ -330,24 +236,20 @@
         });
 
         minusBtn.addEventListener('click', () => {
-            let val = parseInt(input.value) || 0;
-            let minLimit = 1;
-            if (val > minLimit) {
+            const val = parseInt(input.value) || 0;
+            if (val > 1) {
                 input.value = (val - 1).toString();
                 updateCalculations();
             }
         });
 
         input.addEventListener('change', () => {
-            let val = parseInt(input.value) || 0;
-            let minLimit = 1;
-            if(val < minLimit) input.value = minLimit.toString();
+            const val = parseInt(input.value) || 0;
+            if(val < 1) input.value = "1";
             updateCalculations();
         });
     }
 
-    if(btnModeBuy) btnModeBuy.addEventListener('click', () => setMode('buy'));
-    if(btnModeRent) btnModeRent.addEventListener('click', () => setMode('rent'));
     if (btnPay) btnPay.addEventListener('click', openModal);
     if (closeModal && modal) closeModal.addEventListener('click', () => modal.classList.add('hidden'));
     if (checkoutForm) checkoutForm.addEventListener('submit', sendToWhatsapp);
@@ -358,13 +260,10 @@
         btnAdd.addEventListener('click', (e) => {
             e.preventDefault();
             const qty = parseInt(input?.value) || 1;
-            let finalPrice = (currentMode === 'buy') ? (BUY_PRICE) : RENT_INIT_FEE;
-            let productName = (currentMode === 'buy') ? "PadelBoard Scoreboard (Buy)" : "PadelBoard Renting Enrollment";
-
             addToCart({
-                id: currentMode === 'buy' ? 'marcador-padelboard' : 'renting-padelboard',
-                name: productName,
-                price: finalPrice,
+                id: 'marcador-padelboard',
+                name: "PadelBoard Scoreboard",
+                price: BUY_PRICE,
                 quantity: qty,
                 image: '/img/formulario.jpg'
             });
@@ -372,7 +271,7 @@
     }
 
     // Init
-    setMode('buy');
+    updateCalculations();
 </script>
 
 <style>
@@ -832,35 +731,6 @@
     margin-top: 20px;
 }
 
-/* --- TOGGLE STYLES --- */
-.pricing-toggle-wrapper {
-        display: flex;
-        background-color: rgba(255,255,255,0.1);
-        border-radius: 50px;
-        padding: 5px;
-        margin-bottom: 25px;
-        width: fit-content;
-        border: 1px solid rgba(255,255,255,0.2);
-    }
-
-    .toggle-btn {
-        background: transparent;
-        border: none;
-        color: white;
-        padding: 10px 25px;
-        border-radius: 40px;
-        cursor: pointer;
-        font-family: var(--fuente-titulos);
-        font-size: 1rem;
-        letter-spacing: 1px;
-        transition: all 0.3s ease;
-    }
-
-    .toggle-btn.active {
-        background-color: var(--color-amarillo);
-        color: black;
-        box-shadow: 0 4px 15px rgba(255, 222, 89, 0.4);
-    }
 
 /* --- RESPONSIVE MÓVIL (MODO APP NATIVA) --- */
 @media (max-width: 900px) {

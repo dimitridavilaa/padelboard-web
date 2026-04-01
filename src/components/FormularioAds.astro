@@ -1,0 +1,80 @@
+---
+// src/components/FormularioAds.astro
+---
+<section id="contacto-ads" class="formulario-section">
+    <div class="container fade-up">
+      <div class="form-wrapper">
+        
+        <div class="form-content">
+          <h2 class="h2-titulo">¡HABLEMOS DE NEGOCIOS!</h2>
+          <p class="subtitulo">Completa tus datos y nuestro equipo te enviará el dossier comercial de PadelBoard ADS[cite: 1070].</p>
+  
+          <form class="b2b-form" action="https://formspree.io/f/xwvepgry" method="POST">
+            
+            <div class="form-group">
+              <label for="perfil">¿Cómo quieres trabajar con nosotros?</label>
+              <select id="perfil" name="perfil" required>
+                <option value="" disabled selected>Selecciona una opción...</option>
+                <option value="club">Soy dueño de un Club (Quiero rentabilizar mis canchas)</option>
+                <option value="marca">Soy una Marca (Quiero anunciar mis productos)</option>
+                <option value="agencia">Soy una Agencia de Marketing</option>
+              </select>
+            </div>
+  
+            <div class="form-row">
+              <div class="form-group">
+                  <label for="nombre">Nombre y Apellido</label>
+                  <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+              </div>
+              <div class="form-group">
+                  <label for="whatsapp">WhatsApp</label>
+                  <input type="tel" id="whatsapp" name="whatsapp" placeholder="+593..." required>
+              </div>
+            </div>
+  
+            <div class="form-group">
+              <label for="empresa">Nombre de tu Club / Marca</label>
+              <input type="text" id="empresa" name="empresa" placeholder="Nombre de la empresa" required>
+            </div>
+  
+            <div class="form-group">
+              <label for="mensaje">¿Qué información específica necesitas?</label>
+              <textarea id="mensaje" name="mensaje" rows="3" placeholder="Ej: Quiero saber sobre el retorno de inversión para 4 canchas..."></textarea>
+            </div>
+  
+            <button type="submit" class="btn-submit">SOLICITAR DOSSIER ADS</button>
+          </form>
+        </div>
+  
+        <div class="form-image">
+          <img src="/img/padelboard-ads-platform.jpg" alt="Mockup Ad Manager PadelBoard" />
+          <div class="image-overlay">
+            <span>Control total. <br>Ingresos constantes.</span>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+  </section>
+  
+  <style>
+    /* Reutilizamos los estilos de tu archivo consolidado para mantener coherencia */
+    .formulario-section { padding: 80px 20px; background-color: var(--color-azul-fondo); color: white; }
+    .form-wrapper { display: grid; grid-template-columns: 1fr 1fr; border-radius: 20px; overflow: hidden; background: #061A4F; border: 1px solid rgba(255,255,255,0.1); }
+    .form-content { padding: 40px; }
+    .h2-titulo { font-family: var(--fuente-titulos); font-size: 2.5rem; color: var(--color-amarillo); margin-bottom: 10px; }
+    .subtitulo { opacity: 0.8; margin-bottom: 30px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    label { display: block; margin-bottom: 8px; font-weight: bold; font-size: 0.9rem; }
+    input, select, textarea { width: 100%; padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; color: white; margin-bottom: 20px; }
+    .btn-submit { width: 100%; padding: 15px; background: var(--color-azul-claro); color: white; border: none; border-radius: 50px; font-family: var(--fuente-titulos); cursor: pointer; font-size: 1.2rem; }
+    .form-image { position: relative; }
+    .form-image img { width: 100%; height: 100%; object-fit: cover; }
+    .image-overlay { position: absolute; bottom: 0; padding: 40px; background: linear-gradient(transparent, rgba(0,0,0,0.8)); width: 100%; }
+    .image-overlay span { font-family: var(--fuente-titulos); font-size: 2rem; color: var(--color-amarillo); }
+  
+    @media (max-width: 900px) {
+      .form-wrapper { grid-template-columns: 1fr; }
+      .form-image { display: none; }
+    }
+  </style>

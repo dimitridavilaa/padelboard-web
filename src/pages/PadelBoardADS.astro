@@ -1,0 +1,1397 @@
+---
+// PadelBoard ADS - Landing Page
+// getpadelboard.com/PadelBoardADS
+const lang = "es";
+const whatsappNumber = "593987211803";
+const whatsappMsg = encodeURIComponent("Hola, me interesa saber más sobre PadelBoard ADS.");
+const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMsg}`;
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO -->
+  <title>PadelBoard ADS | Publicidad Digital en Canchas de Pádel</title>
+  <meta name="description" content="Convierte tu cancha en una fuente de ingresos extra. PadelBoard ADS permite a clubes mostrar publicidad digital y a marcas llegar a una audiencia premium en clubes de pádel." />
+  <meta name="keywords" content="publicidad pádel, ingresos clubes pádel, digital signage pádel, monetizar cancha pádel, PadelBoard ADS, publicidad digital deportiva" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://getpadelboard.com/PadelBoardADS" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="PadelBoard ADS | Publicidad Digital en Canchas de Pádel" />
+  <meta property="og:description" content="Convierte cada cancha en una fuente de ingresos extra. Para clubes y marcas." />
+  <meta property="og:url" content="https://getpadelboard.com/PadelBoardADS" />
+  <meta property="og:type" content="website" />
+
+  <!-- Hreflang -->
+  <link rel="alternate" hreflang="es" href="https://getpadelboard.com/PadelBoardADS" />
+  <link rel="alternate" hreflang="en" href="https://getpadelboard.com/en/PadelBoardADS" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --blue: #1B5EF7;
+      --blue-light: #4B7FFF;
+      --blue-glow: rgba(27, 94, 247, 0.3);
+      --gold: #F5C518;
+      --navy: #060D1F;
+      --navy-mid: #0C1A35;
+      --navy-card: #0F2040;
+      --white: #FFFFFF;
+      --gray: #8A9BB5;
+      --gray-light: #C5D0E0;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--navy);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, .display {
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 0.03em;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 4%;
+      background: rgba(6, 13, 31, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(27, 94, 247, 0.15);
+    }
+
+    nav .logo img { height: 36px; }
+
+    nav .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      list-style: none;
+    }
+
+    nav .nav-links a {
+      color: var(--gray-light);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    nav .nav-links a:hover { color: var(--white); }
+
+    nav .lang-switch {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    nav .lang-switch a {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--gray);
+      transition: color 0.2s;
+    }
+
+    nav .lang-switch a.active { color: var(--blue-light); }
+    nav .lang-switch span { color: var(--gray); font-size: 0.7rem; }
+
+    .btn-nav {
+      background: var(--blue);
+      color: var(--white) !important;
+      padding: 0.5rem 1.2rem;
+      border-radius: 4px;
+      font-weight: 600 !important;
+      transition: background 0.2s !important;
+    }
+
+    .btn-nav:hover { background: var(--blue-light) !important; }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 120px 4% 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 70% 50%, rgba(27, 94, 247, 0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(245, 197, 24, 0.06) 0%, transparent 60%),
+        var(--navy);
+      z-index: 0;
+    }
+
+    .hero-grid-lines {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(27, 94, 247, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(27, 94, 247, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(27, 94, 247, 0.15);
+      border: 1px solid rgba(27, 94, 247, 0.4);
+      border-radius: 100px;
+      padding: 0.4rem 1rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--blue-light);
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero-badge .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--blue-light);
+      animation: pulse 2s infinite;
+    }
+
+    .hero h1 {
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      line-height: 0.95;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    .hero h1 .accent { color: var(--blue-light); }
+    .hero h1 .gold { color: var(--gold); }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--gray-light);
+      line-height: 1.6;
+      max-width: 520px;
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--blue);
+      color: var(--white);
+      padding: 0.9rem 2rem;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      box-shadow: 0 0 30px rgba(27, 94, 247, 0.4);
+    }
+
+    .btn-primary:hover {
+      background: var(--blue-light);
+      transform: translateY(-2px);
+      box-shadow: 0 0 40px rgba(27, 94, 247, 0.6);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: transparent;
+      color: var(--white);
+      padding: 0.9rem 2rem;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover {
+      border-color: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.05);
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 3rem;
+      margin-top: 4rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      animation: fadeUp 0.6s 0.4s ease both;
+    }
+
+    .stat-item .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+
+    .stat-item .stat-num span { color: var(--blue-light); }
+
+    .stat-item .stat-label {
+      font-size: 0.78rem;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 0.2rem;
+    }
+
+    /* ─── AUDIENCE SPLIT ─── */
+    .audience-split {
+      padding: 5rem 4%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5px;
+      background: rgba(27, 94, 247, 0.2);
+    }
+
+    .audience-card {
+      background: var(--navy-mid);
+      padding: 3rem 3.5rem;
+      cursor: pointer;
+      transition: background 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .audience-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--blue);
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+
+    .audience-card:hover::before { transform: scaleX(1); }
+    .audience-card:hover { background: var(--navy-card); }
+
+    .audience-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .audience-card h3 {
+      font-size: 1.8rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .audience-card p {
+      color: var(--gray-light);
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .audience-arrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+      color: var(--blue-light);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+
+    /* ─── SECTIONS COMMON ─── */
+    section { padding: 6rem 4%; }
+
+    .section-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--blue-light);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-desc {
+      color: var(--gray-light);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      max-width: 560px;
+    }
+
+    /* ─── FOR CLUBS ─── */
+    .for-clubs {
+      background: var(--navy-mid);
+    }
+
+    .for-clubs-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .clubs-features {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .feature-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(27, 94, 247, 0.15);
+      border: 1px solid rgba(27, 94, 247, 0.3);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .feature-text h4 {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .feature-text p {
+      color: var(--gray);
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+
+    .clubs-visual {
+      position: relative;
+    }
+
+    .clubs-visual-card {
+      background: var(--navy-card);
+      border: 1px solid rgba(27, 94, 247, 0.2);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .pays-itself {
+      background: linear-gradient(135deg, rgba(27, 94, 247, 0.2), rgba(245, 197, 24, 0.1));
+      border: 1px solid rgba(245, 197, 24, 0.3);
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+      margin-top: 1.5rem;
+      text-align: center;
+    }
+
+    .pays-itself .label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .pays-itself p {
+      font-size: 1rem;
+      line-height: 1.5;
+      color: var(--gray-light);
+    }
+
+    .pays-itself strong { color: var(--white); }
+
+    /* ─── VIDEO PLACEHOLDER ─── */
+    .video-placeholder {
+      background: var(--navy-card);
+      border: 2px dashed rgba(27, 94, 247, 0.3);
+      border-radius: 12px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .video-placeholder .play-icon {
+      width: 60px; height: 60px;
+      background: rgba(27, 94, 247, 0.2);
+      border: 2px solid rgba(27, 94, 247, 0.4);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      font-size: 1.5rem;
+    }
+
+    .video-placeholder p {
+      color: var(--gray);
+      font-size: 0.85rem;
+    }
+
+    /* ─── FOR BRANDS ─── */
+    .for-brands { background: var(--navy); }
+
+    .for-brands-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .brands-metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+
+    .metric-card {
+      background: var(--navy-card);
+      border: 1px solid rgba(27, 94, 247, 0.15);
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+
+    .metric-card .metric-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.4rem;
+      color: var(--blue-light);
+      letter-spacing: 0.02em;
+    }
+
+    .metric-card .metric-label {
+      font-size: 0.78rem;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 0.2rem;
+    }
+
+    .audience-profile {
+      background: var(--navy-card);
+      border: 1px solid rgba(27, 94, 247, 0.2);
+      border-radius: 12px;
+      padding: 2rem;
+    }
+
+    .audience-profile h4 {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--blue-light);
+      margin-bottom: 1.2rem;
+    }
+
+    .profile-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      background: rgba(27, 94, 247, 0.12);
+      border: 1px solid rgba(27, 94, 247, 0.25);
+      border-radius: 100px;
+      padding: 0.35rem 0.85rem;
+      font-size: 0.82rem;
+      color: var(--gray-light);
+    }
+
+    /* ─── HOW IT SHOWS ─── */
+    .how-it-shows {
+      background: var(--navy-mid);
+    }
+
+    .how-inner { text-align: center; }
+
+    .how-inner .section-desc { margin: 0 auto 3.5rem; }
+
+    .moments-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      max-width: 700px;
+      margin: 0 auto 3.5rem;
+    }
+
+    .moment-card {
+      background: var(--navy-card);
+      border: 1px solid rgba(27, 94, 247, 0.15);
+      border-radius: 12px;
+      padding: 2rem 1.5rem;
+      text-align: left;
+    }
+
+    .moment-card .moment-badge {
+      display: inline-block;
+      background: rgba(27, 94, 247, 0.15);
+      border: 1px solid rgba(27, 94, 247, 0.3);
+      border-radius: 4px;
+      padding: 0.25rem 0.6rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--blue-light);
+      margin-bottom: 1rem;
+    }
+
+    .moment-card h4 {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .moment-card p {
+      color: var(--gray);
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    .exclusivity-banner {
+      background: linear-gradient(135deg, rgba(27, 94, 247, 0.15), rgba(245, 197, 24, 0.08));
+      border: 1px solid rgba(245, 197, 24, 0.25);
+      border-radius: 12px;
+      padding: 1.5rem 2.5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 1.5rem;
+      max-width: 600px;
+    }
+
+    .exclusivity-banner .exc-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3.5rem;
+      color: var(--gold);
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .exclusivity-banner p {
+      color: var(--gray-light);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      text-align: left;
+    }
+
+    .exclusivity-banner strong { color: var(--white); }
+
+    /* ─── SAAS PLATFORM ─── */
+    .saas-section { background: var(--navy); }
+
+    .saas-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .saas-features {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      margin-top: 2rem;
+    }
+
+    .saas-feature {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.2rem;
+      background: var(--navy-card);
+      border: 1px solid rgba(27, 94, 247, 0.1);
+      border-radius: 8px;
+      transition: border-color 0.2s;
+    }
+
+    .saas-feature:hover { border-color: rgba(27, 94, 247, 0.35); }
+
+    .saas-feature .sf-icon {
+      font-size: 1.3rem;
+      width: 40px;
+      flex-shrink: 0;
+      text-align: center;
+    }
+
+    .saas-feature span {
+      font-size: 0.92rem;
+      color: var(--gray-light);
+    }
+
+    .saas-screenshot {
+      background: var(--navy-card);
+      border: 1px solid rgba(27, 94, 247, 0.2);
+      border-radius: 16px;
+      padding: 1.5rem;
+      position: relative;
+    }
+
+    .saas-screenshot img {
+      width: 100%;
+      border-radius: 8px;
+      display: block;
+    }
+
+    .saas-screenshot-placeholder {
+      background: rgba(27, 94, 247, 0.06);
+      border: 2px dashed rgba(27, 94, 247, 0.2);
+      border-radius: 8px;
+      padding: 4rem 2rem;
+      text-align: center;
+      color: var(--gray);
+      font-size: 0.85rem;
+    }
+
+    /* ─── COMPARISON ─── */
+    .comparison { background: var(--navy-mid); }
+
+    .comparison-inner { max-width: 800px; margin: 0 auto; text-align: center; }
+
+    .comparison-table {
+      margin-top: 3rem;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(27, 94, 247, 0.2);
+    }
+
+    .comp-header {
+      padding: 1rem 1.5rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .comp-col-pb { background: rgba(27, 94, 247, 0.2); color: var(--blue-light); }
+    .comp-col-imp { background: rgba(255,255,255,0.04); color: var(--gray); }
+    .comp-row-label { background: rgba(255,255,255,0.02); padding: 1rem 1.5rem; font-size: 0.88rem; color: var(--gray-light); border-top: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; }
+    .comp-cell { padding: 1rem 1.5rem; font-size: 0.88rem; border-top: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; text-align: center; }
+    .comp-cell.pb { background: rgba(27, 94, 247, 0.08); }
+    .comp-cell.imp { background: rgba(255,255,255,0.02); color: var(--gray); }
+    .check { color: #4CAF50; font-size: 1.1rem; }
+    .cross { color: #EF5350; font-size: 1.1rem; }
+
+    .price-highlight {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .price-card {
+      background: var(--navy-card);
+      border: 1px solid rgba(27, 94, 247, 0.2);
+      border-radius: 12px;
+      padding: 1.5rem 2.5rem;
+      text-align: center;
+    }
+
+    .price-card.featured {
+      border-color: var(--blue);
+      background: rgba(27, 94, 247, 0.12);
+    }
+
+    .price-card .price-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gray);
+      margin-bottom: 0.5rem;
+    }
+
+    .price-card .price-featured { color: var(--blue-light); }
+
+    .price-card .price-amount {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      line-height: 1;
+    }
+
+    .price-card .price-period {
+      font-size: 0.8rem;
+      color: var(--gray);
+      margin-top: 0.3rem;
+    }
+
+    /* ─── CTA FINAL ─── */
+    .cta-final {
+      background: var(--navy);
+      text-align: center;
+      padding: 7rem 4%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-final::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(27, 94, 247, 0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-final h2 {
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      line-height: 1;
+      margin-bottom: 1.25rem;
+      position: relative;
+    }
+
+    .cta-final p {
+      color: var(--gray-light);
+      font-size: 1.05rem;
+      max-width: 500px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.6;
+      position: relative;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    /* ─── FORM ─── */
+    .contact-form {
+      background: var(--navy-mid);
+      padding: 5rem 4%;
+    }
+
+    .form-inner {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-group.full { grid-column: 1 / -1; }
+
+    .form-group label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: var(--navy-card);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+
+    .form-group select {
+      appearance: none;
+      cursor: pointer;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--blue);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 110px; }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--blue);
+      color: var(--white);
+      border: none;
+      padding: 1rem;
+      border-radius: 6px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: all 0.2s;
+      letter-spacing: 0.03em;
+    }
+
+    .btn-submit:hover {
+      background: var(--blue-light);
+      transform: translateY(-1px);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--navy-mid);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 2rem 4%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    footer img { height: 28px; }
+
+    footer p {
+      font-size: 0.8rem;
+      color: var(--gray);
+    }
+
+    footer .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    footer .footer-links a {
+      font-size: 0.8rem;
+      color: var(--gray);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    footer .footer-links a:hover { color: var(--white); }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .for-clubs-inner,
+      .for-brands-inner,
+      .saas-inner { grid-template-columns: 1fr; gap: 3rem; }
+
+      .audience-split { grid-template-columns: 1fr; }
+
+      .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+
+      .moments-grid { grid-template-columns: 1fr; max-width: 420px; }
+
+      .brands-metrics { grid-template-columns: 1fr 1fr; }
+
+      .comparison-table { font-size: 0.82rem; }
+
+      nav .nav-links { display: none; }
+
+      .form-grid { grid-template-columns: 1fr; }
+
+      footer { flex-direction: column; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 3rem; }
+      .hero-stats { gap: 1.2rem; }
+      .price-highlight { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="logo">
+      <img src="/img/logo_padelboard.png" alt="PadelBoard" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="#clubes">Para Clubes</a></li>
+      <li><a href="#marcas">Para Marcas</a></li>
+      <li><a href="#plataforma">Plataforma</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+      <li>
+        <a href={whatsappUrl} target="_blank" rel="noopener" class="btn-nav">Hablemos</a>
+      </li>
+    </ul>
+    <div class="lang-switch">
+      <a href="/PadelBoardADS" class="active">ES</a>
+      <span>|</span>
+      <a href="/en/PadelBoardADS">EN</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid-lines"></div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        PadelBoard ADS — Publicidad Digital
+      </div>
+      <h1>
+        CONVIERTE CADA<br/>
+        CANCHA EN UNA<br/>
+        <span class="accent">FUENTE DE</span><br/>
+        <span class="gold">INGRESOS EXTRA</span>
+      </h1>
+      <p class="hero-sub">
+        Para clubes: monetiza tu pantalla vendiendo espacios publicitarios o promoviendo tu propio club.
+        Para marcas: llega a una audiencia premium donde juega.
+      </p>
+      <div class="hero-ctas">
+        <a href={whatsappUrl} target="_blank" rel="noopener" class="btn-primary">
+          💬 Hablemos
+        </a>
+        <a href="#contacto" class="btn-secondary">
+          Enviar consulta →
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num"><span>+</span>12,000</div>
+          <div class="stat-label">Impactos/mes por cancha</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num"><span>4</span></div>
+          <div class="stat-label">Marcas máx. por pantalla</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num"><span>100</span>%</div>
+          <div class="stat-label">Digital y actualizable</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AUDIENCE SPLIT -->
+  <div class="audience-split">
+    <div class="audience-card fade-in" onclick="document.querySelector('#clubes').scrollIntoView({behavior:'smooth'})">
+      <div class="audience-icon">🏟️</div>
+      <h3>SOY DUEÑO DE UN CLUB</h3>
+      <p>Quiero generar ingresos extra con mi pantalla PadelBoard y promover los servicios de mi club.</p>
+      <a class="audience-arrow" href="#clubes">Ver cómo funciona →</a>
+    </div>
+    <div class="audience-card fade-in" onclick="document.querySelector('#marcas').scrollIntoView({behavior:'smooth'})">
+      <div class="audience-icon">📣</div>
+      <h3>REPRESENTO UNA MARCA</h3>
+      <p>Quiero anunciarme en clubes de pádel y llegar a una audiencia de alto poder adquisitivo.</p>
+      <a class="audience-arrow" href="#marcas">Ver el alcance →</a>
+    </div>
+  </div>
+
+  <!-- FOR CLUBS -->
+  <section class="for-clubs" id="clubes">
+    <div class="for-clubs-inner">
+      <div class="fade-in">
+        <div class="section-label">Para Dueños de Club</div>
+        <h2 class="section-title">TU PANTALLA GENERA DINERO AUNQUE NO HAYA PARTIDO</h2>
+        <p class="section-desc">
+          Con PadelBoard ADS puedes vender espacios publicitarios a sponsors locales o usar la pantalla para promover los servicios de tu propio club — sin esfuerzo adicional.
+        </p>
+        <div class="clubs-features">
+          <div class="feature-item">
+            <div class="feature-icon">💰</div>
+            <div class="feature-text">
+              <h4>Ingresos extra con cada cancha</h4>
+              <p>Vende espacios publicitarios a sponsors locales y genera ingresos recurrentes mes a mes.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">📢</div>
+            <div class="feature-text">
+              <h4>Promueve tu propio club</h4>
+              <p>Muestra tu academia, tienda, torneos y promociones directamente en la pantalla de cada cancha.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">🎮</div>
+            <div class="feature-text">
+              <h4>Gestión remota desde cualquier lugar</h4>
+              <p>Cambia campañas, actualiza contenido y programa horarios desde la plataforma web sin tocar nada físico.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">⚡</div>
+            <div class="feature-text">
+              <h4>Sin instalaciones adicionales</h4>
+              <p>Funciona con la pantalla que ya tienes. Solo activas el sistema y listo.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clubs-visual fade-in">
+        <!-- VIDEO PLACEHOLDER - Reemplazar con video real cuando esté disponible -->
+        <div class="video-placeholder">
+          <div class="play-icon">▶</div>
+          <p><strong style="color: var(--white);">Video demo próximamente</strong><br/>Aquí irá la demostración de PadelBoard ADS en acción.</p>
+        </div>
+        <div class="pays-itself">
+          <div class="label">✨ La gran ventaja</div>
+          <p>Con los ingresos publicitarios, <strong>PadelBoard puede pagarse solo</strong>. Tu inversión inicial se recupera con los sponsors que atraigas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOR BRANDS -->
+  <section class="for-brands" id="marcas">
+    <div class="for-brands-inner">
+      <div class="fade-in">
+        <div class="section-label">Para Marcas y Sponsors</div>
+        <h2 class="section-title">PUBLICIDAD QUE SE RECIBE, NO SE IGNORA</h2>
+        <p class="section-desc">
+          La pantalla PadelBoard está instalada en el punto más natural de atención: el centro de la cancha. Jugadores y espectadores dirigen la mirada ahí antes, durante y después del partido.
+        </p>
+        <div class="brands-metrics">
+          <div class="metric-card">
+            <div class="metric-num">+12K</div>
+            <div class="metric-label">Impactos/mes por cancha</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-num">6</div>
+            <div class="metric-label">Partidos promedio por día</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-num">4.5h</div>
+            <div class="metric-label">Horas pico de exposición</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-num">+45K</div>
+            <div class="metric-label">Jugadores activos en Ecuador</div>
+          </div>
+        </div>
+      </div>
+      <div class="fade-in">
+        <div class="audience-profile" style="margin-bottom: 1.5rem;">
+          <h4>Perfil de la Audiencia</h4>
+          <div class="profile-tags">
+            <span class="tag">Adultos jóvenes</span>
+            <span class="tag">Ejecutivos</span>
+            <span class="tag">Alto poder adquisitivo</span>
+            <span class="tag">Servicios financieros</span>
+            <span class="tag">Bienestar y salud</span>
+            <span class="tag">Retail premium</span>
+            <span class="tag">Estilo de vida activo</span>
+            <span class="tag">Alta recurrencia</span>
+          </div>
+        </div>
+        <div class="audience-profile">
+          <h4>Escalabilidad de Alcance</h4>
+          <div style="display: flex; flex-direction: column; gap: 0.6rem; margin-top: 0.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.06);">
+              <span style="color: var(--gray-light); font-size: 0.88rem;">50 canchas</span>
+              <span style="color: var(--blue-light); font-weight: 600; font-size: 0.9rem;">≈ 526,500 impactos/mes</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.06);">
+              <span style="color: var(--gray-light); font-size: 0.88rem;">100 canchas</span>
+              <span style="color: var(--blue-light); font-weight: 600; font-size: 0.9rem;">≈ 1,053,000 impactos/mes</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.06);">
+              <span style="color: var(--gray-light); font-size: 0.88rem;">200 canchas</span>
+              <span style="color: var(--blue-light); font-weight: 600; font-size: 0.9rem;">≈ 2,106,000 impactos/mes</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0;">
+              <span style="color: var(--gray-light); font-size: 0.88rem;">300 canchas</span>
+              <span style="color: var(--gold); font-weight: 600; font-size: 0.9rem;">≈ 3,159,000 impactos/mes</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT SHOWS -->
+  <section class="how-it-shows">
+    <div class="how-inner fade-in">
+      <div class="section-label" style="text-align:center">Formatos y Momentos</div>
+      <h2 class="section-title">¿CÓMO SE MUESTRA LA PUBLICIDAD?</h2>
+      <p class="section-desc">
+        La publicidad aparece en los momentos de mayor atención, sin interrumpir el juego. En formato imagen estática o video de 30–60 segundos.
+      </p>
+      <div class="moments-grid">
+        <div class="moment-card">
+          <span class="moment-badge">Pantalla libre</span>
+          <h4>Antes y después del partido</h4>
+          <p>Cuando el marcador no está en uso, la pantalla completa está disponible para mostrar tu publicidad en bucle continuo.</p>
+        </div>
+        <div class="moment-card">
+          <span class="moment-badge">Durante el partido</span>
+          <h4>Cada 10 minutos</h4>
+          <p>En una franja horizontal debajo del marcador, tu marca aparece de forma integrada sin interrumpir el juego.</p>
+        </div>
+        <div class="moment-card">
+          <span class="moment-badge">Descansos</span>
+          <h4>Entre sets y cambios de lado</h4>
+          <p>Los momentos de pausa natural son ideales para la exposición de marca con total atención del público.</p>
+        </div>
+        <div class="moment-card">
+          <span class="moment-badge">Torneos</span>
+          <h4>Audiencia máxima</h4>
+          <p>En días de torneo el alcance se multiplica: más espectadores, más permanencia y mayor atención hacia la cancha.</p>
+        </div>
+      </div>
+      <div class="exclusivity-banner">
+        <div class="exc-num">4</div>
+        <p><strong>Máximo 4 marcas por pantalla.</strong> Para garantizar una experiencia premium y alta recordación, limitamos los espacios. Tu marca no compite con saturación de anuncios.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SAAS PLATFORM -->
+  <section class="saas-section" id="plataforma">
+    <div class="saas-inner">
+      <div class="fade-in">
+        <div class="section-label">La Plataforma</div>
+        <h2 class="section-title">RÁPIDO, REMOTO Y CENTRALIZADO</h2>
+        <p class="section-desc">
+          El sistema de administración de publicidad te permite gestionar todas las campañas desde cualquier lugar, sin necesidad de impresión ni instalación física.
+        </p>
+        <div class="saas-features">
+          <div class="saas-feature">
+            <span class="sf-icon">⬆️</span>
+            <span>Sube imágenes o videos publicitarios en segundos</span>
+          </div>
+          <div class="saas-feature">
+            <span class="sf-icon">📅</span>
+            <span>Programa campañas según horarios o eventos especiales</span>
+          </div>
+          <div class="saas-feature">
+            <span class="sf-icon">🔄</span>
+            <span>Actualiza contenido de forma inmediata desde cualquier lugar</span>
+          </div>
+          <div class="saas-feature">
+            <span class="sf-icon">🗺️</span>
+            <span>Gestiona publicidad en múltiples canchas desde un solo lugar</span>
+          </div>
+          <div class="saas-feature">
+            <span class="sf-icon">🚫</span>
+            <span>Cero impresión, cero instalación física, cero logística</span>
+          </div>
+        </div>
+      </div>
+      <div class="saas-screenshot fade-in">
+        <img src="/img/padelboard-ads-platform.jpg" alt="Plataforma PadelBoard ADS" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARISON -->
+  <section class="comparison">
+    <div class="comparison-inner fade-in">
+      <div class="section-label" style="text-align:center">Comparativa</div>
+      <h2 class="section-title">MÁS IMPACTO, MENOR COSTO</h2>
+      <p class="section-desc" style="margin: 0 auto;">
+        La publicidad digital en PadelBoard supera a la publicidad impresa en cada métrica que importa.
+      </p>
+      <div class="comparison-table">
+        <div class="comp-header" style="background: transparent;"></div>
+        <div class="comp-header comp-col-pb" style="text-align:center;">PadelBoard ADS</div>
+        <div class="comp-header comp-col-imp" style="text-align:center;">Publicidad Impresa</div>
+
+        <div class="comp-row-label">Formato</div>
+        <div class="comp-cell pb">Imagen o video 30–60s</div>
+        <div class="comp-cell imp">Formato estático</div>
+
+        <div class="comp-row-label">Actualización</div>
+        <div class="comp-cell pb"><span class="check">✓</span>&nbsp; Remota e inmediata</div>
+        <div class="comp-cell imp"><span class="cross">✗</span>&nbsp; Costosa y lenta</div>
+
+        <div class="comp-row-label">Visibilidad durante el juego</div>
+        <div class="comp-cell pb"><span class="check">✓</span>&nbsp; Alta — punto central</div>
+        <div class="comp-cell imp"><span class="cross">✗</span>&nbsp; Limitada</div>
+
+        <div class="comp-row-label">Rotación de campañas</div>
+        <div class="comp-cell pb"><span class="check">✓</span>&nbsp; Sin costo adicional</div>
+        <div class="comp-cell imp"><span class="cross">✗</span>&nbsp; Requiere reimpresión</div>
+
+        <div class="comp-row-label">Costo anual por cancha</div>
+        <div class="comp-cell pb" style="color: var(--blue-light); font-weight: 600;">$1,700</div>
+        <div class="comp-cell imp">$5,000 – $8,000</div>
+      </div>
+      <div class="price-highlight">
+        <div class="price-card featured">
+          <div class="price-label">PadelBoard ADS</div>
+          <div class="price-amount price-featured">$1,700</div>
+          <div class="price-period">por cancha / año</div>
+        </div>
+        <div class="price-card">
+          <div class="price-label">Publicidad Impresa</div>
+          <div class="price-amount" style="color: var(--gray);">$5K–$8K</div>
+          <div class="price-period">por cancha / año</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="cta-final">
+    <h2 class="fade-in">¿LISTO PARA DAR<br/>EL SIGUIENTE PASO?</h2>
+    <p class="fade-in">Ya sea que tengas un club o representes una marca, estamos listos para mostrarte cómo funciona.</p>
+    <div class="cta-buttons fade-in">
+      <a href={whatsappUrl} target="_blank" rel="noopener" class="btn-primary" style="font-size: 1.1rem; padding: 1rem 2.5rem;">
+        💬 Hablemos por WhatsApp
+      </a>
+      <a href="#contacto" class="btn-secondary" style="font-size: 1.1rem; padding: 1rem 2.5rem;">
+        Enviar formulario →
+      </a>
+    </div>
+  </section>
+
+  <!-- CONTACT FORM -->
+  <section class="contact-form" id="contacto">
+    <div class="form-inner fade-in">
+      <div class="section-label" style="text-align:center">Contacto</div>
+      <h2 class="section-title" style="text-align:center;">HABLEMOS</h2>
+      <p style="text-align:center; color: var(--gray-light); font-size: 0.95rem; margin-top: 0.5rem;">
+        Completa el formulario y te contactamos en menos de 24 horas.
+      </p>
+      <form class="form-grid" action="https://formspree.io/f/xwvepgry" method="POST">
+        <div class="form-group">
+          <label for="nombre">Nombre completo</label>
+          <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="tu@email.com" required />
+        </div>
+        <div class="form-group">
+          <label for="whatsapp">WhatsApp / Teléfono</label>
+          <input type="tel" id="whatsapp" name="whatsapp" placeholder="+593 9XX XXX XXX" />
+        </div>
+        <div class="form-group">
+          <label for="tipo">Soy...</label>
+          <select id="tipo" name="tipo" required>
+            <option value="" disabled selected>Selecciona tu perfil</option>
+            <option value="club-tiene-padelboard">Club con PadelBoard instalado</option>
+            <option value="club-sin-padelboard">Club interesado en PadelBoard ADS</option>
+            <option value="marca-sponsor">Marca / Sponsor</option>
+            <option value="otro">Otro</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label for="mensaje">Mensaje (opcional)</label>
+          <textarea id="mensaje" name="mensaje" placeholder="Cuéntanos sobre tu club, tu marca o lo que necesitas saber..."></textarea>
+        </div>
+        <div class="form-group full">
+          <button type="submit" class="btn-submit">Enviar mensaje →</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <img src="/img/logo_padelboard.png" alt="PadelBoard" />
+    <p>© 2025 PadelBoard. Todos los derechos reservados.</p>
+    <div class="footer-links">
+      <a href="/">Inicio</a>
+      <a href="/compra">Comprar</a>
+      <a href="mailto:info@getpadelboard.com">info@getpadelboard.com</a>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
